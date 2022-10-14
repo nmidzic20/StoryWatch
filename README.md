@@ -23,15 +23,45 @@ David Kajzogaj | dkajzogaj20@student.foi.hr | 0016146827 | davidkajzogaj
 Noa Midžić | nmidzic20@student.foi.hr | 0108082571 | nmidzic20
 
 ## Opis domene
-Umjesto ovih uputa opišite domenu ili problem koji pokrivate vašim  projektom. Domena može biti proizvoljna, ali obratite pozornost da sukladno ishodima učenja, domena omogući primjenu zahtijevanih koncepata kako je to navedeno u sljedećem poglavlju. Priložite odgovarajuće skice gdje je to prikladno.
+Sustav za upravljanje sadržajem o medijima (filmovi, igre i knjige). 
+Ideja je proizašla iz toga da većina mlađih generacija prati razni sadržaj iz popularne kulture i zabave, tj. knjige, filmove, igre, serije, anime itd. Osobe koje konzumiraju puno sadržaja mogu imati neke svoje vlastite popise toga što bi još htjeli odgledati/odigrati/pročitati, ali i onoga što su već konzumirali radi toga da se podsjete što im se sviđalo odnosno što im je najdraže, kako bi se tome mogli jednom vratiti u budućnosti ili opet pogledati/odigrati/itd. kad su u raspoloženju za to. Za to da korisnik može upravljati takvim sadržajem na praktičan način bi poslužila desktop aplikacija koja ima tri grupe (igre, knjige, filmove + eventualno custom grupe) unutar kojih korisnik može po kategorijama (TODO, odgledano/odigrano/pročitano, favoriti + custom definirane kategorije) unositi naslov filma, knjige ili igre preko kratke forme, pretraživati, ažurirati i brisati uneseni sadržaj. Aplikacija bi kod prikaza nekog naslova koristila informacije s IMDb-a i drugih portala s otvorenim API za detaljne informacije i imala bi sustav preporuke (Recommend) koji bi na temelju raznih faktora korisniku na zahtjev izbacivao preporuku sadržaja za danas, i imala bi opciju generiranja izvještaja o nečemu (npr. koji žanr korisnik najviše preferira na temelju unesenih naslova). Namijenjeno filmofilima, gamerima i svakom drugom tko misli da bi mu ovakva aplikacija dobro došla da prati sav svoj sadržaj koji su već konzumirali i koji planiraju konzumirati.
+
 
 ## Specifikacija projekta
-Umjesto ovih uputa opišite zahtjeve za funkcionalnošću programskog proizvoda. Pobrojite osnovne funkcionalnosti i za svaku naznačite ime odgovornog člana tima. Opišite buduću arhitekturu programskog proizvoda. Obratite pozornost da bi arhitektura trebala biti višeslojna s odvojenom (dislociranom) bazom podatka koju ćemo za vas mi pripremiti i dati vam pristup naknadno. Također uzmite u obzir da bi svaki član tima treba biti odgovorana za otprilike 3 funkcionalnosti, te da bi opterećenje članova tima trebalo biti ujednačeno. Priložite odgovarajuće dijagrame i skice gdje je to prikladno. Funkcionalnosti sustava bobrojite u tablici ispod koristeći predložak koji slijedi:
+
+Koristit ćemo troslojnu arhitekturu, najviši sloj: grafički, idući sloj: korisnički s poslovnom logikom i najniži sloj: rad s podacima.
 
 Oznaka | Naziv | Kratki opis | Odgovorni član tima
 ------ | ----- | ----------- | -------------------
-F01 | Login | Za pristup dnevniku potrebnba je autentikacija korisnika pomoću login funkcionalnosti. Korisnik se logira s podacima koji su mu dodijeljeni prilikom ... | Zlatko Stapić
-F02 | Pregled dnevnika | .... | ...
+F01 | Login i registracija | Korisnici se mogu registrirati u aplikaciju kako bi više korisnika koji koriste isto računalo moglo imati pristup vlastitom sadržaju. Korisnik se logira u vlastiti račun podacima koje je dobio prilikom registracije. | 
+F02 | CRUD funkcionalnost za igre | Unos preko forme, ažuriranje, pretraživanje i brisanje podataka za naslove igara. Osim podataka koje je sam unio, korisniku se za naslov igre prikazuju i podaci koji se dohvaćaju s web servisa s otvorenim API-jem (npr. IGDB). | 
+F03 | Sustav preporuke za igre | Korisnici mogu kliknuti opciju da im se nešto preporuči za odigrati, tako da ispune kratki upitnik od par pitanja s ikonama kao odgovorima (npr. imamo par ponuđenih emojia za žanr - chill/scary/akcija…), bi li htjeli ponovno nešto igrati ili nešto novo), pa se na temelju toga, ali i na temelju drugih faktora izbaci korisniku lista preporuka. Algoritam za preporuku bi npr. davao određen broj bodova ako je određeni sadržaj na favorit listi, ako na IGDB-u ima višu ocjenu itd. | 
+F04 | Generiranje izvještaja za igre | Korisnik će imati opciju generiranja izvještaja s vizualnim elementima (grafikoni) o nekom aspektu vezanom za igre, npr. distribucija žanrova koje korisnik preferira na temelju unesenih naslova, distribucija firmi koje su izdale korisnikove najdraže igre i sl. | 
+
+F05 | CRUD funkcionalnost za filmove |  Unos preko forme, ažuriranje, pretraživanje i brisanje podataka za naslove filmova. Osim podataka koje je sam unio, korisniku se za naslov filma prikazuju i podaci koji se dohvaćaju s web servisa s otvorenim API-jem (npr. IMDb). | Noa Midžić
+F06 | Trailer za film unutar aplikacije | Za odabrani naslov filma postoji opcija gledanja trailera, koja će dohvatiti trailer s web servisa i korisniku ga prikazivati unutar embedded video playera u aplikaciji. | Noa Midžić
+F07 | Sustav preporuke za filmove | Korisnici mogu kliknuti opciju da im se nešto preporuči za pogledati, tako da ispune kratki upitnik od par pitanja s ikonama kao odgovorima (npr. imamo par ponuđenih emojia za žanr - chill/scary/akcija…), bi li htjeli ponovno nešto gledati ili nešto novo), pa se na temelju toga, ali i na temelju drugih faktora izbaci korisniku lista preporuka. Algoritam za preporuku bi npr. davao određen broj bodova ako je određeni sadržaj na favorit listi, ako na IMDb-u ima višu ocjenu itd. | Noa Midžić
+F08 | Generiranje izvještaja za filmove | Korisnik će imati opciju generiranja izvještaja s vizualnim elementima (grafikoni) o nekom aspektu vezanom za filmove, npr. distribucija žanrova koje korisnik preferira na temelju unesenih naslova, distribucija redatelja i glumaca vezanih za korisnikove najdraže filmove i sl. | Noa Midžić
+
+F09 | CRUD funkcionalnost za knjige |  Unos preko forme, ažuriranje, pretraživanje i brisanje podataka za naslove knjiga. Osim podataka koje je sam unio, korisniku se za naslov knjige prikazuju i podaci koji se dohvaćaju s web servisa s otvorenim API-jem (npr. Google Books). | 
+F10 | E-book preview unutar aplikacije | Za odabrani naslov knjige će, ako je ona na web servisu dostupna u elektroničkom formatu i ima preview, postojati opcija čitanja previewa, koja će dohvatiti preview s web servisa (npr. Google Books) i korisniku ga prikazati unutar aplikacije. | 
+F11 | Sustav preporuke za knjige | Korisnici mogu kliknuti opciju da im se nešto preporuči za pročitati, tako da ispune kratki upitnik od par pitanja s ikonama kao odgovorima (npr. imamo par ponuđenih emojia za žanr - chill/scary/akcija…), bi li htjeli ponovno nešto čitati ili nešto novo), pa se na temelju toga, ali i na temelju drugih faktora izbaci korisniku lista preporuka. Algoritam za preporuku bi npr. davao određen broj bodova ako je određeni sadržaj na favorit listi, ako na web servisu ima višu ocjenu itd. | 
+F12 | Generiranje izvještaja za knjige | Korisnik će imati opciju generiranja izvještaja s vizualnim elementima (grafikoni) o nekom aspektu vezanom za knjige, npr. distribucija žanrova koje korisnik preferira na temelju unesenih naslova, distribucija pisaca/izdavača vezanih uz korisnikove najdraže knjige i sl. | 
+
+Nefunkcionalni zahtjevi:
+- Jednostavna navigacija (tranzicija između zaslona)
+- Intuitivnost grafičkog sučelja za korisnika (UX/UI, razumljive ikone, sve opcije dostupne gdje se očekuju)
+- Dohvat podataka s weba i njihov prikaz u prihvatljivom vremenu (nema zastoja zbog toga u aplikaciji)
+- Validacija podataka koje korisnik unosi (ako se npr. za unos očekuje godina, aplikacija se neće srušiti ako se unese nešto drugo)
+- F1 dokument koji tekstualno ili vizualno daje hint vezano za taj dio gdje se korisnik nalazi u aplikaciji i gdje mu treba pomoć
 
 ## Tehnologije i oprema
-Umjesto ovih uputa jasno popišite sve tehnologije, alate i opremu koju ćete koristiti pri implementaciji vašeg rješenja. Projekti se razvijaju koristeći .Net Framework ili .Net Core razvojne okvire, a vrsta projekta može biti WinForms, WPF i UWP. Ne zaboravite planirati korištenje tehnologija u aktivnostima kao što su projektni menadžment ili priprema dokumentacije. Tehnologije koje ćete koristiti bi trebale biti javno dostupne, a ako ih ne budemo obrađivali na vježbama u vašoj dokumentaciji ćete morati navesti način preuzimanja, instaliranja i korištenja onih tehnologija koje su neopbodne kako bi se vaš programski proizvod preveo i pokrenuo. Pazite da svi alati koje ćete koristiti moraju imati odgovarajuću licencu. Što se tiče zahtjeva nastavnika, obvezno je koristiti git i GitHub za verzioniranje programskog koda, GitHub Wiki za pisanje tehničke i projektne dokumentacije, a projektne zadatke je potrebno planirati i pratiti u alatu GitHub projects. 
+- GitHub Wiki stranice za pisanje tehničke i projektne dokumentacije
+- Git i GitHub za verzioniranje softvera
+- GitHub Projects za projektni menadžment tj. podjelu zadataka i praćenje napretka/faza projekta (Kanban, u taskovima se može referencirati relevantni dio Wiki dokumentacije)
+- .NET Framework/Core kao razvojni okvir
+- Vrsta projekta: WinForm/WPF/UWP
+- Visual Studio 2022 (Community) kao IDE
+- Microsoft SQL Server i SQL Server Management Studio za izradu tablica 
+- Biblioteke treće strane koje ćemo možda koristiti još ne znamo, ali ćemo naknadno dodavati kroz semestar
+
