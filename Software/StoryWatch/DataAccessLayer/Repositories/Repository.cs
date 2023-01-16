@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Autor: Hrvoje Lukšić
+    /// Namjena: roditeljska klasa za komunikaciju s bazom podataka
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class Repository<T> : IDisposable where T : class
     {
         protected StoryWatchModel Context { get; set; }
