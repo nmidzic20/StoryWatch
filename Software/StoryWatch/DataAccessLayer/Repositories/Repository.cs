@@ -21,6 +21,7 @@ namespace DataAccessLayer.Repositories
         public Repository()
         {
             Context = new StoryWatchModel();
+            Entities = Context.Set<T>();
         }
 
         public virtual IQueryable<T> GetAll()

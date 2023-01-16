@@ -1,4 +1,5 @@
-﻿using EntitiesLayer.Entities;
+﻿using BusinessLayer;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,21 +28,36 @@ namespace StoryWatch
             Password = "Test"
         };
 
+        private UserServices userServices;
+
         public Login()
         {
             InitializeComponent();
+            userServices = new UserServices();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            if (!userServices.Login(new User()
+            {
+                Username = txtUsername.Text,
+                Password = txtPassword.Password
+            }))
+            {
+                MessageBox.Show("Netočno korisničko ime ili lozinka!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            
+            var aplikacija = new MainWindow();
+            aplikacija.Show();
+            Close();
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
         {
             Registracija windowRegistracija = new Registracija(this);
             windowRegistracija.Show();
             Hide();
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            // TODO
         }
     }
 }

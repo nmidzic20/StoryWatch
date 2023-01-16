@@ -4,6 +4,7 @@ using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,13 @@ namespace BusinessLayer
         {
             using (var repo = new UserRepository())
             {
-                return repo.GetSpecific(username) as User;
+                var result = repo.GetSpecific(username);
+
+                if (!result.Any())
+                {
+                    return null;
+                }
+                return result.ToList().First();
             }
         }
 
@@ -70,8 +77,8 @@ namespace BusinessLayer
             using (var repo = new UserRepository())
             {
                 var korisnik = repo.GetSpecific(username);
-                
-                if(korisnik.Any())
+
+                if (korisnik.Any())
                 {
                     return true;
                 }
