@@ -15,7 +15,7 @@ namespace EntitiesLayer.Entities
             MovieListCategories = new HashSet<MovieListCategory>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
