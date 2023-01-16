@@ -35,6 +35,8 @@ namespace DataAccessLayer.Repositories
             return Context.SaveChanges();
         }
 
+        public abstract int Update(T entity);
+
         public virtual int Delete(T entity)
         {
             Entities.Remove(entity);
