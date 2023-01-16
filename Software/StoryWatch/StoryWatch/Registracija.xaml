@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="Registracija" Height="280" Width="220" Background="AliceBlue">
     <Grid Margin="0,0,0,0" Unloaded="Window_Unloaded">
-        <TextBox Margin="36,37,36,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button Content="Registriraj me" HorizontalAlignment="Center" Margin="0,197,0,0" VerticalAlignment="Top" Width="88" Height="28"/>
+        <TextBox Margin="36,37,36,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="txtUsername"/>
+        <Button Content="Registriraj me" HorizontalAlignment="Center" Margin="0,197,0,0" VerticalAlignment="Top" Width="88" Height="28" Click="Registracija_Click" IsEnabled="False"/>
         <Label Content="Korisničko ime:" HorizontalAlignment="Left" Margin="31,11,0,0" VerticalAlignment="Top"/>
         <Label Content="Lozinka:" HorizontalAlignment="Left" Margin="31,76,0,0" VerticalAlignment="Top"/>
         <Label Content="Ponovite lozinku:" HorizontalAlignment="Left" Margin="31,125,0,0" VerticalAlignment="Top"/>
-        <PasswordBox HorizontalAlignment="Center" Margin="0,151,0,0" VerticalAlignment="Top" Width="148"/>
-        <PasswordBox HorizontalAlignment="Center" Margin="0,102,0,0" VerticalAlignment="Top" Width="148"/>
+        <PasswordBox HorizontalAlignment="Center" Margin="0,151,0,0" VerticalAlignment="Top" Width="148" x:Name="txtPassword1" PasswordChanged="PasswordChanged"/>
+        <PasswordBox HorizontalAlignment="Center" Margin="0,102,0,0" VerticalAlignment="Top" Width="148" x:Name="txtPassword2" PasswordChanged="PasswordChanged"/>
 
     </Grid>
 </Window>

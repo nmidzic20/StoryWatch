@@ -38,6 +38,12 @@ namespace StoryWatch
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
+            {
+                MessageBox.Show("Ispunite podatke!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (!userServices.Login(new User()
             {
                 Username = txtUsername.Text,

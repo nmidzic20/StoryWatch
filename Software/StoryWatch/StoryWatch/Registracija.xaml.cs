@@ -31,5 +31,22 @@ namespace StoryWatch
         {
             parent.Show();
         }
+
+        private void Registracija_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword1.Password) || string.IsNullOrWhiteSpace(txtPassword2.Password))
+            {
+                MessageBox.Show("Ispunite podatke!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+        }
+
+        private void PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            //if (txtPassword1.Password != txtPassword2.Password)
+            //{
+            //    tx
+            //}
+        }
     }
 }
