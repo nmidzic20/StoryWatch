@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -34,8 +35,6 @@ namespace DataAccessLayer.Repositories
             Entities.Add(entity);
             return Context.SaveChanges();
         }
-
-        public abstract int Update(T entity);
 
         public virtual int Delete(T entity)
         {

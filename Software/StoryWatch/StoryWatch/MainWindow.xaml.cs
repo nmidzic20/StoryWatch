@@ -24,5 +24,32 @@ namespace StoryWatch
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            stackPanelButtons.Visibility = Visibility.Visible;
+            stackPanelTitle.Visibility = Visibility.Visible;
+            contentPanel.Visibility = Visibility.Collapsed;
+        }
+        private void btnBooks_Click(object sender, RoutedEventArgs e)
+        {
+            stackPanelTitle.Visibility = Visibility.Collapsed;
+            stackPanelButtons.Visibility = Visibility.Collapsed;
+            contentPanel.Visibility = Visibility.Visible;
+            contentPanel.Content = new UCBooksCRUD();
+            /*var booksCRUD = new BooksCRUD();
+            booksCRUD.Show();
+            Close();*/
+        }
+
+        private void btnMovies_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnGames_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
