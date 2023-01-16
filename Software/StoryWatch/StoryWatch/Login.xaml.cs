@@ -38,12 +38,6 @@ namespace StoryWatch
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
-            {
-                MessageBox.Show("Ispunite podatke!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
             if (!userServices.Login(new User()
             {
                 Username = txtUsername.Text,
@@ -64,6 +58,18 @@ namespace StoryWatch
             Registracija windowRegistracija = new Registracija(this);
             windowRegistracija.Show();
             Hide();
+        }
+
+        private void InputChanged(object sender, KeyEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
+            {
+                btnLogin.IsEnabled = false;
+            }
+            else
+            {
+                btnLogin.IsEnabled = true;
+            }
         }
     }
 }

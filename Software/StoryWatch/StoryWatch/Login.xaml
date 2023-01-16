@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="Login" Height="260" Width="220" HorizontalAlignment="Center" Background="AliceBlue">
     <Grid>
-        <TextBox Margin="36,37,36,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="txtUsername"/>
-        <Button Content="Prijava" HorizontalAlignment="Center" Margin="0,136,0,0" VerticalAlignment="Top" Width="54" Height="23" Click="Login_Click"/>
+        <TextBox Margin="36,37,36,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="txtUsername" KeyUp="InputChanged"/>
+        <Button x:Name="btnLogin" Content="Prijava" HorizontalAlignment="Center" Margin="0,136,0,0" VerticalAlignment="Top" Width="54" Height="23" Click="Login_Click" IsEnabled="False"/>
         <Button Content="Registracija" HorizontalAlignment="Center" Margin="0,174,0,0" VerticalAlignment="Top" Width="68" Height="23" Click="Register_Click"/>
         <Label Content="Korisničko ime:" HorizontalAlignment="Left" Margin="31,11,0,0" VerticalAlignment="Top"/>
         <Label Content="Lozinka:" HorizontalAlignment="Left" Margin="31,70,0,0" VerticalAlignment="Top"/>
-        <PasswordBox Margin="36,96,36,0" VerticalAlignment="Top" x:Name="txtPassword"/>
+        <PasswordBox Margin="36,96,36,0" VerticalAlignment="Top" x:Name="txtPassword" KeyUp="InputChanged"/>
 
     </Grid>
 </Window>

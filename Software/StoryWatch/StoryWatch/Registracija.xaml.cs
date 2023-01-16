@@ -43,10 +43,16 @@ namespace StoryWatch
 
         private void PasswordChanged(object sender, RoutedEventArgs e)
         {
-            //if (txtPassword1.Password != txtPassword2.Password)
-            //{
-            //    tx
-            //}
+            if (txtPassword1.Password != txtPassword2.Password)
+            {
+                txtPassword1.Background = Brushes.Orange;
+                btnRegister.IsEnabled = false;
+            }
+            else
+            {
+                txtPassword1.Background = Brushes.White;
+                btnRegister.IsEnabled = true;
+            }
         }
     }
 }
