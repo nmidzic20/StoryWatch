@@ -1,0 +1,32 @@
+﻿<Window x:Class="StoryWatch.BooksCRUD"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoryWatch"
+        mc:Ignorable="d"
+        Title="BooksCRUD" Height="450" Width="800" Loaded="Window_Loaded">
+    <DockPanel>
+        <Label DockPanel.Dock="Top" Background="Gray" HorizontalContentAlignment="Center" Content="StoryWatch" FontWeight="Bold"></Label>
+        <StackPanel DockPanel.Dock="Top" Height="20" Margin="10" HorizontalAlignment="Left">
+            <TextBox x:Name="Search" Width="120"></TextBox>
+        </StackPanel>
+        <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+            <StackPanel DockPanel.Dock="top" Orientation="Horizontal">
+            <DataGrid x:Name="dgvTODO" Margin="5"></DataGrid>
+            <DataGrid x:Name="dgvWatched" Margin="5"></DataGrid>
+            <DataGrid x:Name="Favorites" Margin="5"></DataGrid>
+        </StackPanel>
+        </ScrollViewer>
+        <StackPanel DockPanel.Dock="Top">
+            <Button x:Name="btnAddCustomList" Content="Add custom list" Background="Gray" FontWeight="Bold" Width="120" Height="25"></Button>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom">
+            <Grid Margin="15">
+                <Button x:Name="btnAddMedia" Content="Add media" Background="Gray" FontWeight="Bold" Width="120" Height="25" HorizontalAlignment="Left" ></Button>
+                <Button x:Name="btnRecommend" Content="Recommend" Background="Gray" FontWeight="Bold" Width="120" Height="25" HorizontalAlignment="Center" ></Button>
+                <Button x:Name="btnReport" Content="Generate report" Background="Gray" FontWeight="Bold" Width="120" Height="25" HorizontalAlignment="Right"></Button>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</Window>

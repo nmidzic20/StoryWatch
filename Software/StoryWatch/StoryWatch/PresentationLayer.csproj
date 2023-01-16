@@ -65,13 +65,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BooksCRUD.xaml.cs">
-      <DependentUpon>BooksCRUD.xaml</DependentUpon>
+    <Compile Include="FrmCRUD.xaml.cs">
+      <DependentUpon>FrmCRUD.xaml</DependentUpon>
     </Compile>
     <Compile Include="Registracija.xaml.cs">
       <DependentUpon>Registracija.xaml</DependentUpon>
     </Compile>
-    <Page Include="BooksCRUD.xaml">
+    <Page Include="FrmCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
