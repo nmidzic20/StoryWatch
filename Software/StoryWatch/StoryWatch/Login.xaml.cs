@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntitiesLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,13 @@ namespace StoryWatch
     /// </summary>
     public partial class Login : Window
     {
+        private User user = new User
+        {
+            Id = 1,
+            Username = "Korisnik1",
+            Password = "Test"
+        };
+
         public Login()
         {
             InitializeComponent();
@@ -29,6 +37,11 @@ namespace StoryWatch
             Registracija windowRegistracija = new Registracija(this);
             windowRegistracija.Show();
             Hide();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            // TODO
         }
     }
 }
