@@ -1,5 +1,4 @@
-﻿using StoryWatch.UserControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,24 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoryWatch
+namespace StoryWatch.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UCAddCustomList.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UCAddCustomList : UserControl
     {
-        public MainWindow()
+        public UCAddCustomList()
         {
             InitializeComponent();
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            GuiManager.MainWindow = this;
-            GuiManager.OpenContent(new UCHome());
-
-        }
-        
     }
 }
