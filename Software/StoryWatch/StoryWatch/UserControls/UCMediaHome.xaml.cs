@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,27 +26,40 @@ namespace StoryWatch.UserControls
     {
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
 
-        public UCMediaHome()
+        public UCMediaHome(MediaCategory mediaCategory)
         {
             InitializeComponent();
+
+            StateManager.CurrentMediaCategory = mediaCategory;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var listCategories = listCategoryServices.GetListCategories(MediaCategory.Movie); //change to fetching state form StateManager
+            if (gridLists.Children.Count != 0) gridLists.Children.Clear();
+
+            var listCategories = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory);
 
             foreach (var lc in listCategories)
             {
-                ListBox lb = CreateListBox(lc.Title);
+                ListBox lb = CreateListBox(lc.Title, lc.Color);
 
+                //lazy loading problem
                 //ListBoxItem itemTitle = (ListBoxItem) (lb.ItemContainerGenerator.ContainerFromIndex(0));
                 //itemTitle.Background = new SolidColorBrush(Colors.BlueViolet);
 
                 AddListBoxToGrid(lb);
             }
 
-        }
+            /*int i = 0;
+            foreach (var element in gridLists.Children.Cast<UIElement>())
+            {
+                var lb = element as ListBox;
+                ListBoxItem itemTitle = (ListBoxItem) (lb.ItemContainerGenerator.ContainerFromIndex(i));
+                itemTitle.Background = new SolidColorBrush(Colors.BlueViolet);
+                i++;
+            }*/
 
+        }
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -65,9 +79,10 @@ namespace StoryWatch.UserControls
 
         private void btnAddCustomList_Click(object sender, RoutedEventArgs e)
         {
+            GuiManager.OpenContent(new UCAddCustomList());
             //ovo je samo pokazni primjer
 
-            ListBox newCustomList = new ListBox();
+            /*ListBox newCustomList = new ListBox();
 
             newCustomList.Items.Add("Mon");
             newCustomList.Items.Add("Tue");
@@ -81,17 +96,19 @@ namespace StoryWatch.UserControls
             newCustomList.Margin = new Thickness(20);
             ScrollViewer.SetVerticalScrollBarVisibility(newCustomList, ScrollBarVisibility.Visible);
 
-            AddListBoxToGrid(newCustomList);
+            AddListBoxToGrid(newCustomList);*/
             
         }
 
-        private ListBox CreateListBox(string content)
+        private ListBox CreateListBox(string content, string colorString)
         {
             ListBox lb = new ListBox();
             lb.Width = 180;
             lb.Height = 200;
             lb.Margin = new Thickness(20);
-            ScrollViewer.SetVerticalScrollBarVisibility(lb, ScrollBarVisibility.Visible);
+
+            Color color = (Color)ColorConverter.ConvertFromString(colorString);
+            lb.Background = new SolidColorBrush(color);
 
             lb.Items.Add(content);
 

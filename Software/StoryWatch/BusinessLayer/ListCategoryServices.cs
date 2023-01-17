@@ -59,7 +59,7 @@ namespace BusinessLayer
             return new List<GameListCategory>();
         }
 
-        /*public bool AddMovieListCategory(MovieListCategory movieListCategory)
+        public bool AddMovieListCategory(MovieListCategory movieListCategory)
         {
             bool isSuccessful = false;
             using (var repo = new MovieListCategoryRepository())
@@ -69,7 +69,7 @@ namespace BusinessLayer
             }
 
             return isSuccessful;
-            }*/
+        }
     }
     
 }
