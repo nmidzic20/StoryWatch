@@ -1,5 +1,4 @@
-﻿using StoryWatch.UserControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,37 +13,31 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoryWatch
+namespace StoryWatch.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UCHome.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UCHome : UserControl
     {
-        public MainWindow()
+        public UCHome()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            GuiManager.MainWindow = this;
-            GuiManager.OpenContent(new UCLogin());
-
-        }
         private void btnBooks_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UCMediaHome());
+           GuiManager.OpenContent(new UCMediaHome());
         }
 
         private void btnMovies_Click(object sender, RoutedEventArgs e)
         {
-
+            GuiManager.OpenContent(new UCMediaHome());
         }
 
         private void btnGames_Click(object sender, RoutedEventArgs e)
         {
-
+            GuiManager.OpenContent(new UCMediaHome());
         }
     }
 }

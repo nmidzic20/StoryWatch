@@ -10,26 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoryWatch
+namespace StoryWatch.UserControls
 {
     /// <summary>
-    /// Interaction logic for Registracija.xaml
+    /// Interaction logic for UCRegistracija.xaml
     /// </summary>
-    public partial class Registracija : Window
+    public partial class UCRegistracija : UserControl
     {
-        private readonly Window parent = null;
 
-        public Registracija(Window parent)
+        public UCRegistracija()
         {
             InitializeComponent();
-            this.parent = parent;
-        }
 
-        private void Window_Unloaded(object sender, RoutedEventArgs e)
-        {
-            parent.Show();
         }
 
         private void Registracija_Click(object sender, RoutedEventArgs e)
@@ -50,3 +45,4 @@ namespace StoryWatch
         }
     }
 }
+
