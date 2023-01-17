@@ -7,13 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <DockPanel>
-        <StackPanel x:Name="stackPanelTitle" DockPanel.Dock="Top">
-            <Label Content="StoryWatch" FontWeight="Black" FontSize="50" HorizontalAlignment="Center" Margin="0,150,0,0"></Label>
-        </StackPanel>
-        <StackPanel x:Name="stackPanelButtons" Margin="0,20,0,0" DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Grid.Column="0" Height="50" Width="150" Content="Books" FontWeight="Bold" x:Name="btnBooks" Margin="0,0,100,0" Click="btnBooks_Click"></Button>
-            <Button Grid.Column="1" Height="50" Width="150" Content="Movies" FontWeight="Bold" x:Name="btnMovies" Margin="0,0,100,0" Click="btnMovies_Click"></Button>
-            <Button Grid.Column="2" Height="50" Width="150" Content="Games" FontWeight="Bold" x:Name="btnGames" Click="btnGames_Click"></Button>
-        </StackPanel>
+        <ContentControl x:Name="contentPanel"></ContentControl>
     </DockPanel>
 </Window>

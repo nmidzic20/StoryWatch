@@ -65,20 +65,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FrmCRUD.xaml.cs">
-      <DependentUpon>FrmCRUD.xaml</DependentUpon>
+    <Compile Include="GuiManager.cs" />
+    <Compile Include="UserControls\UCAddMedia.xaml.cs">
+      <DependentUpon>UCAddMedia.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Registracija.xaml.cs">
-      <DependentUpon>Registracija.xaml</DependentUpon>
+    <Compile Include="UserControls\UCHome.xaml.cs">
+      <DependentUpon>UCHome.xaml</DependentUpon>
     </Compile>
-    <Page Include="FrmCRUD.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Login.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="UserControls\UCLogin.xaml.cs">
+      <DependentUpon>UCLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCMediaHome.xaml.cs">
+      <DependentUpon>UCMediaHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UCRegistracija.xaml.cs">
+      <DependentUpon>UCRegistracija.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,14 +89,27 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Registracija.xaml">
+    <Page Include="UserControls\UCAddMedia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCMediaHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UCRegistracija.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,21 +11,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoryWatch
+namespace StoryWatch.UserControls
 {
     /// <summary>
-    /// Interaction logic for BooksCRUD.xaml
+    /// Interaction logic for UCAddMedia.xaml
     /// </summary>
-    public partial class BooksCRUD : Window
+    public partial class UCAddMedia : UserControl
     {
-        public BooksCRUD()
+        private ListCategoryServices listCategoryServices = new ListCategoryServices();
+
+        public UCAddMedia()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
         }

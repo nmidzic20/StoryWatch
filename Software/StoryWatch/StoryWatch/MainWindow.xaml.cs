@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoryWatch.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,22 +28,10 @@ namespace StoryWatch
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-        }
-        private void btnBooks_Click(object sender, RoutedEventArgs e)
-        {
-            var booksCRUD = new BooksCRUD();
-            booksCRUD.Show();
-            Close();
-        }
-
-        private void btnMovies_Click(object sender, RoutedEventArgs e)
-        {
+            GuiManager.MainWindow = this;
+            GuiManager.OpenContent(new UCLogin());
 
         }
-
-        private void btnGames_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }
