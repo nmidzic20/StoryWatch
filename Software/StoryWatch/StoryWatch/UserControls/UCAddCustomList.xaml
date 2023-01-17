@@ -25,7 +25,7 @@
             <Label Content="List color:" Grid.Column="0" Grid.Row="1" FontWeight="Bold"/>
             <TextBox x:Name="txtDescription" Grid.Column="1" Grid.Row="1" Margin="2"/>
             <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="btnAdd" Content="Add" Width="60" Height="25" Margin="2" Background="PowderBlue" Click="btnSave_Click"/>
+                <Button x:Name="btnAdd" Content="Add" Width="60" Height="25" Margin="2" Background="PowderBlue" Click="btnAdd_Click"/>
                 <Button x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="2" Background="PowderBlue" Click="btnCancel_Click"/>
             </StackPanel>
 

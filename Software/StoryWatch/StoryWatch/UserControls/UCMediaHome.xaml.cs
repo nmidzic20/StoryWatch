@@ -105,7 +105,7 @@ namespace StoryWatch.UserControls
             lb.Margin = new Thickness(20);
 
             Color color = (Color)ColorConverter.ConvertFromString(colorString);
-            //lb.Background = new SolidColorBrush(color);
+            lb.Background = new SolidColorBrush(color);
 
             lb.Items.Add(content);
 
