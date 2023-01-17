@@ -25,14 +25,16 @@ namespace StoryWatch.UserControls
     {
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
 
-        public UCMediaHome()
+        public UCMediaHome(MediaCategory mediaCategory)
         {
             InitializeComponent();
+
+            StateManager.CurrentMediaCategory = mediaCategory;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var listCategories = listCategoryServices.GetListCategories(MediaCategory.Movie); //change to fetching state form StateManager
+            var listCategories = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory);
 
             foreach (var lc in listCategories)
             {
