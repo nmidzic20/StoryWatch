@@ -35,6 +35,8 @@ namespace StoryWatch.UserControls
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (gridLists.Children.Count != 0) gridLists.Children.Clear();
+
             var listCategories = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory);
 
             foreach (var lc in listCategories)
@@ -77,9 +79,10 @@ namespace StoryWatch.UserControls
 
         private void btnAddCustomList_Click(object sender, RoutedEventArgs e)
         {
+            GuiManager.OpenContent(new UCAddCustomList());
             //ovo je samo pokazni primjer
 
-            ListBox newCustomList = new ListBox();
+            /*ListBox newCustomList = new ListBox();
 
             newCustomList.Items.Add("Mon");
             newCustomList.Items.Add("Tue");
@@ -93,7 +96,7 @@ namespace StoryWatch.UserControls
             newCustomList.Margin = new Thickness(20);
             ScrollViewer.SetVerticalScrollBarVisibility(newCustomList, ScrollBarVisibility.Visible);
 
-            AddListBoxToGrid(newCustomList);
+            AddListBoxToGrid(newCustomList);*/
             
         }
 

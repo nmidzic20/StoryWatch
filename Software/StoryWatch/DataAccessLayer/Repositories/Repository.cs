@@ -30,10 +30,17 @@ namespace DataAccessLayer.Repositories
             return from e in Entities select e;
         }
 
-        public virtual int Add(T entity)
+        public virtual int Add(T entity, bool saveChanges = true)
         {
             Entities.Add(entity);
-            return Context.SaveChanges();
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public virtual int Delete(T entity)
@@ -45,6 +52,11 @@ namespace DataAccessLayer.Repositories
         public void Dispose()
         {
             Context.Dispose();
+        }
+
+        public virtual int SaveChanges()
+        {
+            return Context.SaveChanges();
         }
     }
 }

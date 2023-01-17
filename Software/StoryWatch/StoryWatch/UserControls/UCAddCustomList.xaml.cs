@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BusinessLayer;
+using EntitiesLayer.Entities;
 
 namespace StoryWatch.UserControls
 {
@@ -20,6 +22,7 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class UCAddCustomList : UserControl
     {
+        private ListCategoryServices listCategoryServices = new ListCategoryServices();
         public UCAddCustomList()
         {
             InitializeComponent();
@@ -27,7 +30,27 @@ namespace StoryWatch.UserControls
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            switch (StateManager.CurrentMediaCategory)
+            {
+                case MediaCategory.Movie:
 
+                    bool isSuccessful = listCategoryServices.AddMovieListCategory(
+                        new MovieListCategory
+                        {
+                            Id = listCategoryServices.GetMovieListCategories().Count,
+                            Title = txtName.Text,
+                            Color = Colors.BlanchedAlmond.ToString()
+                        }
+                        );
+
+                    if (isSuccessful == false)
+                    {
+                        MessageBox.Show("Custom list was not added!");
+                    }
+
+                    GuiManager.CloseContent();
+                    break;
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
