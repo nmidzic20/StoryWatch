@@ -75,6 +75,11 @@ namespace StoryWatch.UserControls
                 btnRegister.IsEnabled = true;
             }
         }
+
+        private void ButtonBackClicked(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UCLogin());
+        }
     }
 }
 
