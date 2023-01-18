@@ -12,29 +12,31 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoryWatch
+namespace StoryWatch.UserControls
 {
     /// <summary>
-    /// Interaction logic for LoginRegister.xaml
+    /// Interaction logic for UCLogin.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class UCLogin : UserControl
     {
-        private User user = new User
+        private UserServices userServices;
+
+        public UCLogin()
+        {
+            InitializeComponent();
+            userServices = new UserServices();
+
+        }
+        /*private User user = new User
         {
             Id = 1,
             Username = "Korisnik1",
             Password = "Test"
-        };
+        };*/
 
-        private UserServices userServices;
-
-        public Login()
-        {
-            InitializeComponent();
-            userServices = new UserServices();
-        }
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
@@ -42,22 +44,22 @@ namespace StoryWatch
             {
                 Username = txtUsername.Text,
                 Password = txtPassword.Password
-            }))
+            };
+
+            if (!userServices.Login(user))
             {
                 MessageBox.Show("Netočno korisničko ime ili lozinka!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            
-            var aplikacija = new MainWindow();
-            aplikacija.Show();
-            Close();
+
+            StateManager.LoggedUser = user;
+
+            GuiManager.OpenContent(new UCHome());
         }
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
-            Registracija windowRegistracija = new Registracija(this);
-            windowRegistracija.Show();
-            Hide();
+            GuiManager.OpenContent(new UCRegistracija());
         }
 
         private void InputChanged(object sender, KeyEventArgs e)

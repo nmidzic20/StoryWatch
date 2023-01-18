@@ -47,6 +47,7 @@
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\GameListCategory.cs" />
     <Compile Include="Entities\Genre.cs" />
+    <Compile Include="Entities\IListCategory.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\MovieListCategory.cs" />
     <Compile Include="Entities\User.cs" />

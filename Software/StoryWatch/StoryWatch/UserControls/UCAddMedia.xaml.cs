@@ -1,4 +1,4 @@
-﻿using StoryWatch.UserControls;
+﻿using BusinessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,24 +14,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoryWatch
+namespace StoryWatch.UserControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UCAddMedia.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UCAddMedia : UserControl
     {
-        public MainWindow()
+        private ListCategoryServices listCategoryServices = new ListCategoryServices();
+
+        public UCAddMedia()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GuiManager.MainWindow = this;
-            GuiManager.OpenContent(new UCHome());
 
         }
-        
     }
 }
