@@ -41,13 +41,19 @@ namespace StoryWatch.UserControls
 
             foreach (var lc in listCategories)
             {
-                ListBox lb = CreateListBox(lc.Title, lc.Color);
+                //ListBox lb = CreateListBox(lc.Title, lc.Color);
+                UserControl lb = new MediaListBox(lc.Title, lc.Color);
+                ContentControl cc = new ContentControl
+                {
+                    Content = lb
+                };
+
 
                 //lazy loading problem
                 //ListBoxItem itemTitle = (ListBoxItem) (lb.ItemContainerGenerator.ContainerFromIndex(0));
                 //itemTitle.Background = new SolidColorBrush(Colors.BlueViolet);
 
-                AddListBoxToGrid(lb);
+                AddListBoxToGrid(cc);
             }
 
             /*int i = 0;
@@ -113,9 +119,10 @@ namespace StoryWatch.UserControls
             lb.Items.Add(content);
 
             return lb;
+
         }
 
-        private void AddListBoxToGrid(ListBox list)
+        private void AddListBoxToGrid(ContentControl list)//ListBox list)
         {
             var columnCount = gridLists.ColumnDefinitions.Count;
             var rowCount = gridLists.RowDefinitions.Count;

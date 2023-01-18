@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="StoryWatch.UserControls.MediaListBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StoryWatch.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="240">
+    <StackPanel Background="Lavender" Margin="20,0,20,20">
+        <Label x:Name="lblTitle" Content="List title" FontWeight="Bold" Width="200"/>
+        <ListBox x:Name="lbMedia" d:ItemsSource="{d:SampleData ItemCount=5}" Height="180" Width="200"/>
+    </StackPanel>
+</UserControl>

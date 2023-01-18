@@ -123,6 +123,9 @@
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
     <Compile Include="StateManager.cs" />
+    <Compile Include="UserControls\UCMediaListBox.xaml.cs">
+      <DependentUpon>UCMediaListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCAddCustomList.xaml.cs">
       <DependentUpon>UCAddCustomList.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\UCMediaListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\UCAddCustomList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
