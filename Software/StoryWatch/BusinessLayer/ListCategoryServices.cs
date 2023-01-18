@@ -10,7 +10,6 @@ namespace BusinessLayer
 {
     public class ListCategoryServices
     {
-        
         public List<IListCategory> GetListCategories(MediaCategory mediaCategory)
         {
             List<IListCategory> mediaListCategories = new List<IListCategory>();

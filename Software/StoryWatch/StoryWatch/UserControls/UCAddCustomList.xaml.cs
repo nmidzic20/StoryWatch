@@ -39,8 +39,8 @@ namespace StoryWatch.UserControls
                         {
                             Id = listCategoryServices.GetMovieListCategories().Count,
                             Title = txtName.Text,
-                            Color = Colors.BlanchedAlmond.ToString()
-                        }
+                            Color = clpck.SelectedColor.ToString()
+            }
                         );
 
                     if (isSuccessful == false)
@@ -55,7 +55,8 @@ namespace StoryWatch.UserControls
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            GuiManager.CloseContent();
         }
+
     }
 }
