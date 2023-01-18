@@ -40,7 +40,7 @@ namespace StoryWatch.UserControls
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            if (!userServices.Login(new User()
+            User user = new User()
             {
                 Username = txtUsername.Text,
                 Password = txtPassword.Password

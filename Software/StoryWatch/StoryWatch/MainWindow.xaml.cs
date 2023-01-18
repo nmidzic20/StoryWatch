@@ -29,7 +29,7 @@ namespace StoryWatch
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GuiManager.MainWindow = this;
-            GuiManager.OpenContent(new UCHome());
+            GuiManager.OpenContent(new UCLogin());
 
         }
         
