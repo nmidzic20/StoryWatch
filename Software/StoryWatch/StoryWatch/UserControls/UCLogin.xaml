@@ -12,7 +12,7 @@
             <TextBox Margin="50,37,50,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="txtUsername" Width="100" KeyUp="InputChanged"/>
             <Button Content="Prijava" HorizontalAlignment="Center" Margin="0,136,0,0" VerticalAlignment="Top" Width="80" Height="23" Click="Login_Click" x:Name="btnLogin"/>
             <Button Content="Registracija" HorizontalAlignment="Center" Margin="0,174,0,0" VerticalAlignment="Top" Width="80" Height="23" Click="Register_Click" x:Name="btnRegister"/>
-            <Label Content="Korisničko ime:" HorizontalAlignment="Center" Margin="-20,11,0,0" VerticalAlignment="Top"  Width="90"/>
+            <Label Content="Korisničko ime:" HorizontalAlignment="Center" Margin="0,11,0,0" VerticalAlignment="Top"  Width="117"/>
             <Label Content="Lozinka:" HorizontalAlignment="Center" Margin="45,63,103,0" VerticalAlignment="Top"/>
             <PasswordBox Margin="0,89,0,0" VerticalAlignment="Top" x:Name="txtPassword" Width="100" KeyUp="InputChanged" HorizontalAlignment="Center"/>
         </Grid>

@@ -129,8 +129,8 @@
     <Compile Include="UserControls\UCAddCustomList.xaml.cs">
       <DependentUpon>UCAddCustomList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UCAddMedia.xaml.cs">
-      <DependentUpon>UCAddMedia.xaml</DependentUpon>
+    <Compile Include="UserControls\UCAddMovie.xaml.cs">
+      <DependentUpon>UCAddMovie.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCHome.xaml.cs">
       <DependentUpon>UCHome.xaml</DependentUpon>
@@ -164,7 +164,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UCAddMedia.xaml">
+    <Page Include="UserControls\UCAddMovie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
