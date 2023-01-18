@@ -32,6 +32,7 @@ namespace StoryWatch.UserControls
 
         private void Registracija_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: registracija radi, ali izbacuje grešku iz prvog if-a ???
             User user = new User()
             {
                 Username = txtUsername.Text,
@@ -50,12 +51,6 @@ namespace StoryWatch.UserControls
             }
 
             Close();
-        }
-
-        private void PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            // provjeri i za korime
-            
         }
 
         private void InputChanged(object sender, KeyEventArgs e)
