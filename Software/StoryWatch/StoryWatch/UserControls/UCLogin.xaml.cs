@@ -30,12 +30,12 @@ namespace StoryWatch.UserControls
             userServices = new UserServices();
 
         }
-        private User user = new User
+        /*private User user = new User
         {
             Id = 1,
             Username = "Korisnik1",
             Password = "Test"
-        };
+        };*/
 
 
         private void Login_Click(object sender, RoutedEventArgs e)
@@ -46,15 +46,19 @@ namespace StoryWatch.UserControls
                 return;
             }
 
-            if (!userServices.Login(new User()
+            User user = new User()
             {
                 Username = txtUsername.Text,
                 Password = txtPassword.Password
-            }))
+            };
+
+            if (!userServices.Login(user))
             {
                 MessageBox.Show("Netočno korisničko ime ili lozinka!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
+            StateManager.LoggedUser = user;
 
             GuiManager.OpenContent(new UCHome());
         }
