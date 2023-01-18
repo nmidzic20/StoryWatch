@@ -19,7 +19,7 @@
                   VerticalScrollBarVisibility="Visible" Background="PowderBlue" IsReadOnly="True">
                 
             </TextBox>-->
-            <ListBox x:Name="lbResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChanged">
+            <ListBox x:Name="lbResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChangedAsync">
                 
             </ListBox>
         </ScrollViewer>

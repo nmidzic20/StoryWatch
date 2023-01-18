@@ -15,14 +15,14 @@ namespace BusinessLayer
     {
         private string apiKey = "61a62cd9363b4d557e04105a89889368";
 
-        public TMDbLib.Objects.Movies.Movie GetMovieInfo(int movieTMDBid)
+        public async Task<TMDbLib.Objects.Movies.Movie> GetMovieInfoAsync(int movieTMDBid)
         {
-            TMDbClient client = new TMDbClient(apiKey);
+            /*TMDbClient client = new TMDbClient(apiKey);
             TMDbLib.Objects.Movies.Movie movie = client.GetMovieAsync(movieTMDBid).Result;
 
-            Console.WriteLine($"Movie name: {movie.Title}");
+            Console.WriteLine($"Movie name: {movie.Title}");*/
             
-            /*TMDbClient client = new TMDbClient(apiKey);
+            TMDbClient client = new TMDbClient(apiKey);
             Movie movie = await client.GetMovieAsync(movieTMDBid, MovieMethods.Credits | MovieMethods.Videos);
 
             Console.WriteLine($"Movie title: {movie.Title}");
@@ -31,7 +31,7 @@ namespace BusinessLayer
 
             Console.WriteLine();
             foreach (Video video in movie.Videos.Results)
-                Console.WriteLine($"Trailer: {video.Type} ({video.Site}), {video.Name}");*/
+                Console.WriteLine($"Trailer: {video.Type} ({video.Site}), {video.Name}");
 
             return movie;
         }

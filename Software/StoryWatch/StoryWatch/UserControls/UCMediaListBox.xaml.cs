@@ -36,12 +36,12 @@ namespace StoryWatch.UserControls
             GuiManager.OpenContent(new UCAddMedia());
         }
 
-        private void lbMedia_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
             if (StateManager.CurrentMediaCategory == BusinessLayer.MediaCategory.Movie)
             {
                 var movieServices = new MovieServices();
-                var movie = movieServices.GetMovieInfo(0);
+                var movie = await movieServices.GetMovieInfoAsync(0);
                 MessageBox.Show(movie.Title + " " + movie.Tagline + " ");
             }
         }

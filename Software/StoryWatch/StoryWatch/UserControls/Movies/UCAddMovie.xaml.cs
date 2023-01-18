@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TMDbLib.Objects.General;
+using static System.Net.WebRequestMethods;
 
 namespace StoryWatch.UserControls
 {
@@ -117,7 +118,7 @@ namespace StoryWatch.UserControls
             //txtResults.Text = text;
         }
 
-        private void lbResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void lbResults_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count == 0) return;
 
@@ -128,10 +129,12 @@ namespace StoryWatch.UserControls
             Int32.TryParse(id, out idInt);
 
             string movieInfo = "";
-            TMDbLib.Objects.Movies.Movie movie = movieServices.GetMovieInfo(idInt);
+            TMDbLib.Objects.Movies.Movie movie = await movieServices.GetMovieInfoAsync(idInt);
 
-            movieInfo += movie.Title + " " + movie.Homepage + " " + movie.Genres + " "
-                + movie.Runtime + " " + movie.BackdropPath;
+            string urlYoutube = "https://www.youtube.com/watch?v=";
+            string trailerURL = urlYoutube + movie.Videos.Results[0].Key;
+            movieInfo += movie.Title + " " + movie.Homepage + " " + movie.Genres[0].Name + " "
+                + movie.Runtime + " " + movie.BackdropPath + " " + trailerURL;
 
             MessageBox.Show("TODO add movie info into textboxes " + id + " " + movieInfo);
         }
