@@ -23,34 +23,39 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class UCRegistracija : UserControl
     {
+        private UserServices userServices;
 
         public UCRegistracija()
         {
             InitializeComponent();
-
+            userServices = new UserServices();
         }
 
-        private void Registracija_Click(object sender, RoutedEventArgs e)
+        private void Register_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: registracija radi, ali izbacuje grešku iz prvog if-a ???
             User user = new User()
             {
                 Username = txtUsername.Text,
                 Password = txtPassword1.Password,
             };
 
-            if (userServices.Add(user) == 0)
+            int result = userServices.Add(user);
+
+            if (result == 0)
             {
-                MessageBox.Show("Greška u registraciji korisnika!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Greška u dodavanju korisnika!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            else if (userServices.Add(user) == -1)
+            else if (result == -1)
             {
                 MessageBox.Show("Korisničko ime je zauzeto!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            Close();
+            else
+            {
+                MessageBox.Show("Korisnik registriran!", "Obavijest", MessageBoxButton.OK, MessageBoxImage.Information);
+                GuiManager.OpenContent(new UCLogin());
+            }
         }
 
         private void InputChanged(object sender, KeyEventArgs e)

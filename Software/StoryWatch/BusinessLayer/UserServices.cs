@@ -54,7 +54,7 @@ namespace BusinessLayer
         public int Add(User user)
         {
             // provjerava postoji li već korisnik koji se registrira
-            if (GetSpecific(user.Username) == null)
+            if (GetSpecific(user.Username) != null)
             {
                 return -1;
             }
