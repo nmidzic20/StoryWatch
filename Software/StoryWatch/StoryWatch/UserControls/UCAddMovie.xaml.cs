@@ -27,7 +27,7 @@ namespace StoryWatch.UserControls
 
         private string placeholderTextCollection = "Search movies by franchise";
         private string placeholderTextKeyword = "Search movies by keyword";
-        private string delimiter = "| ID: ";
+        private string delimiter = " | ID: ";
 
         public UCAddMedia()
         {
@@ -94,7 +94,7 @@ namespace StoryWatch.UserControls
         {
             if (lbResults == null ||
                 string.IsNullOrEmpty(txtSearchCollection.Text) ||
-                txtSearchKeyword.Text == placeholderTextCollection)
+                txtSearchCollection.Text == placeholderTextCollection)
 
                 return;
 
@@ -119,6 +119,8 @@ namespace StoryWatch.UserControls
 
         private void lbResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count == 0) return;
+
             var item = e.AddedItems[0] as string;
             var id = item.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries)[1];
             
