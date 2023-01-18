@@ -53,7 +53,8 @@ namespace BusinessLayer
 
         public int Add(User user)
         {
-            if (KorisnikPostoji(user.Username))
+            // provjerava postoji li već korisnik koji se registrira
+            if (GetSpecific(user.Username) != null)
             {
                 return -1;
             }
@@ -69,20 +70,6 @@ namespace BusinessLayer
             using (var repo = new UserRepository())
             {
                 return repo.Delete(user);
-            }
-        }
-
-        private bool KorisnikPostoji(string username)
-        {
-            using (var repo = new UserRepository())
-            {
-                var korisnik = repo.GetSpecific(username);
-
-                if (korisnik.Any())
-                {
-                    return true;
-                }
-                return false;
             }
         }
     }
