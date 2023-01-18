@@ -23,8 +23,11 @@ namespace StoryWatch.UserControls
     public partial class UCAddMedia : UserControl
     {
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
+        private MovieServices movieServices = new MovieServices();
+
         private string placeholderTextCollection = "Search movies by franchise";
         private string placeholderTextKeyword = "Search movies by keyword";
+        private string delimiter = "| ID: ";
 
         public UCAddMedia()
         {
@@ -62,56 +65,73 @@ namespace StoryWatch.UserControls
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtResults == null || 
+            if (lbResults == null || 
                 string.IsNullOrEmpty(txtSearchKeyword.Text) || 
                 txtSearchKeyword.Text == placeholderTextKeyword) 
                     
                 return;
 
-            var movieServices = new MovieServices();
+            lbResults.Items.Clear();
 
             var movies = movieServices.SearchMoviesByKeyword(txtSearchKeyword.Text);
 
             if (movies == null)
             {
-                txtResults.Text = "";
+                //txtResults.Text = "";
                 return;
             }
 
-            var results = movies.Select(r => r.Title);
-            var text = "";
+            //var text = "";
 
-            foreach (var r in results)
-                text += r + "\n";
+            foreach (var m in movies)
+                //text += r + "\n";
+                lbResults.Items.Add(m.Title + delimiter + m.Id);
 
-            txtResults.Text = text;
+            //txtResults.Text = text;
         }
 
         private void txtSearchCollection_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtResults == null ||
+            if (lbResults == null ||
                 string.IsNullOrEmpty(txtSearchCollection.Text) ||
                 txtSearchKeyword.Text == placeholderTextCollection)
 
                 return;
 
-            var movieServices = new MovieServices();
+            lbResults.Items.Clear();
 
             var movies = movieServices.SearchMoviesByCollection(txtSearchCollection.Text);
 
             if (movies == null)
             {
-                txtResults.Text = "";
+                //txtResults.Text = "";
                 return;
             }
 
-            var results = movies.Select(r => r.Title);
-            var text = "";
+            //var text = "";
 
-            foreach (var r in results)
-                text += r + "\n";
+            foreach (var m in movies)
+                //text += r + "\n";
+                lbResults.Items.Add(m.Title + delimiter + m.Id);
 
-            txtResults.Text = text;
+            //txtResults.Text = text;
+        }
+
+        private void lbResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = e.AddedItems[0] as string;
+            var id = item.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries)[1];
+            
+            int idInt;
+            Int32.TryParse(id, out idInt);
+
+            string movieInfo = "";
+            TMDbLib.Objects.Movies.Movie movie = movieServices.GetMovieInfo(idInt);
+
+            movieInfo += movie.Title + " " + movie.Homepage + " " + movie.Genres + " "
+                + movie.Runtime + " " + movie.BackdropPath;
+
+            MessageBox.Show("TODO add movie info into textboxes " + id + " " + movieInfo);
         }
     }
 }

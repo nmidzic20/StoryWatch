@@ -12,13 +12,16 @@
             <TextBox HorizontalAlignment="Right" x:Name="txtSearchCollection" TextChanged="txtSearchCollection_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by franchise" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
         </DockPanel>
         <ScrollViewer>
-            <TextBox
+            <!--<TextBox
                   x:Name="txtResults"
                   TextWrapping="Wrap"
                   AcceptsReturn="True"
                   VerticalScrollBarVisibility="Visible" Background="PowderBlue" IsReadOnly="True">
                 
-            </TextBox>
+            </TextBox>-->
+            <ListBox x:Name="lbResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChanged">
+                
+            </ListBox>
         </ScrollViewer>
     </DockPanel>
 </UserControl>

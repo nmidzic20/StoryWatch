@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TMDbLib.Client;
 using TMDbLib.Objects.Collections;
 using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
 
 namespace BusinessLayer
@@ -17,9 +18,20 @@ namespace BusinessLayer
         public TMDbLib.Objects.Movies.Movie GetMovieInfo(int movieTMDBid)
         {
             TMDbClient client = new TMDbClient(apiKey);
-            TMDbLib.Objects.Movies.Movie movie = client.GetMovieAsync(47964).Result;
+            TMDbLib.Objects.Movies.Movie movie = client.GetMovieAsync(movieTMDBid).Result;
 
             Console.WriteLine($"Movie name: {movie.Title}");
+            
+            /*TMDbClient client = new TMDbClient(apiKey);
+            Movie movie = await client.GetMovieAsync(movieTMDBid, MovieMethods.Credits | MovieMethods.Videos);
+
+            Console.WriteLine($"Movie title: {movie.Title}");
+            foreach (Cast cast in movie.Credits.Cast)
+                Console.WriteLine($"{cast.Name} - {cast.Character}");
+
+            Console.WriteLine();
+            foreach (Video video in movie.Videos.Results)
+                Console.WriteLine($"Trailer: {video.Type} ({video.Site}), {video.Name}");*/
 
             return movie;
         }
