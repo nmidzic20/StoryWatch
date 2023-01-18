@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BusinessLayer;
+using EntitiesLayer.Entities;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,28 +23,57 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class UCRegistracija : UserControl
     {
+        private UserServices userServices;
 
         public UCRegistracija()
         {
             InitializeComponent();
-
+            userServices = new UserServices();
         }
 
-        private void Registracija_Click(object sender, RoutedEventArgs e)
+        private void Register_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword1.Password) || string.IsNullOrWhiteSpace(txtPassword2.Password))
+            User user = new User()
             {
-                MessageBox.Show("Ispunite podatke!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Username = txtUsername.Text,
+                Password = txtPassword1.Password,
+            };
+
+            int result = userServices.Add(user);
+
+            if (result == 0)
+            {
+                MessageBox.Show("Greška u dodavanju korisnika!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
+            }
+            else if (result == -1)
+            {
+                MessageBox.Show("Korisničko ime je zauzeto!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Korisnik registriran!", "Obavijest", MessageBoxButton.OK, MessageBoxImage.Information);
+                GuiManager.OpenContent(new UCLogin());
             }
         }
 
-        private void PasswordChanged(object sender, RoutedEventArgs e)
+        private void InputChanged(object sender, KeyEventArgs e)
         {
-            //if (txtPassword1.Password != txtPassword2.Password)
-            //{
-            //    tx
-            //}
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword1.Password) || string.IsNullOrWhiteSpace(txtPassword2.Password))
+            {
+                btnRegister.IsEnabled = false;
+            }
+            else if (txtPassword1.Password != txtPassword2.Password)
+            {
+                txtPassword1.Background = Brushes.Orange;
+                btnRegister.IsEnabled = false;
+            }
+            else
+            {
+                txtPassword1.Background = Brushes.White;
+                btnRegister.IsEnabled = true;
+            }
         }
     }
 }
