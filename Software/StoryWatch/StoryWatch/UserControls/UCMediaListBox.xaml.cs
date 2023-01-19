@@ -41,9 +41,9 @@ namespace StoryWatch.UserControls
         {
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
             {
-                var movieServices = new MovieServices();
+                /*var movieServices = new MovieServices();
                 var movie = await movieServices.GetMovieInfoAsync(0);
-                MessageBox.Show(movie.Title + " " + movie.Tagline + " ");
+                MessageBox.Show(movie.Title + " " + movie.Tagline + " ");*/
             }
         }
     }
