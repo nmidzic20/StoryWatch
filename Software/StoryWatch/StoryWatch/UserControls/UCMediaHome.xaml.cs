@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using EntitiesLayer;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -37,7 +38,7 @@ namespace StoryWatch.UserControls
         {
             if (gridLists.Children.Count != 0) gridLists.Children.Clear();
 
-            var listCategories = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory);
+            var listCategories = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
 
             foreach (var lc in listCategories)
             {

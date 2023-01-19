@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using EntitiesLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace StoryWatch.UserControls
 
         private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
-            if (StateManager.CurrentMediaCategory == BusinessLayer.MediaCategory.Movie)
+            if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
             {
                 var movieServices = new MovieServices();
                 var movie = await movieServices.GetMovieInfoAsync(0);

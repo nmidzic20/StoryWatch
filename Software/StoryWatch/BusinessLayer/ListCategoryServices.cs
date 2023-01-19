@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Repositories;
+using EntitiesLayer;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,26 +11,26 @@ namespace BusinessLayer
 {
     public class ListCategoryServices
     {
-        public List<IListCategory> GetListCategories(MediaCategory mediaCategory)
+        public List<IListCategory> GetListCategories(MediaCategory mediaCategory, User loggedUser)
         {
             List<IListCategory> mediaListCategories = new List<IListCategory>();
 
             switch (mediaCategory)
             {
                 case MediaCategory.Movie:
-                    var listMovieCategories = GetMovieListCategories();
+                    var listMovieCategories = GetMovieListCategoriesForUser(loggedUser);
                     foreach (var lc in listMovieCategories)
                         mediaListCategories.Add(lc);
                     break;
 
                 case MediaCategory.Book:
-                    var listBookCategories = GetBookListCategories();
+                    var listBookCategories = GetBookListCategoriesForUser(loggedUser);
                     foreach (var lc in listBookCategories)
                         mediaListCategories.Add(lc);
                     break;
 
                 case MediaCategory.Game:
-                    var listGameCategories = GetGameListCategories();
+                    var listGameCategories = GetGameListCategoriesForUser(loggedUser);
                     foreach (var lc in listGameCategories)
                         mediaListCategories.Add(lc);
                     break;
@@ -44,28 +45,70 @@ namespace BusinessLayer
             {
                 return repo.GetAll().ToList();
             }
+           
         }
 
-        public List<BookListCategory> GetBookListCategories()
+        public List<MovieListCategory> GetMovieListCategoriesForUser(User loggedUser)
         {
-            //TODO
-            return new List<BookListCategory>();
+            using (var repo = new UserRepository())
+            {
+                User user = repo.GetSpecific(loggedUser.Username).FirstOrDefault();
+                return user.MovieListCategories.ToList();
+            }
         }
 
-        public List<GameListCategory> GetGameListCategories()
+        public List<BookListCategory> GetBookListCategoriesForUser(User loggedUser)
         {
-            //TODO
-            return new List<GameListCategory>();
+            using (var repo = new UserRepository())
+            {
+                User user = repo.GetSpecific(loggedUser.Username).FirstOrDefault();
+                return user.BookListCategories.ToList();
+            }
         }
 
-        public bool AddMovieListCategory(MovieListCategory movieListCategory)
+        public List<GameListCategory> GetGameListCategoriesForUser(User loggedUser)
+        {
+            using (var repo = new UserRepository())
+            {
+                User user = repo.GetSpecific(loggedUser.Username).FirstOrDefault();
+                return user.GameListCategories.ToList();
+            }
+        }
+
+        public bool AddMovieListCategory(MovieListCategory movieListCategory, User loggedUser)
         {
             bool isSuccessful = false;
             using (var repo = new MovieListCategoryRepository())
             {
-                int affectedRows = repo.Add(movieListCategory);
-                isSuccessful = affectedRows > 0;
+                MovieListCategory mc = repo.GetMovieListCategories().ToList().FirstOrDefault(l => l.Title == movieListCategory.Title);
+
+                if (mc != null)
+                {
+                    movieListCategory = mc;
+                    isSuccessful = true;
+                }
+                else
+                {
+                    int affectedRows = repo.Add(movieListCategory);
+                    isSuccessful = affectedRows > 0;
+                }
+                
             }
+       
+            if (isSuccessful)
+            {
+                using (var repo = new UserRepository())
+                {
+                    repo.Update(loggedUser, movieListCategory, MediaCategory.Movie);
+                }
+            }
+
+            return isSuccessful;
+        }
+
+        public bool CreateDefaultLists()
+        {
+            bool isSuccessful = false;
 
             return isSuccessful;
         }
