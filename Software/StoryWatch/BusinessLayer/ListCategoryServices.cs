@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BusinessLayer
 {
@@ -106,11 +107,42 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
-        public bool CreateDefaultLists()
+        public void CreateDefaultLists(MediaCategory mediaCategory, User loggedUser)
         {
-            bool isSuccessful = false;
+            switch (mediaCategory)
+            {
+                case MediaCategory.Movie:
 
-            return isSuccessful;
+                    AddMovieListCategory(
+                        new MovieListCategory
+                        {
+                            Id = GetMovieListCategories().Count,
+                            Title = "TODO",
+                            Color = "#FFD03333"
+                        },
+                        loggedUser
+                        );
+                    AddMovieListCategory(
+                        new MovieListCategory
+                        {
+                            Id = GetMovieListCategories().Count,
+                            Title = "Watched",
+                            Color = "#FFE2AF41"
+                        },
+                        loggedUser
+                        );
+                    AddMovieListCategory(
+                        new MovieListCategory
+                        {
+                            Id = GetMovieListCategories().Count,
+                            Title = "Favorites",
+                            Color = "#FF4A7A25"
+                        },
+                        loggedUser
+                        );
+
+                    break;
+            }
         }
     }
     
