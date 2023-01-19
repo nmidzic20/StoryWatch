@@ -8,7 +8,7 @@
              d:DesignHeight="250" d:DesignWidth="240">
     <StackPanel Background="Lavender" Margin="20,0,20,20">
         <DockPanel Height="40" x:Name="header" Width="200">
-            <Label x:Name="lblTitle" Content="List title" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left"/>
+            <Label x:Name="lblTitle" Content="List title" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left"/>
             <Button x:Name="btnAdd" Click="btnAdd_Click" Content="+ Add " HorizontalAlignment="Right" Height="30" Margin="0,0,5,0" Background="PowderBlue" FontWeight="Bold"></Button>
         </DockPanel>
         <ListBox x:Name="lbMedia" Height="180" Width="200" SelectionChanged="lbMedia_SelectionChangedAsync">
