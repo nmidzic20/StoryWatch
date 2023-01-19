@@ -1,4 +1,5 @@
-﻿using EntitiesLayer.Entities;
+﻿using EntitiesLayer;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -22,6 +23,40 @@ namespace DataAccessLayer.Repositories
             return from e in Entities 
                    where e.Username == username 
                    select e;
+        }
+
+        public int Update(User entity, IListCategory newListCategory, MediaCategory mediaCategory, bool saveChanges = true)
+        {
+            var user = Entities.SingleOrDefault(p => p.Username == entity.Username);
+
+            switch (mediaCategory)
+            {
+                case MediaCategory.Movie:
+                    Context.MovieListCategories.Attach(newListCategory as MovieListCategory);
+                    user.MovieListCategories.Add(newListCategory as MovieListCategory);
+                    break;
+
+                case MediaCategory.Book:
+                    Context.BookListCategories.Attach(newListCategory as BookListCategory);
+                    user.BookListCategories.Add(newListCategory as BookListCategory);
+                    break;
+
+                case MediaCategory.Game:
+                    Context.GameListCategories.Attach(newListCategory as GameListCategory);
+                    user.GameListCategories.Add(newListCategory as GameListCategory);
+                    break;
+
+            }
+
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

@@ -43,10 +43,19 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        public virtual int Delete(T entity)
+
+        public virtual int Delete(T entity, bool saveChanges = true)
         {
+            Entities.Attach(entity);
             Entities.Remove(entity);
-            return Context.SaveChanges();
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public void Dispose()

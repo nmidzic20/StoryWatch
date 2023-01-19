@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -35,6 +36,7 @@ namespace StoryWatch.UserControls
         {
             User user = new User()
             {
+                Id = userServices.GetAll().Count,
                 Username = txtUsername.Text,
                 Password = txtPassword1.Password,
             };
@@ -54,7 +56,13 @@ namespace StoryWatch.UserControls
             else
             {
                 MessageBox.Show("Korisnik registriran!", "Obavijest", MessageBoxButton.OK, MessageBoxImage.Information);
-                GuiManager.OpenContent(new UCLogin());
+
+                StateManager.LoggedUser = user;
+
+                var listCategorySerivces = new ListCategoryServices();
+                listCategorySerivces.CreateDefaultLists(EntitiesLayer.MediaCategory.Movie, StateManager.LoggedUser);
+
+                GuiManager.OpenContent(new UCHome());
             }
         }
 

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BusinessLayer;
+using EntitiesLayer;
 using EntitiesLayer.Entities;
 
 namespace StoryWatch.UserControls
@@ -40,7 +41,8 @@ namespace StoryWatch.UserControls
                             Id = listCategoryServices.GetMovieListCategories().Count,
                             Title = txtName.Text,
                             Color = clpck.SelectedColor.ToString()
-            }
+                        },
+                        StateManager.LoggedUser
                         );
 
                     if (isSuccessful == false)
@@ -50,6 +52,8 @@ namespace StoryWatch.UserControls
 
                     GuiManager.CloseContent();
                     break;
+
+                
             }
         }
 
