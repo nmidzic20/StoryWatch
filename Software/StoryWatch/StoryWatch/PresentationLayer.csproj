@@ -123,6 +123,9 @@
     </ApplicationDefinition>
     <Compile Include="GuiManager.cs" />
     <Compile Include="StateManager.cs" />
+    <Compile Include="UserControls\Books\UCAddBook.xaml.cs">
+      <DependentUpon>UCAddBook.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Movies\UCMovieInfo.xaml.cs">
       <DependentUpon>UCMovieInfo.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\Books\UCAddBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Movies\UCMovieInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
