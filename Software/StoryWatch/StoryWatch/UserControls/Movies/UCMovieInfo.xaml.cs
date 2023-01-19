@@ -1,5 +1,4 @@
-﻿using BusinessLayer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoryWatch.UserControls
+namespace StoryWatch.UserControls.Movies
 {
     /// <summary>
-    /// Interaction logic for UCAddMedia.xaml
+    /// Interaction logic for UCMovieInfo.xaml
     /// </summary>
-    public partial class UCAddMedia : UserControl
+    public partial class UCMovieInfo : UserControl
     {
-        private ListCategoryServices listCategoryServices = new ListCategoryServices();
-
-        public UCAddMedia()
+        public UCMovieInfo()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
