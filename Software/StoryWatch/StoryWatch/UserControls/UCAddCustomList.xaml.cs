@@ -53,6 +53,26 @@ namespace StoryWatch.UserControls
                     GuiManager.CloseContent();
                     break;
 
+                case MediaCategory.Book:
+
+                    bool uspjesno = listCategoryServices.AddBookListCategory(
+                        new BookListCategory
+                        {
+                            Id = listCategoryServices.GetBookListCategories().Count,
+                            Title = txtName.Text,
+                            Color = clpck.SelectedColor.ToString()
+                        },
+                        StateManager.LoggedUser
+                        );
+
+                    if (uspjesno == false)
+                    {
+                        MessageBox.Show("Custom list was not added!");
+                    }
+
+                    GuiManager.CloseContent();
+
+                    break;
                 
             }
         }
