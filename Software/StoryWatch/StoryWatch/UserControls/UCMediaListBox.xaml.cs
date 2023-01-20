@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
+using StoryWatch.UserControls.Books;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,11 @@ namespace StoryWatch.UserControls
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UCAddMedia());
+            if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
+                GuiManager.OpenContent(new UCAddMedia());
+            else if (StateManager.CurrentMediaCategory == MediaCategory.Book) 
+                GuiManager.OpenContent(new UCAddBook());
+
         }
 
         private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
@@ -44,6 +49,10 @@ namespace StoryWatch.UserControls
                 /*var movieServices = new MovieServices();
                 var movie = await movieServices.GetMovieInfoAsync(0);
                 MessageBox.Show(movie.Title + " " + movie.Tagline + " ");*/
+            }
+           else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
+
             }
         }
     }

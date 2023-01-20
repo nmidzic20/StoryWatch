@@ -61,6 +61,7 @@ namespace StoryWatch.UserControls
 
                 var listCategorySerivces = new ListCategoryServices();
                 listCategorySerivces.CreateDefaultLists(EntitiesLayer.MediaCategory.Movie, StateManager.LoggedUser);
+                listCategorySerivces.CreateDefaultLists(EntitiesLayer.MediaCategory.Book, StateManager.LoggedUser);
 
                 GuiManager.OpenContent(new UCHome());
             }

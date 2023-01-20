@@ -49,6 +49,14 @@ namespace BusinessLayer
            
         }
 
+        public List<BookListCategory> GetBookListCategories() 
+        {
+            using (var db = new BookListCategoryRepository())
+            {
+                return db.GetAll().ToList();
+            }
+        }
+
         public List<MovieListCategory> GetMovieListCategoriesForUser(User loggedUser)
         {
             using (var repo = new UserRepository())
@@ -107,41 +115,105 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
+        public bool AddBookListCategory(BookListCategory bookListCategory, User loggedUser)
+        {
+            bool isSuccessful = false;
+            using (var db = new BookListCategoryRepository())
+            {
+                BookListCategory bc = db.GetBookListCategories().ToList().FirstOrDefault(l => l.Title == bookListCategory.Title);
+
+                if (bc != null)
+                {
+                    bookListCategory = bc;
+                    isSuccessful = true;
+                }
+                else
+                {
+                    int affectedRows = db.Add(bookListCategory);
+                    isSuccessful = affectedRows > 0;
+                }
+
+            }
+
+            if (isSuccessful)
+            {
+                using (var repo = new UserRepository())
+                {
+                    repo.Update(loggedUser, bookListCategory, MediaCategory.Book);
+                }
+            }
+
+            return isSuccessful;
+        }
+
         public void CreateDefaultLists(MediaCategory mediaCategory, User loggedUser)
         {
             switch (mediaCategory)
             {
                 case MediaCategory.Movie:
+                    {
 
-                    AddMovieListCategory(
-                        new MovieListCategory
-                        {
-                            Id = GetMovieListCategories().Count,
-                            Title = "TODO",
-                            Color = "#FFD03333"
-                        },
-                        loggedUser
-                        );
-                    AddMovieListCategory(
-                        new MovieListCategory
-                        {
-                            Id = GetMovieListCategories().Count,
-                            Title = "Watched",
-                            Color = "#FFE2AF41"
-                        },
-                        loggedUser
-                        );
-                    AddMovieListCategory(
-                        new MovieListCategory
-                        {
-                            Id = GetMovieListCategories().Count,
-                            Title = "Favorites",
-                            Color = "#FF4A7A25"
-                        },
-                        loggedUser
-                        );
+                        AddMovieListCategory(
+                            new MovieListCategory
+                            {
+                                Id = GetMovieListCategories().Count,
+                                Title = "TODO",
+                                Color = "#FFD03333"
+                            },
+                            loggedUser
+                            );
+                        AddMovieListCategory(
+                            new MovieListCategory
+                            {
+                                Id = GetMovieListCategories().Count,
+                                Title = "Watched",
+                                Color = "#FFE2AF41"
+                            },
+                            loggedUser
+                            );
+                        AddMovieListCategory(
+                            new MovieListCategory
+                            {
+                                Id = GetMovieListCategories().Count,
+                                Title = "Favorites",
+                                Color = "#FF4A7A25"
+                            },
+                            loggedUser
+                            );
 
-                    break;
+                        break;
+                    }
+                case MediaCategory.Book:
+                    {
+                        AddBookListCategory(
+                            new BookListCategory
+                            {
+                                Id = GetBookListCategories().Count,
+                                Title = "TODO",
+                                Color = "#FFD03333"
+                            },
+                            loggedUser
+                            );
+                        AddBookListCategory(
+                            new BookListCategory
+                            {
+                                Id = GetBookListCategories().Count,
+                                Title = "Watched",
+                                Color = "#FFE2AF41"
+                            },
+                            loggedUser
+                            );
+                        AddBookListCategory(
+                            new BookListCategory
+                            {
+                                Id = GetBookListCategories().Count,
+                                Title = "Favorites",
+                                Color = "#FF4A7A25"
+                            },
+                            loggedUser
+                            );
+                        break;
+                    }
             }
         }
     }
