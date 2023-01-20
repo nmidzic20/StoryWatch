@@ -1,7 +1,10 @@
 ﻿using BusinessLayer;
+using EntitiesLayer.Entities;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +16,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMDbLib.Objects.Movies;
+using System.Net.Http.Formatting;
+using Newtonsoft.Json;
 
 namespace StoryWatch.UserControls.Books
 {
@@ -24,12 +30,17 @@ namespace StoryWatch.UserControls.Books
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
         private BookService bookServices = new BookService();
 
-        private string placeholderTextKeyword = "Search movies by keyword";
+        List<Book> bookInfo;
+
         private string delimiter = " | ID: ";
 
+        HttpClient bookClient = new HttpClient();
+        public const string bookURL = "https://www.googleapis.com/books/v1/volumes/";
         public UCAddBook()
         {
             InitializeComponent();
+            bookClient.BaseAddress = new Uri(bookURL);
+            bookInfo = new List<Book>();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -52,7 +63,6 @@ namespace StoryWatch.UserControls.Books
             TextBox txtSearch = sender as TextBox;
 
             if (txtSearch.Name == "txtSearchKeyword")
-                txtSearch.Text = placeholderTextKeyword;
             
             txtSearch.FontStyle = FontStyles.Italic;
             txtSearch.FontWeight = FontWeights.Bold;
@@ -61,45 +71,62 @@ namespace StoryWatch.UserControls.Books
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (lbResults == null ||
-                string.IsNullOrEmpty(txtSearchKeyword.Text) ||
-                txtSearchKeyword.Text == placeholderTextKeyword)
 
+            if (lbResults == null ||
+                string.IsNullOrEmpty(txtSearchKeyword.Text))
+                return;
+                
+
+            lbResults.Items.Clear();
+        }
+
+        private void lbResults_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0) return;
+
+            var item = lbResults.SelectedItem.ToString();   
+            var a = bookInfo.FirstOrDefault(b => b.Title.Contains(item));
+
+            MessageBox.Show("Title: " + a.Title + ", Autor: " + a.Author + ", Summary:" + a.Summary);
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            lbResults.Items.Clear();
+            bookInfo.Clear();
+            if (string.IsNullOrEmpty(txtSearchKeyword.Text))
                 return;
 
             lbResults.Items.Clear();
 
-            var movies = bookServices.GetBookTitleAsync(txtSearchKeyword.Text);
+            HttpResponseMessage response;
+            string urlParameters = "?q=" + txtSearchKeyword.Text;
+            response = bookClient.GetAsync(urlParameters).Result;
 
-            if (movies == null)
+            if (response.IsSuccessStatusCode)
             {
-                return;
+                JObject bookJson = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+                JArray books = (JArray)bookJson["items"];
+                foreach (var book in books)
+                {
+                    JObject volumeInfoObject = (JObject)book["volumeInfo"];
+                    JArray autor = (JArray)volumeInfoObject["authors"];
+                    string title = (string)volumeInfoObject["title"];
+                    string summary = (string)volumeInfoObject["description"];
+                    if (autor != null)
+                    {
+                        string author = (string)autor[0];
+                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author };
+                        bookInfo.Add(bookAdd);
+                    }
+                    else
+                    {
+                        Book bookAdd = new Book { Title = title, Summary = summary };
+                        bookInfo.Add(bookAdd);
+                    }
+                    lbResults.Items.Add((string)volumeInfoObject["title"]);
+                }
             }
-
-            //foreach (var m in movies)
-                lbResults.Items.Add(movies);
-
-        }
-
-        private async void lbResults_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
-        {
-            /*if (e.AddedItems.Count == 0) return;
-
-            var item = e.AddedItems[0] as string;
-            var id = item.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries)[1];
-
-            int idInt;
-            Int32.TryParse(id, out idInt);
-
-            string movieInfo = "";
-            TMDbLib.Objects.Movies.Movie movie = await movieServices.GetMovieInfoAsync(idInt);
-
-            string urlYoutube = "https://www.youtube.com/watch?v=";
-            string trailerURL = urlYoutube + movie.Videos.Results[0].Key;
-            movieInfo += movie.Title + " " + movie.Homepage + " " + movie.Genres[0].Name + " "
-                + movie.Runtime + " " + movie.BackdropPath + " " + trailerURL;
-
-            MessageBox.Show("TODO add movie info into textboxes " + id + " " + movieInfo);*/
         }
     }
 }

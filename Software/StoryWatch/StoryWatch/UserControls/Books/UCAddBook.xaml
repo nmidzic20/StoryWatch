@@ -9,6 +9,7 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" TextChanged="txtSearch_TextChanged" Width="200" Height="25" Margin="20" Text="Search books by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
+            <Button  HorizontalAlignment="Left" x:Name="btnSearch" Click="btnSearch_Click" Content="Pretraži"  Width="60" Height="25" FontWeight="Bold" Foreground="Gray"></Button>
         </DockPanel>
         <ScrollViewer>
             <ListBox x:Name="lbResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChangedAsync">
