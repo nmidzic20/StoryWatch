@@ -8,19 +8,12 @@
              d:DesignHeight="450" d:DesignWidth="800" Background="PowderBlue">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
-            <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" Width="200" Height="25" Margin="20" Text="Search games by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" TextChanged="txtSearch_TextChanged"/>
+            <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" Width="200" Height="25" Margin="20" Text="Search games by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" TextChanged="txtSearch_TextChanged" LostFocus="txtSearch_LostFocus" GotFocus="txtSearch_GotFocus"/>
         </DockPanel>
         <ScrollViewer>
-            <!--<TextBox
-                  x:Name="txtResults"
-                  TextWrapping="Wrap"
-                  AcceptsReturn="True"
-                  VerticalScrollBarVisibility="Visible" Background="PowderBlue" IsReadOnly="True">
-                
-            </TextBox>-->
-            <ListBox x:Name="lbResults" Background="PowderBlue">
+            <DataGrid x:Name="lbResults" Background="PowderBlue">
 
-            </ListBox>
+            </DataGrid>
         </ScrollViewer>
     </DockPanel>
 </UserControl>

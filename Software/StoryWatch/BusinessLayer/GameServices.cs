@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using IGDB;
 using IGDB.Models;
 using System.Web.UI;
+using TMDbLib.Objects.Search;
 
 namespace BusinessLayer
 {
@@ -24,7 +25,7 @@ namespace BusinessLayer
 
         public async Task<IGDB.Models.Game[]> SearchGamesAsync(string name)
         {
-            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields id,name; where id = {name};");
+            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, involved_companies; search \"{name}\";");
         }
     }
 }

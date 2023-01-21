@@ -1,18 +1,7 @@
 ﻿using BusinessLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace StoryWatch.UserControls.Games
 {
@@ -22,20 +11,25 @@ namespace StoryWatch.UserControls.Games
     public partial class UCAddGame : UserControl
     {
         private GameServices gameServices;
+        
+        private readonly string placeholderTextCollection = "Search movies by franchise";
+        private readonly string placeholderTextKeyword = "Search movies by keyword";
         private readonly string delimiter = " | ID: ";
 
         public UCAddGame()
         {
+            InitializeComponent();
             gameServices = new GameServices();
         }
 
         private async void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (lbResults == null ||
-                string.IsNullOrEmpty(txtSearchKeyword.Text)/* ||
-                txtSearchKeyword.Text == placeholderTextKeyword*/)
-
+                string.IsNullOrEmpty(txtSearchKeyword.Text) ||
+                txtSearchKeyword.Text == placeholderTextKeyword)
+            {
                 return;
+            }
 
             lbResults.Items.Clear();
 
@@ -43,38 +37,42 @@ namespace StoryWatch.UserControls.Games
 
             if (games == null)
             {
-                //txtResults.Text = "";
                 return;
             }
 
-            //var text = "";
+            lbResults.ItemsSource = games;
 
-            foreach (var game in games)
-                //text += r + "\n";
-                lbResults.Items.Add(game.Name + delimiter + game.Id);
-
-            //txtResults.Text = text;
+            //foreach (var game in games)
+            //{
+            //    lbResults.Items.Add(game.Name + delimiter + game.Id);
+            //}
         }
 
-        //private async void lbResults_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (e.AddedItems.Count == 0) return;
+        private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txtSearch = sender as TextBox;
+            txtSearch.Text = "";
+            txtSearch.FontStyle = FontStyles.Normal;
+            txtSearch.FontWeight = FontWeights.Normal;
+            txtSearch.Foreground = new SolidColorBrush(Colors.Black);
+        }
 
-        //    var item = e.AddedItems[0] as string;
-        //    var id = item.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries)[1];
+        private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txtSearch = sender as TextBox;
 
-        //    int idInt;
-        //    Int32.TryParse(id, out idInt);
+            if (txtSearch.Name == "txtSearchKeyword")
+            {
+                txtSearch.Text = placeholderTextKeyword;
+            }
+            else if (txtSearch.Name == "txtSearchCollection")
+            {
+                txtSearch.Text = placeholderTextCollection;
+            }
 
-        //    string movieInfo = "";
-        //    TMDbLib.Objects.Movies.Movie movie = await movieServices.GetMovieInfoAsync(idInt);
-
-        //    string urlYoutube = "https://www.youtube.com/watch?v=";
-        //    string trailerURL = urlYoutube + movie.Videos.Results[0].Key;
-        //    movieInfo += movie.Title + " " + movie.Homepage + " " + movie.Genres[0].Name + " "
-        //        + movie.Runtime + " " + movie.BackdropPath + " " + trailerURL;
-
-        //    MessageBox.Show("TODO add movie info into textboxes " + id + " " + movieInfo);
-        //}
+            txtSearch.FontStyle = FontStyles.Italic;
+            txtSearch.FontWeight = FontWeights.Bold;
+            txtSearch.Foreground = new SolidColorBrush(Colors.SlateGray);
+        }
     }
 }
