@@ -13,8 +13,7 @@ namespace StoryWatch.UserControls.Games
     {
         private GameServices gameServices;
         
-        private readonly string placeholderTextCollection = "Search movies by franchise";
-        private readonly string placeholderTextKeyword = "Search movies by keyword";
+        private readonly string placeholderTextKeyword = "Search games by keyword";
 
         public UCAddGame()
         {
@@ -60,15 +59,6 @@ namespace StoryWatch.UserControls.Games
         private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox txtSearch = sender as TextBox;
-
-            if (txtSearch.Name == "txtSearchKeyword")
-            {
-                txtSearch.Text = placeholderTextKeyword;
-            }
-            else if (txtSearch.Name == "txtSearchCollection")
-            {
-                txtSearch.Text = placeholderTextCollection;
-            }
 
             txtSearch.FontStyle = FontStyles.Italic;
             txtSearch.FontWeight = FontWeights.Bold;

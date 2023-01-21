@@ -77,40 +77,37 @@ namespace StoryWatch.UserControls
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (lbResults == null || 
+            if (dgResults == null || 
                 string.IsNullOrEmpty(txtSearchKeyword.Text) || 
                 txtSearchKeyword.Text == placeholderTextKeyword) 
                     
                 return;
 
-            lbResults.Items.Clear();
+            dgResults.ItemsSource = null;
 
             var movies = movieServices.SearchMoviesByKeyword(txtSearchKeyword.Text);
 
             if (movies == null)
             {
-                //txtResults.Text = "";
                 return;
             }
 
-            //var text = "";
-
-            foreach (var m in movies)
-                //text += r + "\n";
-                lbResults.Items.Add(m.Title + delimiter + m.Id);
+            dgResults.ItemsSource = movies;
+            //foreach (var m in movies)
+                //lbResults.Items.Add(m.Title + delimiter + m.Id);
 
             //txtResults.Text = text;
         }
 
         private void txtSearchCollection_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (lbResults == null ||
+            if (dgResults == null ||
                 string.IsNullOrEmpty(txtSearchCollection.Text) ||
                 txtSearchCollection.Text == placeholderTextCollection)
 
                 return;
 
-            lbResults.Items.Clear();
+            dgResults.ItemsSource = null;
 
             var movies = movieServices.SearchMoviesByCollection(txtSearchCollection.Text);
 
@@ -122,9 +119,11 @@ namespace StoryWatch.UserControls
 
             //var text = "";
 
-            foreach (var m in movies)
-                //text += r + "\n";
-                lbResults.Items.Add(m.Title + delimiter + m.Id);
+            dgResults.ItemsSource = movies;
+
+            //foreach (var m in movies)
+            //text += r + "\n";
+            //lbResults.Items.Add(m.Title + delimiter + m.Id);
 
             //txtResults.Text = text;
         }
@@ -164,6 +163,11 @@ namespace StoryWatch.UserControls
             this.ucAddMovieToList.txtCountry.Text = selectedMovie.ProductionCountries[0].Name;
             this.ucAddMovieToList.txtID.Text = selectedMovie.Id.ToString();
 
+            GuiManager.CloseContent();
+        }
+
+        private void BtnCancel(object sender, RoutedEventArgs e)
+        {
             GuiManager.CloseContent();
         }
     }

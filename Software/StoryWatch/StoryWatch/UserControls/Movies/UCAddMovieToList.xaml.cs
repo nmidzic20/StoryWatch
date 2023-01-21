@@ -78,5 +78,11 @@ namespace StoryWatch.UserControls.Movies
                 btnAdd.IsEnabled = true;
         }
 
+        private void Return(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
+        }
+
+
     }
 }

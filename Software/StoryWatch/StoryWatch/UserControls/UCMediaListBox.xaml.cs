@@ -71,6 +71,7 @@ namespace StoryWatch.UserControls
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
+            {
                 GuiManager.OpenContent(new UCAddMovieToList(this.listCategory));
             }
             else if (StateManager.CurrentMediaCategory == MediaCategory.Book)

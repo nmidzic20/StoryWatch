@@ -11,18 +11,15 @@
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" TextChanged="txtSearch_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchCollection" TextChanged="txtSearchCollection_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by franchise" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
             <Button Content="Select movie" Width="100" Height="25" HorizontalAlignment="Right" Margin="20" IsEnabled="{Binding SelectedItems.Count, ElementName=lbResults}" Click="BtnSelectMovie"></Button>
+            <Button Content="Cancel" Width="100" Height="25" HorizontalAlignment="Right" Margin="20" Click="BtnCancel"></Button>
         </DockPanel>
         <ScrollViewer>
-            <!--<TextBox
-                  x:Name="txtResults"
-                  TextWrapping="Wrap"
-                  AcceptsReturn="True"
-                  VerticalScrollBarVisibility="Visible" Background="PowderBlue" IsReadOnly="True">
-                
-            </TextBox>-->
-            <ListBox x:Name="lbResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChangedAsync">
-                
-            </ListBox>
+            <DataGrid AutoGenerateColumns="False" x:Name="dgResults" Background="PowderBlue">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Title}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </ScrollViewer>
     </DockPanel>
 </UserControl>

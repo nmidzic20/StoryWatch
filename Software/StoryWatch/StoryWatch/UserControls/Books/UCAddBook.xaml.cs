@@ -32,8 +32,6 @@ namespace StoryWatch.UserControls.Books
 
         List<Book> bookInfo;
 
-        private string delimiter = " | ID: ";
-
         HttpClient bookClient = new HttpClient();
         public const string bookURL = "https://www.googleapis.com/books/v1/volumes/";
         public UCAddBook()
