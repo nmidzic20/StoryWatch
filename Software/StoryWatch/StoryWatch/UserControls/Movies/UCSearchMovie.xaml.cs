@@ -46,11 +46,6 @@ namespace StoryWatch.UserControls
 
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -93,10 +88,7 @@ namespace StoryWatch.UserControls
             }
 
             dgResults.ItemsSource = movies;
-            //foreach (var m in movies)
-                //lbResults.Items.Add(m.Title + delimiter + m.Id);
 
-            //txtResults.Text = text;
         }
 
         private void txtSearchCollection_TextChanged(object sender, TextChangedEventArgs e)
@@ -113,45 +105,41 @@ namespace StoryWatch.UserControls
 
             if (movies == null)
             {
-                //txtResults.Text = "";
                 return;
             }
 
-            //var text = "";
 
             dgResults.ItemsSource = movies;
 
-            //foreach (var m in movies)
-            //text += r + "\n";
-            //lbResults.Items.Add(m.Title + delimiter + m.Id);
-
-            //txtResults.Text = text;
         }
 
         private async void lbResults_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count == 0) return;
+            /*if (e.AddedItems.Count == 0) return;
 
             var item = e.AddedItems[0] as string;
             var id = item.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries)[1];
             
             int idInt;
-            Int32.TryParse(id, out idInt);
+            Int32.TryParse(id, out idInt);*/
 
-            string movieInfo = "";
-            TMDbLib.Objects.Movies.Movie movie = await movieServices.GetMovieInfoAsync(idInt);
+            var item = dgResults.SelectedItem as TMDbLib.Objects.Search.SearchMovie;
+            var movieTMDbId = item.Id;
+
+            TMDbLib.Objects.Movies.Movie movie = await movieServices.GetMovieInfoAsync(movieTMDbId);
 
             selectedMovie = movie;
 
-            string urlYoutube = "https://www.youtube.com/watch?v=";
+            /*important for trailers
+             *             
+             string movieInfo = "";
+
+             * string urlYoutube = "https://www.youtube.com/watch?v=";
             string trailerURL = urlYoutube + movie.Videos.Results[0].Key;
             movieInfo += movie.Title + " " + movie.Homepage + " " + movie.Genres[0].Name + " "
-                + movie.Runtime + " " + movie.BackdropPath + " " + trailerURL;
+                + movie.Runtime + " " + movie.BackdropPath + " " + trailerURL;*/
 
 
-   
-
-            //MessageBox.Show("TODO add movie info into textboxes " + id + " " + movieInfo);
         }
 
         private void BtnSelectMovie(object sender, RoutedEventArgs e)
