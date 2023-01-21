@@ -3,6 +3,7 @@ using EntitiesLayer;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data.Entity.Core.Mapping;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,6 +101,14 @@ namespace StoryWatch.UserControls
             GuiManager.OpenContent(new UCHome());
         }
 
-        
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Želite li se odjaviti?", "Obavijest", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            {
+                return;
+            }
+            StateManager.LoggedUser = null;
+            GuiManager.OpenContent(new UCLogin());
+        }
     }
 }
