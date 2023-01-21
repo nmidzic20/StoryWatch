@@ -15,7 +15,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="StoryWatch" FontWeight="Bold"></Label>
             <Button BorderBrush="CornflowerBlue" Grid.Column="1" Content="Home" FontWeight="Bold" Click="ReturnToHome" Background="CornflowerBlue" Margin="5,0,5,0"></Button>
-            <Button BorderBrush="CornflowerBlue" Grid.Column="2" Content="Log out" FontWeight="Bold" Background="CornflowerBlue" Margin="5,0,5,0"></Button>
+            <Button BorderBrush="CornflowerBlue" Grid.Column="2" Content="Log out" FontWeight="Bold" Click="LogOut" Background="CornflowerBlue" Margin="5,0,5,0"></Button>
         </Grid>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <TextBox x:Name="txtSearch" Width="150" Height="25" Margin="20" Text="Search" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
