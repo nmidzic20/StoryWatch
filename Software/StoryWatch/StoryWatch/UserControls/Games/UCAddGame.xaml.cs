@@ -31,9 +31,9 @@ namespace StoryWatch.UserControls.Games
                 return;
             }
 
-            dgResults.Items.Clear();
-
             var games = await gameServices.SearchGamesAsync(txtSearchKeyword.Text);
+
+            games.ToList().Clear();
 
             if (games == null)
             {
