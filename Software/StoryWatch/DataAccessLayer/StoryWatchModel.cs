@@ -14,11 +14,14 @@ namespace DataAccessLayer
         }
 
         public virtual DbSet<BookListCategory> BookListCategories { get; set; }
+        public virtual DbSet<BookListItem> BookListItems { get; set; }
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<GameListCategory> GameListCategories { get; set; }
+        public virtual DbSet<GameListItem> GameListItems { get; set; }
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<MovieListCategory> MovieListCategories { get; set; }
+        public virtual DbSet<MovieListItem> MovieListItems { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -31,6 +34,11 @@ namespace DataAccessLayer
             modelBuilder.Entity<BookListCategory>()
                 .Property(e => e.Color)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<BookListCategory>()
+                .HasMany(e => e.BookListItems)
+                .WithRequired(e => e.BookListCategory)
+                .HasForeignKey(e => e.Id_BookListCategories);
 
             modelBuilder.Entity<BookListCategory>()
                 .HasMany(e => e.Books)
@@ -54,6 +62,11 @@ namespace DataAccessLayer
                 .Property(e => e.Summary)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Book>()
+                .HasMany(e => e.BookListItems)
+                .WithRequired(e => e.Book)
+                .HasForeignKey(e => e.Id_Books);
+
             modelBuilder.Entity<GameListCategory>()
                 .Property(e => e.Title)
                 .IsUnicode(false);
@@ -61,6 +74,11 @@ namespace DataAccessLayer
             modelBuilder.Entity<GameListCategory>()
                 .Property(e => e.Color)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<GameListCategory>()
+                .HasMany(e => e.GameListItems)
+                .WithRequired(e => e.GameListCategory)
+                .HasForeignKey(e => e.Id_GameListCategories);
 
             modelBuilder.Entity<GameListCategory>()
                 .HasMany(e => e.Games)
@@ -80,6 +98,11 @@ namespace DataAccessLayer
                 .Property(e => e.Company)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Game>()
+                .HasMany(e => e.GameListItems)
+                .WithRequired(e => e.Game)
+                .HasForeignKey(e => e.Id_Games);
+
             modelBuilder.Entity<Genre>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -91,6 +114,11 @@ namespace DataAccessLayer
             modelBuilder.Entity<MovieListCategory>()
                 .Property(e => e.Color)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<MovieListCategory>()
+                .HasMany(e => e.MovieListItems)
+                .WithRequired(e => e.MovieListCategory)
+                .HasForeignKey(e => e.Id_MovieListCategories);
 
             modelBuilder.Entity<MovieListCategory>()
                 .HasMany(e => e.Movies)
@@ -118,6 +146,11 @@ namespace DataAccessLayer
                 .Property(e => e.Director)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Movie>()
+                .HasMany(e => e.MovieListItems)
+                .WithRequired(e => e.Movy)
+                .HasForeignKey(e => e.Id_Movies);
+
             modelBuilder.Entity<User>()
                 .Property(e => e.Username)
                 .IsUnicode(false);
@@ -125,6 +158,21 @@ namespace DataAccessLayer
             modelBuilder.Entity<User>()
                 .Property(e => e.Password)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.BookListItems)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.Id_Users);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.GameListItems)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.Id_Users);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.MovieListItems)
+                .WithRequired(e => e.User)
+                .HasForeignKey(e => e.Id_Users);
         }
     }
 }

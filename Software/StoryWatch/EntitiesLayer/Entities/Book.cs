@@ -10,6 +10,7 @@ namespace EntitiesLayer.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
+            BookListItems = new HashSet<BookListItem>();
             BookListCategories = new HashSet<BookListCategory>();
         }
 
@@ -24,6 +25,9 @@ namespace EntitiesLayer.Entities
 
         [StringLength(200)]
         public string Summary { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BookListItem> BookListItems { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookListCategory> BookListCategories { get; set; }

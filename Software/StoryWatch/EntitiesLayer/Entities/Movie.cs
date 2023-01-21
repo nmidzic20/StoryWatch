@@ -10,6 +10,7 @@ namespace EntitiesLayer.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Movie()
         {
+            MovieListItems = new HashSet<MovieListItem>();
             MovieListCategories = new HashSet<MovieListCategory>();
         }
 
@@ -27,6 +28,9 @@ namespace EntitiesLayer.Entities
 
         [StringLength(100)]
         public string Director { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MovieListItem> MovieListItems { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MovieListCategory> MovieListCategories { get; set; }

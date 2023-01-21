@@ -85,12 +85,15 @@
   <ItemGroup>
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\BookListCategory.cs" />
+    <Compile Include="Entities\BookListItem.cs" />
     <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\GameListCategory.cs" />
+    <Compile Include="Entities\GameListItem.cs" />
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\IListCategory.cs" />
-    <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\MovieListCategory.cs" />
+    <Compile Include="Entities\MovieListItem.cs" />
+    <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="MediaCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
