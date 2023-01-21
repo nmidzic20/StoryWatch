@@ -47,8 +47,14 @@
     <Reference Include="Goodreads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Goodreads.1.0.1\lib\netstandard2.0\Goodreads.dll</HintPath>
     </Reference>
+    <Reference Include="IGDB, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IGDB.2.3.1\lib\netstandard2.0\IGDB.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestEase, Version=1.5.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestEase.1.5.5\lib\net45\RestEase.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=106.2.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.2.1\lib\net452\RestSharp.dll</HintPath>
@@ -137,6 +143,9 @@
     <Compile Include="UserControls\Books\UCAddBook.xaml.cs">
       <DependentUpon>UCAddBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Games\UCAddGame.xaml.cs">
+      <DependentUpon>UCAddGame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Movies\UCMovieInfo.xaml.cs">
       <DependentUpon>UCMovieInfo.xaml</DependentUpon>
     </Compile>
@@ -174,6 +183,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\Books\UCAddBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Games\UCAddGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -57,6 +57,14 @@ namespace BusinessLayer
             }
         }
 
+        public List<GameListCategory> GetGameListCategories()
+        {
+            using (var db = new GameListCategoryRepository())
+            {
+                return db.GetAll().ToList();
+            }
+        }
+
         public List<MovieListCategory> GetMovieListCategoriesForUser(User loggedUser)
         {
             using (var repo = new UserRepository())
@@ -146,6 +154,37 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
+        public bool AddGameListCategory(GameListCategory gameListCategory, User loggedUser)
+        {
+            bool isSuccessful = false;
+            using (var db = new GameListCategoryRepository())
+            {
+                GameListCategory gc = db.GetGameListCategories().ToList().FirstOrDefault(l => l.Title == gameListCategory.Title);
+
+                if (gc != null)
+                {
+                    gameListCategory = gc;
+                    isSuccessful = true;
+                }
+                else
+                {
+                    int affectedRows = db.Add(gameListCategory);
+                    isSuccessful = affectedRows > 0;
+                }
+
+            }
+
+            if (isSuccessful)
+            {
+                using (var repo = new UserRepository())
+                {
+                    repo.Update(loggedUser, gameListCategory, MediaCategory.Game);
+                }
+            }
+
+            return isSuccessful;
+        }
+
         public void CreateDefaultLists(MediaCategory mediaCategory, User loggedUser)
         {
             switch (mediaCategory)
@@ -198,7 +237,7 @@ namespace BusinessLayer
                             new BookListCategory
                             {
                                 Id = GetBookListCategories().Count,
-                                Title = "Watched",
+                                Title = "Read",
                                 Color = "#FFE2AF41"
                             },
                             loggedUser
@@ -207,6 +246,37 @@ namespace BusinessLayer
                             new BookListCategory
                             {
                                 Id = GetBookListCategories().Count,
+                                Title = "Favorites",
+                                Color = "#FF4A7A25"
+                            },
+                            loggedUser
+                            );
+                        break;
+                    }
+                case MediaCategory.Game:
+                    {
+                        AddGameListCategory(
+                            new GameListCategory
+                            {
+                                Id = GetGameListCategories().Count,
+                                Title = "TODO",
+                                Color = "#FFD03333"
+                            },
+                            loggedUser
+                            );
+                        AddGameListCategory(
+                            new GameListCategory
+                            {
+                                Id = GetGameListCategories().Count,
+                                Title = "Played",
+                                Color = "#FFE2AF41"
+                            },
+                            loggedUser
+                            );
+                        AddGameListCategory(
+                            new GameListCategory
+                            {
+                                Id = GetGameListCategories().Count,
                                 Title = "Favorites",
                                 Color = "#FF4A7A25"
                             },
