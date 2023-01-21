@@ -161,7 +161,8 @@ namespace StoryWatch.UserControls
             this.ucAddMovieToList.txtGenre.Text = selectedMovie.Genres[0].Name;
             this.ucAddMovieToList.txtOverview.Text = selectedMovie.Overview;
             this.ucAddMovieToList.dtReleaseDate.Text = selectedMovie.ReleaseDate.ToString();
-            this.ucAddMovieToList.txtCountry.Text = selectedMovie.Title;
+            this.ucAddMovieToList.txtCountry.Text = selectedMovie.ProductionCountries[0].Name;
+            this.ucAddMovieToList.txtID.Text = selectedMovie.Id.ToString();
 
             GuiManager.CloseContent();
         }

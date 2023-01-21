@@ -91,6 +91,7 @@
     <Compile Include="Entities\GameListItem.cs" />
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\IListCategory.cs" />
+    <Compile Include="Entities\Movie.ext.cs" />
     <Compile Include="Entities\MovieListCategory.cs" />
     <Compile Include="Entities\MovieListItem.cs" />
     <Compile Include="Entities\Movie.cs" />

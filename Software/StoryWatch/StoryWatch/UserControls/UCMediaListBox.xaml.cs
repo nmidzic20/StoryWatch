@@ -33,6 +33,31 @@ namespace StoryWatch.UserControls
 
             listCategory = lc;
 
+            ModifyAppearance(lc);
+            ShowMediaItems();
+        }
+
+        private void ShowMediaItems()
+        {
+            switch (StateManager.CurrentMediaCategory)
+            {
+                case MediaCategory.Movie:
+                {
+                    var movieServices = new MovieServices();
+                    var movies = movieServices.GetMoviesForList(listCategory as MovieListCategory, StateManager.LoggedUser);
+
+                    foreach (var movie in movies)
+                    {
+                        lbMedia.Items.Add(movie);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        private void ModifyAppearance(IListCategory lc)
+        {
             lblTitle.Content = lc.Title;
             string colorString = lc.Color;
 

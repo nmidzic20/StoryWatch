@@ -19,6 +19,30 @@ namespace BusinessLayer
     {
         private string apiKey = "61a62cd9363b4d557e04105a89889368";
 
+        public List<EntitiesLayer.Entities.Movie> GetAllMovies()
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.GetAll().ToList();
+            }
+        }
+
+        public EntitiesLayer.Entities.Movie GetMovieByTitle(string title)
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.GetMovieByTitle(title).Single();
+            }
+        }
+
+        public List<EntitiesLayer.Entities.Movie> GetMoviesForList(MovieListCategory movieListCategory, User loggedUser)
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.GetMoviesForList(movieListCategory,loggedUser);
+            }
+        }
+
         public bool AddMovie(EntitiesLayer.Entities.Movie movie)
         {
             bool isSuccessful = false;

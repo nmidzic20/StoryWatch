@@ -20,7 +20,7 @@ namespace EntitiesLayer.Entities
         [StringLength(100)]
         public string Title { get; set; }
 
-        [StringLength(200)]
+        [StringLength(900)]
         public string Description { get; set; }
 
         [StringLength(20)]

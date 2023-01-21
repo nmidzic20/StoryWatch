@@ -36,7 +36,7 @@ namespace StoryWatch.UserControls
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (gridLists.Children.Count != 0) gridLists.Children.Clear();
+            gridLists.Children.Clear();
 
             var listCategories = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
 

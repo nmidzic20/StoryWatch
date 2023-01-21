@@ -1,4 +1,5 @@
-﻿using EntitiesLayer.Entities;
+﻿using BusinessLayer;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace StoryWatch.UserControls.Movies
         public IListCategory listCategory { get; set; }
         public Movie SelectedMovieFromSearchTMDB { get; set; }
 
+        private MovieServices movieServices = new MovieServices();
+
         public UCAddMovieToList(IListCategory listCategory)
         {
             InitializeComponent();
@@ -32,17 +35,34 @@ namespace StoryWatch.UserControls.Movies
 
         private void AddMovie(object sender, RoutedEventArgs e)
         {
-            //validacija txtboxova
+            if (!ValidateMovieInfo()) return;
 
+            var movieId = movieServices.GetAllMovies().Count;
+            movieServices.AddMovie(new Movie
+            {
+                Id = movieId,
+                Title = txtTitle.Text,
+                Description = txtOverview.Text
 
-            //sastavi i posalji movieServices.AddMovieToList:
+            });
 
-            /*new MovieListItem
+            MovieListItem movie = new MovieListItem
             {
                 Id_Users = StateManager.LoggedUser.Id,
-                Id_Movies = ,
+                Id_Movies = movieId,
                 Id_MovieListCategories = this.listCategory.Id
-            };*/
+            };
+            movieServices.AddMovieToList(movie);
+
+            GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
+        }
+
+        private bool ValidateMovieInfo()
+        {
+            if (string.IsNullOrEmpty(txtTitle.Text))
+                    return false;
+
+            return true;
         }
 
         private void SearchTMDb(object sender, RoutedEventArgs e)
@@ -52,6 +72,11 @@ namespace StoryWatch.UserControls.Movies
             GuiManager.OpenContent(new UCSearchMovie(this));
         }
 
+        private void TextTitleChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtTitle.Text)) 
+                btnAdd.IsEnabled = true;
+        }
 
     }
 }
