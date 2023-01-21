@@ -22,6 +22,7 @@ namespace StoryWatch.UserControls.Movies
     public partial class UCAddMovieToList : UserControl
     {
         public IListCategory listCategory { get; set; }
+        public Movie SelectedMovieFromSearchTMDB { get; set; }
 
         public UCAddMovieToList(IListCategory listCategory)
         {
@@ -31,8 +32,8 @@ namespace StoryWatch.UserControls.Movies
 
         private void AddMovie(object sender, RoutedEventArgs e)
         {
-            
             //validacija txtboxova
+
 
             //sastavi i posalji movieServices.AddMovieToList:
 
@@ -48,6 +49,7 @@ namespace StoryWatch.UserControls.Movies
         {
             //open search form, when search form closes, if any movie chosen, get info and fill textboxes
             //otherwise do nothing
+            GuiManager.OpenContent(new UCSearchMovie(this));
         }
 
 

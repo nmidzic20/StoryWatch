@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="StoryWatch.UserControls.UCAddMedia"
+﻿<UserControl x:Class="StoryWatch.UserControls.UCSearchMovie"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,7 +9,8 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" TextChanged="txtSearch_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
-            <TextBox HorizontalAlignment="Right" x:Name="txtSearchCollection" TextChanged="txtSearchCollection_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by franchise" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
+            <TextBox HorizontalAlignment="Left" x:Name="txtSearchCollection" TextChanged="txtSearchCollection_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by franchise" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
+            <Button Content="Select movie" Width="100" Height="25" HorizontalAlignment="Right" Margin="20" IsEnabled="{Binding SelectedItems.Count, ElementName=lbResults}" Click="BtnSelectMovie"></Button>
         </DockPanel>
         <ScrollViewer>
             <!--<TextBox

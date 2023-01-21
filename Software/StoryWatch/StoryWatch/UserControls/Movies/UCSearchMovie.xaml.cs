@@ -1,4 +1,6 @@
 ﻿using BusinessLayer;
+using EntitiesLayer.Entities;
+using StoryWatch.UserControls.Movies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +16,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
 using static System.Net.WebRequestMethods;
+using Movie = TMDbLib.Objects.Movies.Movie;
 
 namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for UCAddMedia.xaml
     /// </summary>
-    public partial class UCAddMedia : UserControl
+    public partial class UCSearchMovie : UserControl
     {
+        private Movie selectedMovie = null;
+
+        private UCAddMovieToList ucAddMovieToList = null;
+
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
         private MovieServices movieServices = new MovieServices();
 
@@ -30,9 +38,12 @@ namespace StoryWatch.UserControls
         private string placeholderTextKeyword = "Search movies by keyword";
         private string delimiter = " | ID: ";
 
-        public UCAddMedia()
+        public UCSearchMovie(UCAddMovieToList UCAddMovieToList)
         {
             InitializeComponent();
+
+            ucAddMovieToList = UCAddMovieToList;
+
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -131,12 +142,28 @@ namespace StoryWatch.UserControls
             string movieInfo = "";
             TMDbLib.Objects.Movies.Movie movie = await movieServices.GetMovieInfoAsync(idInt);
 
+            selectedMovie = movie;
+
             string urlYoutube = "https://www.youtube.com/watch?v=";
             string trailerURL = urlYoutube + movie.Videos.Results[0].Key;
             movieInfo += movie.Title + " " + movie.Homepage + " " + movie.Genres[0].Name + " "
                 + movie.Runtime + " " + movie.BackdropPath + " " + trailerURL;
 
-            MessageBox.Show("TODO add movie info into textboxes " + id + " " + movieInfo);
+
+   
+
+            //MessageBox.Show("TODO add movie info into textboxes " + id + " " + movieInfo);
+        }
+
+        private void BtnSelectMovie(object sender, RoutedEventArgs e)
+        {
+            this.ucAddMovieToList.txtTitle.Text = selectedMovie.Title;
+            this.ucAddMovieToList.txtGenre.Text = selectedMovie.Genres[0].Name;
+            this.ucAddMovieToList.txtOverview.Text = selectedMovie.Overview;
+            this.ucAddMovieToList.dtReleaseDate.Text = selectedMovie.ReleaseDate.ToString();
+            this.ucAddMovieToList.txtCountry.Text = selectedMovie.Title;
+
+            GuiManager.CloseContent();
         }
     }
 }
