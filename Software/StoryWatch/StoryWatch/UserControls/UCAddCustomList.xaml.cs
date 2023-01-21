@@ -31,16 +31,22 @@ namespace StoryWatch.UserControls
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            bool isSuccessful;
+            string color = clpck.SelectedColor.ToString();
+
+            if (String.IsNullOrEmpty(color))
+                color = "#FFFFFF";
+
             switch (StateManager.CurrentMediaCategory)
             {
                 case MediaCategory.Movie:
 
-                    bool isSuccessful = listCategoryServices.AddMovieListCategory(
+                    isSuccessful = listCategoryServices.AddMovieListCategory(
                         new MovieListCategory
                         {
                             Id = listCategoryServices.GetMovieListCategories().Count,
                             Title = txtName.Text,
-                            Color = clpck.SelectedColor.ToString()
+                            Color = color
                         },
                         StateManager.LoggedUser
                         );
@@ -55,23 +61,22 @@ namespace StoryWatch.UserControls
 
                 case MediaCategory.Book:
 
-                    bool uspjesno = listCategoryServices.AddBookListCategory(
+                    isSuccessful = listCategoryServices.AddBookListCategory(
                         new BookListCategory
                         {
                             Id = listCategoryServices.GetBookListCategories().Count,
                             Title = txtName.Text,
-                            Color = clpck.SelectedColor.ToString()
+                            Color = color
                         },
                         StateManager.LoggedUser
                         );
 
-                    if (uspjesno == false)
+                    if (isSuccessful == false)
                     {
                         MessageBox.Show("Custom list was not added!");
                     }
 
                     GuiManager.CloseContent();
-
                     break;
                 
             }

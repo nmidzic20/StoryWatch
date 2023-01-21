@@ -29,6 +29,8 @@ namespace StoryWatch.UserControls
 
             lblTitle.Content = title;
 
+            if (colorString == "") colorString = "#FFFFFF";
+
             Color color = (Color)ColorConverter.ConvertFromString(colorString);
             header.Background = new SolidColorBrush(color);
         }
@@ -50,7 +52,7 @@ namespace StoryWatch.UserControls
                 var movie = await movieServices.GetMovieInfoAsync(0);
                 MessageBox.Show(movie.Title + " " + movie.Tagline + " ");*/
             }
-           else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
 
             }

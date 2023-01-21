@@ -151,69 +151,69 @@ namespace BusinessLayer
             switch (mediaCategory)
             {
                 case MediaCategory.Movie:
-                    {
+                {
 
-                        AddMovieListCategory(
-                            new MovieListCategory
-                            {
-                                Id = GetMovieListCategories().Count,
-                                Title = "TODO",
-                                Color = "#FFD03333"
-                            },
-                            loggedUser
-                            );
-                        AddMovieListCategory(
-                            new MovieListCategory
-                            {
-                                Id = GetMovieListCategories().Count,
-                                Title = "Watched",
-                                Color = "#FFE2AF41"
-                            },
-                            loggedUser
-                            );
-                        AddMovieListCategory(
-                            new MovieListCategory
-                            {
-                                Id = GetMovieListCategories().Count,
-                                Title = "Favorites",
-                                Color = "#FF4A7A25"
-                            },
-                            loggedUser
-                            );
+                    AddMovieListCategory(
+                        new MovieListCategory
+                        {
+                            Id = GetMovieListCategories().Count,
+                            Title = "TODO",
+                            Color = "#FFD03333"
+                        },
+                        loggedUser
+                        );
+                    AddMovieListCategory(
+                        new MovieListCategory
+                        {
+                            Id = GetMovieListCategories().Count,
+                            Title = "Watched",
+                            Color = "#FFE2AF41"
+                        },
+                        loggedUser
+                        );
+                    AddMovieListCategory(
+                        new MovieListCategory
+                        {
+                            Id = GetMovieListCategories().Count,
+                            Title = "Favorites",
+                            Color = "#FF4A7A25"
+                        },
+                        loggedUser
+                        );
 
-                        break;
-                    }
+                    break;
+                }
                 case MediaCategory.Book:
-                    {
-                        AddBookListCategory(
-                            new BookListCategory
-                            {
-                                Id = GetBookListCategories().Count,
-                                Title = "TODO",
-                                Color = "#FFD03333"
-                            },
-                            loggedUser
-                            );
-                        AddBookListCategory(
-                            new BookListCategory
-                            {
-                                Id = GetBookListCategories().Count,
-                                Title = "Watched",
-                                Color = "#FFE2AF41"
-                            },
-                            loggedUser
-                            );
-                        AddBookListCategory(
-                            new BookListCategory
-                            {
-                                Id = GetBookListCategories().Count,
-                                Title = "Favorites",
-                                Color = "#FF4A7A25"
-                            },
-                            loggedUser
-                            );
-                        break;
-                    }
+                {
+                    AddBookListCategory(
+                        new BookListCategory
+                        {
+                            Id = GetBookListCategories().Count,
+                            Title = "TODO",
+                            Color = "#FFD03333"
+                        },
+                        loggedUser
+                        );
+                    AddBookListCategory(
+                        new BookListCategory
+                        {
+                            Id = GetBookListCategories().Count,
+                            Title = "Read",
+                            Color = "#FFE2AF41"
+                        },
+                        loggedUser
+                        );
+                    AddBookListCategory(
+                        new BookListCategory
+                        {
+                            Id = GetBookListCategories().Count,
+                            Title = "Favorites",
+                            Color = "#FF4A7A25"
+                        },
+                        loggedUser
+                        );
+                    break;
+                }
             }
         }
     }
