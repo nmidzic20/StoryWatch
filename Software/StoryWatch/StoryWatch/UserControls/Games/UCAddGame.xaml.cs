@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,7 +15,6 @@ namespace StoryWatch.UserControls.Games
         
         private readonly string placeholderTextCollection = "Search movies by franchise";
         private readonly string placeholderTextKeyword = "Search movies by keyword";
-        private readonly string delimiter = " | ID: ";
 
         public UCAddGame()
         {
@@ -24,14 +24,14 @@ namespace StoryWatch.UserControls.Games
 
         private async void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (lbResults == null ||
+            if (dgResults == null ||
                 string.IsNullOrEmpty(txtSearchKeyword.Text) ||
                 txtSearchKeyword.Text == placeholderTextKeyword)
             {
                 return;
             }
 
-            lbResults.Items.Clear();
+            dgResults.Items.Clear();
 
             var games = await gameServices.SearchGamesAsync(txtSearchKeyword.Text);
 
@@ -40,7 +40,7 @@ namespace StoryWatch.UserControls.Games
                 return;
             }
 
-            lbResults.ItemsSource = games;
+            dgResults.ItemsSource = games;
 
             //foreach (var game in games)
             //{
