@@ -11,8 +11,11 @@
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" Width="200" Height="25" Margin="20" Text="Search games by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" TextChanged="txtSearch_TextChanged" LostFocus="txtSearch_LostFocus" GotFocus="txtSearch_GotFocus"/>
         </DockPanel>
         <ScrollViewer>
-            <DataGrid x:Name="lbResults" Background="PowderBlue">
-
+            <DataGrid AutoGenerateColumns="False" x:Name="dgResults" Background="PowderBlue">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+                </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
     </DockPanel>
