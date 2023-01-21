@@ -42,7 +42,7 @@ namespace StoryWatch.UserControls
 
             foreach (var lc in listCategories)
             {
-                UserControl mediaListBox = new MediaListBox(lc.Title, lc.Color);
+                UserControl mediaListBox = new MediaListBox(lc);
                 ContentControl control = new ContentControl
                 {
                     Content = mediaListBox

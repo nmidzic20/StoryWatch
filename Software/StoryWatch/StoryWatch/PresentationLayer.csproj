@@ -137,6 +137,9 @@
     <Compile Include="UserControls\Books\UCAddBook.xaml.cs">
       <DependentUpon>UCAddBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Movies\UCAddMovieToList.xaml.cs">
+      <DependentUpon>UCAddMovieToList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Movies\UCMovieInfo.xaml.cs">
       <DependentUpon>UCMovieInfo.xaml</DependentUpon>
     </Compile>
@@ -146,8 +149,8 @@
     <Compile Include="UserControls\UCAddCustomList.xaml.cs">
       <DependentUpon>UCAddCustomList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Movies\UCAddMovie.xaml.cs">
-      <DependentUpon>UCAddMovie.xaml</DependentUpon>
+    <Compile Include="UserControls\Movies\UCSearchMovie.xaml.cs">
+      <DependentUpon>UCSearchMovie.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UCHome.xaml.cs">
       <DependentUpon>UCHome.xaml</DependentUpon>
@@ -177,6 +180,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Movies\UCAddMovieToList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Movies\UCMovieInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -189,7 +196,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Movies\UCAddMovie.xaml">
+    <Page Include="UserControls\Movies\UCSearchMovie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

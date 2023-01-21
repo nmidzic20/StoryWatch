@@ -1,6 +1,8 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
+using EntitiesLayer.Entities;
 using StoryWatch.UserControls.Books;
+using StoryWatch.UserControls.Movies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +25,16 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class MediaListBox : UserControl
     {
-        public MediaListBox(string title, string colorString)
+        public IListCategory listCategory { get; set; }
+
+        public MediaListBox(IListCategory lc)
         {
             InitializeComponent();
 
-            lblTitle.Content = title;
+            listCategory = lc;
+
+            lblTitle.Content = lc.Title;
+            string colorString = lc.Color;
 
             if (colorString == "") colorString = "#FFFFFF";
 
@@ -38,7 +45,7 @@ namespace StoryWatch.UserControls
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
-                GuiManager.OpenContent(new UCAddMedia());
+                GuiManager.OpenContent(new UCAddMovieToList(this.listCategory));
             else if (StateManager.CurrentMediaCategory == MediaCategory.Book) 
                 GuiManager.OpenContent(new UCAddBook());
 

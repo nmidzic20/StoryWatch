@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DataAccessLayer.Repositories;
+using EntitiesLayer.Entities;
+using EntitiesLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +11,7 @@ using TMDbLib.Objects.Collections;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
+using Movie = TMDbLib.Objects.Movies.Movie;
 
 namespace BusinessLayer
 {
@@ -15,13 +19,56 @@ namespace BusinessLayer
     {
         private string apiKey = "61a62cd9363b4d557e04105a89889368";
 
+        public bool AddMovie(EntitiesLayer.Entities.Movie movie)
+        {
+            bool isSuccessful = false;
+            using (var repo = new MovieRepository())
+            {
+                //check if exists in Movies - if not, add to Movies, if yes, return false
+                EntitiesLayer.Entities.Movie m = null;//repo.GetMovie(movie.Id);
+
+                if (m != null)
+                {
+                    isSuccessful = false;
+                }
+                else
+                {
+                    int affectedRows = repo.Add(movie);
+                    isSuccessful = affectedRows > 0;
+                }
+
+            }
+
+            return isSuccessful;
+
+        }
+
+        public bool AddMovieToList(MovieListItem movieListItem)
+        {
+            bool isSuccessful = false;
+            using (var repo = new MovieRepository())
+            {
+                //check if exists in Movies - if not, add to Movies, if yes, fetch that Movie
+                //check if exists on that list already, if yes, return false, if no, add to list
+                MovieListItem ml = null;//repo.GetMovieFromList();
+
+                if (ml != null)
+                {
+                    isSuccessful = false;
+                }
+                else
+                {
+                    int affectedRows = repo.AddMovieToList(movieListItem);
+                    isSuccessful = affectedRows > 0;
+                }
+
+            }
+
+            return isSuccessful;
+        }
+
         public async Task<TMDbLib.Objects.Movies.Movie> GetMovieInfoAsync(int movieTMDBid)
         {
-            /*TMDbClient client = new TMDbClient(apiKey);
-            TMDbLib.Objects.Movies.Movie movie = client.GetMovieAsync(movieTMDBid).Result;
-
-            Console.WriteLine($"Movie name: {movie.Title}");*/
-            
             TMDbClient client = new TMDbClient(apiKey);
             Movie movie = await client.GetMovieAsync(movieTMDBid, MovieMethods.Credits | MovieMethods.Videos);
 
