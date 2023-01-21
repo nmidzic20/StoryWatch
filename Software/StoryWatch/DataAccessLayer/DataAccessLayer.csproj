@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookListCategoryRepository.cs" />
+    <Compile Include="Repositories\GameListCategoryRepository.cs" />
     <Compile Include="Repositories\MovieListCategoryRepository.cs" />
     <Compile Include="Repositories\MovieRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />

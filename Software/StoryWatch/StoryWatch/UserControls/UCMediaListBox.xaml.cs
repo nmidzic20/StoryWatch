@@ -2,6 +2,7 @@
 using EntitiesLayer;
 using EntitiesLayer.Entities;
 using StoryWatch.UserControls.Books;
+using StoryWatch.UserControls.Games;
 using StoryWatch.UserControls.Movies;
 using System;
 using System.Collections.Generic;
@@ -71,8 +72,15 @@ namespace StoryWatch.UserControls
         {
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
                 GuiManager.OpenContent(new UCAddMovieToList(this.listCategory));
-            else if (StateManager.CurrentMediaCategory == MediaCategory.Book) 
+            }
+            else if (StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
                 GuiManager.OpenContent(new UCAddBook());
+            }
+            else
+            {
+                GuiManager.OpenContent(new UCAddGame());
+            }
 
         }
 
