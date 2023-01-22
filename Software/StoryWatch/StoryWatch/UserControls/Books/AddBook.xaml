@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls.Books"
         mc:Ignorable="d"
-        Title="AddBook" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="AddBook" Height="350" Width="400" Background="Lavender" Loaded="Window_Loaded">
+    <DockPanel>
+        <Label Content="Add book manually" Background="CornflowerBlue" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontWeight="Bold"></Label>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+                <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+                <RowDefinition Height="100" MaxHeight="150"></RowDefinition>
+                <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+                <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Content="ID:" Grid.Row="0" Grid.Column="0" FontWeight="Bold"></Label>
+            <TextBox x:Name="txtID" Grid.Row="0" Grid.Column="1" Margin="2"></TextBox>
+            <Label Content="Title:" Grid.Row="1" Grid.Column="0" FontWeight="Bold" ></Label>
+            <TextBox x:Name="txtTitle" Grid.Row="1" Grid.Column="1" Margin="2"></TextBox>
+            <Label Content="Summary:" Grid.Row="2" Grid.Column="0" FontWeight="Bold"></Label>
+            <TextBox x:Name="txtSummary" Grid.Row="2" Grid.Column="1" Margin="2" VerticalScrollBarVisibility="Visible"></TextBox>
+            <Label Content="Author:" Grid.Row="3" Grid.Column="0" FontWeight="Bold"></Label>
+            <TextBox x:Name="txtAuthor" Grid.Row="3" Grid.Column="1" Margin="2"></TextBox>
+            <StackPanel Grid.Row="4" Grid.Column="1" Height="30" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnSave" Content="Save" Width="60" Height="25" Margin="2" Background="LightBlue" Click="btnSave_Click"></Button>
+                <Button x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="2" Background="LightBlue" Click="btnCancel_Click"></Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>

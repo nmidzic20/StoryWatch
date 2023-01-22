@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
+using DataAccessLayer.Repositories;
 
 namespace BusinessLayer
 {
@@ -43,7 +44,7 @@ namespace BusinessLayer
                     if (autor != null)
                     {
                         string author = (string)autor[0];
-                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author };
+                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author};
                         bookInfo.Add(bookAdd);
                     }
                     else
@@ -59,6 +60,17 @@ namespace BusinessLayer
         public List<Book> returnCurrentBookList()
         {
             return bookInfo;
+        }
+
+        public bool AddBook(Book book)
+        {
+            bool saved;
+            using(var db = new BookRepository())
+            {
+                var addedBook = db.Add(book);
+                saved = addedBook > 0;
+            }
+            return saved;
         }
 
         public void clearList()

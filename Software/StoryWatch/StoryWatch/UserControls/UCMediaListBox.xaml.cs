@@ -24,11 +24,13 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class MediaListBox : UserControl
     {
+        string Title;
         public MediaListBox(string title, string colorString)
         {
             InitializeComponent();
 
             lblTitle.Content = title;
+            Title = title;
 
             Color color = (Color)ColorConverter.ConvertFromString(colorString);
             header.Background = new SolidColorBrush(color);
@@ -42,7 +44,7 @@ namespace StoryWatch.UserControls
             }
             else if (StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
-                GuiManager.OpenContent(new UCAddBook());
+                GuiManager.OpenContent(new UCAddBook(Title));
             }
             else
             {

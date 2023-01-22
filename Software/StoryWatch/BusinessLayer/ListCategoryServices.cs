@@ -154,6 +154,15 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
+        public BookListCategory CurrentBookListCategory(string title)
+        {
+            BookListCategory bc;
+            using (var db = new BookListCategoryRepository())
+            {
+                bc = db.GetBookListCategories().ToList().FirstOrDefault(l => l.Title == title);
+            }
+            return bc;
+        }
         public bool AddGameListCategory(GameListCategory gameListCategory, User loggedUser)
         {
             bool isSuccessful = false;
