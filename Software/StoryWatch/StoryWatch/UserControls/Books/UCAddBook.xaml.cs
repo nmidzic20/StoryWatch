@@ -28,18 +28,11 @@ namespace StoryWatch.UserControls.Books
     /// </summary>
     public partial class UCAddBook : UserControl
     {
-        private ListCategoryServices listCategoryServices = new ListCategoryServices();
-        private BookService bookServices = new BookService();
-
-        List<Book> bookInfo;
-
-        HttpClient bookClient = new HttpClient();
-        public const string bookURL = "https://www.googleapis.com/books/v1/volumes/";
+        private BookService bookServices;
         public UCAddBook()
         {
             InitializeComponent();
-            bookClient.BaseAddress = new Uri(bookURL);
-            bookInfo = new List<Book>();
+            bookServices = new BookService();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -83,48 +76,25 @@ namespace StoryWatch.UserControls.Books
         {
             if (e.AddedItems.Count == 0) return;
 
-            var item = lbResults.SelectedItem.ToString();   
-            var a = bookInfo.FirstOrDefault(b => b.Title.Contains(item));
+            var item = lbResults.SelectedItem.ToString();
+            List<Book> books = bookServices.returnCurrentBookList();
+            Book currentBook = books.FirstOrDefault(b => b.Title.Contains(item));
 
-            MessageBox.Show("Title: " + a.Title + ", Autor: " + a.Author + ", Summary:" + a.Summary);
+            MessageBox.Show("Title: " + currentBook.Title + ", Autor: " + currentBook.Author + ", Summary:" + currentBook.Summary);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             lbResults.Items.Clear();
-            bookInfo.Clear();
+            bookServices.clearList();
             if (string.IsNullOrEmpty(txtSearchKeyword.Text))
                 return;
 
             lbResults.Items.Clear();
 
-            HttpResponseMessage response;
-            string urlParameters = "?q=" + txtSearchKeyword.Text;
-            response = bookClient.GetAsync(urlParameters).Result;
-
-            if (response.IsSuccessStatusCode)
+            foreach(var book in bookServices.findBookByName(txtSearchKeyword.Text))
             {
-                JObject bookJson = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-                JArray books = (JArray)bookJson["items"];
-                foreach (var book in books)
-                {
-                    JObject volumeInfoObject = (JObject)book["volumeInfo"];
-                    JArray autor = (JArray)volumeInfoObject["authors"];
-                    string title = (string)volumeInfoObject["title"];
-                    string summary = (string)volumeInfoObject["description"];
-                    if (autor != null)
-                    {
-                        string author = (string)autor[0];
-                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author };
-                        bookInfo.Add(bookAdd);
-                    }
-                    else
-                    {
-                        Book bookAdd = new Book { Title = title, Summary = summary };
-                        bookInfo.Add(bookAdd);
-                    }
-                    lbResults.Items.Add((string)volumeInfoObject["title"]);
-                }
+                lbResults.Items.Add(book.Title);
             }
         }
 
