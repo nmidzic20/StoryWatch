@@ -25,7 +25,7 @@ namespace DataAccessLayer.Repositories
             return books;
         }
 
-        public int AddMovieToList(BookListItem bookListItem) 
+        public int AddBookToList(BookListItem bookListItem) 
         {
             Context.BookListItems.Add(bookListItem);
             return Context.SaveChanges();

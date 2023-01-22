@@ -17,6 +17,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using TMDbLib.Objects.Movies;
 
 namespace StoryWatch.UserControls.Books
 {
@@ -62,7 +63,6 @@ namespace StoryWatch.UserControls.Books
         {
             var allBooks = bookService.GetAll().ToList();
             var id = (allBooks.Count() != 0) ? allBooks.Last().Id + 1 : 0;
-
             if (currentBook != null)
             {
                 if (update)
@@ -73,6 +73,7 @@ namespace StoryWatch.UserControls.Books
                 txtSummary.Text = currentBook.Summary;
                 txtAuthor.Text = currentBook.Author;
             }
+            txtID.Text = id.ToString();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -103,16 +104,24 @@ namespace StoryWatch.UserControls.Books
                     Author = txtAuthor.Text,
                 };
 
-                bookService.AddBook(newBook);
+                Book addBook = bookService.AddBook(newBook);
+                var foundBookId = id;
+                if(addBook != null)
+                    foundBookId= addBook.Id;
 
                 BookListItem newBookList = new BookListItem
                 {
                     Id_BookListCategories = listCategory.Id,
-                    Id_Books = id,
+                    Id_Books = foundBookId,
                     Id_Users = StateManager.LoggedUser.Id
                 };
 
-                bookService.AddBookToList(newBookList);
+                bool addBookList = bookService.AddBookToList(newBook ,newBookList, listCategory as BookListCategory, StateManager.LoggedUser);
+
+                if (!addBookList)
+                {
+                    MessageBox.Show("This book is already added to this list!");
+                }
 
                 Close();
                 GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
@@ -131,7 +140,7 @@ namespace StoryWatch.UserControls.Books
             var update = bookService.UpdateBook(updateBook);
 
             if (update == 0)
-                MessageBox.Show("Update failed!");
+                MessageBox.Show("Update failed! You didn't changed anything!");
             Close();
             GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
         }
