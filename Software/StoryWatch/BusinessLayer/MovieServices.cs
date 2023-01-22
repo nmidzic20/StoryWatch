@@ -31,7 +31,7 @@ namespace BusinessLayer
         {
             using (var repo = new MovieRepository())
             {
-                return repo.GetMovieByTitle(title).Single();
+                return repo.GetMovieByTitle(title).FirstOrDefault();
             }
         }
 
@@ -47,7 +47,7 @@ namespace BusinessLayer
         {
             using (var repo = new MovieRepository())
             {
-                return repo.GetMovieByTMDBId(TMDB_ID).Single();
+                return repo.GetMovieByTMDBId(TMDB_ID).FirstOrDefault();
             }
         }
 
@@ -57,7 +57,7 @@ namespace BusinessLayer
             using (var repo = new MovieRepository())
             {
                 //check if exists in Movies - if not, add to Movies, if yes, return false
-                EntitiesLayer.Entities.Movie existingMovie = repo.GetMovieByTMDBId(movie.TMDB_ID).Single();
+                EntitiesLayer.Entities.Movie existingMovie = repo.GetMovieByTMDBId(movie.TMDB_ID).FirstOrDefault();
 
                 if (existingMovie != null)
                 {
@@ -75,15 +75,16 @@ namespace BusinessLayer
 
         }
 
-        public bool AddMovieToList(MovieListItem movieListItem)
+        public bool AddMovieToList(MovieListItem movieListItem, MovieListCategory movieListCategory, User loggedUser)
         {
             bool isSuccessful = false;
             using (var repo = new MovieRepository())
             {
                 //check if exists on that list already, if yes, return false, if no, add to list
-                MovieListItem ml = null;//repo.GetMovieFromList();
+                List<EntitiesLayer.Entities.Movie> movies = repo.GetMoviesForList(movieListCategory,loggedUser).ToList();
+                bool movieExistsOnList = movies.Exists(m => m.Id == movieListItem.Id_Movies);
 
-                if (ml != null)
+                if (movieExistsOnList)
                 {
                     isSuccessful = false;
                 }

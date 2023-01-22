@@ -49,7 +49,7 @@ namespace StoryWatch.UserControls.Movies
 
             if (!isSuccessful)
             {
-                MessageBox.Show("This movie is already added from TMDB to database");
+                //MessageBox.Show("This movie is already added from TMDB to database");
                 movieId = movieServices.GetMovieByTMDBId(txtID.Text).Id;
             }
 
@@ -59,9 +59,12 @@ namespace StoryWatch.UserControls.Movies
                 Id_Movies = movieId,
                 Id_MovieListCategories = this.listCategory.Id
             };
-            movieServices.AddMovieToList(movie);
+            bool movieAddedToList = movieServices.AddMovieToList(movie, listCategory as MovieListCategory, StateManager.LoggedUser);
 
-            GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
+            if (!movieAddedToList)
+                MessageBox.Show("This movie is already added to this list");
+            else
+                GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
         }
 
         private bool ValidateMovieInfo()
@@ -74,8 +77,8 @@ namespace StoryWatch.UserControls.Movies
 
         private void SearchTMDb(object sender, RoutedEventArgs e)
         {
-            //open search form, when search form closes, if any movie chosen, get info and fill textboxes
-            //otherwise do nothing
+            //open search form, when search form closes, if any movie selected, it will fill textboxes in this UC
+            //otherwise if no movie selected, will do nothing
             GuiManager.OpenContent(new UCSearchMovie(this));
         }
 
