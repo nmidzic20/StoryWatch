@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:StoryWatch.UserControls"
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="400" Background="Lavender">
+             d:DesignHeight="150" d:DesignWidth="400">
     <DockPanel>
         <Label x:Name="Header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="CornflowerBlue" Content="Add new custom list" DockPanel.Dock="Top"/>
         <Grid Margin="10">

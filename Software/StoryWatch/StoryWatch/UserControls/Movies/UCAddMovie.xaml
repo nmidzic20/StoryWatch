@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoryWatch.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Background="Lavender">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Background="PowderBlue">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" TextChanged="txtSearch_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
@@ -19,7 +19,7 @@
                   VerticalScrollBarVisibility="Visible" Background="PowderBlue" IsReadOnly="True">
                 
             </TextBox>-->
-            <ListBox x:Name="lbResults" Background="Lavender" SelectionChanged="lbResults_SelectionChangedAsync">
+            <ListBox x:Name="lbResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChangedAsync">
                 
             </ListBox>
         </ScrollViewer>
