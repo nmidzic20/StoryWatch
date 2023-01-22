@@ -37,13 +37,13 @@ namespace StoryWatch.UserControls
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (gridLists.Children.Count != 0) gridLists.Children.Clear();
+            gridLists.Children.Clear();
 
             var listCategories = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
 
             foreach (var lc in listCategories)
             {
-                UserControl mediaListBox = new MediaListBox(lc.Title, lc.Color);
+                UserControl mediaListBox = new MediaListBox(lc);
                 ContentControl control = new ContentControl
                 {
                     Content = mediaListBox

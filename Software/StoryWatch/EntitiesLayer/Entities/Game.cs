@@ -10,6 +10,7 @@ namespace EntitiesLayer.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Game()
         {
+            GameListItems = new HashSet<GameListItem>();
             GameListCategories = new HashSet<GameListCategory>();
         }
 
@@ -23,6 +24,9 @@ namespace EntitiesLayer.Entities
         public string Company { get; set; }
 
         public short? Indie { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GameListItem> GameListItems { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GameListCategory> GameListCategories { get; set; }

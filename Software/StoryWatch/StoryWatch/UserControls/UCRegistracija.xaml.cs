@@ -36,10 +36,10 @@ namespace StoryWatch.UserControls
         {
             User user = new User()
             {
-                Id = userServices.GetAll().Count,
                 Username = txtUsername.Text,
                 Password = txtPassword1.Password,
             };
+
 
             int result = userServices.Add(user);
 

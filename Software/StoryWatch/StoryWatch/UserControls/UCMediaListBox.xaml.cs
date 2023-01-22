@@ -3,6 +3,7 @@ using EntitiesLayer;
 using EntitiesLayer.Entities;
 using StoryWatch.UserControls.Books;
 using StoryWatch.UserControls.Games;
+using StoryWatch.UserControls.Movies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +26,43 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class MediaListBox : UserControl
     {
-        string Title;
-        public MediaListBox(string title, string colorString)
+        public IListCategory listCategory { get; set; }
+
+        public MediaListBox(IListCategory lc)
         {
             InitializeComponent();
 
-            lblTitle.Content = title;
-            Title = title;
+            listCategory = lc;
+
+            ModifyAppearance(lc);
+            ShowMediaItems();
+        }
+
+        private void ShowMediaItems()
+        {
+            switch (StateManager.CurrentMediaCategory)
+            {
+                case MediaCategory.Movie:
+                {
+                    var movieServices = new MovieServices();
+                    var movies = movieServices.GetMoviesForList(listCategory as MovieListCategory, StateManager.LoggedUser);
+
+                    foreach (var movie in movies)
+                    {
+                        lbMedia.Items.Add(movie);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        private void ModifyAppearance(IListCategory lc)
+        {
+            lblTitle.Content = lc.Title;
+            string colorString = lc.Color;
+
+            if (colorString == "") colorString = "#FFFFFF";
 
             Color color = (Color)ColorConverter.ConvertFromString(colorString);
             header.Background = new SolidColorBrush(color);
@@ -40,11 +71,11 @@ namespace StoryWatch.UserControls
         {
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
             {
-                GuiManager.OpenContent(new UCAddMedia());
+                GuiManager.OpenContent(new UCAddMovieToList(this.listCategory));
             }
             else if (StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
-                GuiManager.OpenContent(new UCAddBook(Title));
+                GuiManager.OpenContent(new UCAddBook(this.listCategory));
             }
             else
             {
@@ -61,7 +92,7 @@ namespace StoryWatch.UserControls
                 var movie = await movieServices.GetMovieInfoAsync(0);
                 MessageBox.Show(movie.Title + " " + movie.Tagline + " ");*/
             }
-           else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
 
             }

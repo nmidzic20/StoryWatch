@@ -52,7 +52,7 @@ namespace StoryWatch.UserControls
                 return;
             }
 
-            StateManager.LoggedUser = user;
+            StateManager.LoggedUser = userServices.GetSpecific(user.Username);
 
             GuiManager.OpenContent(new UCHome());
         }
