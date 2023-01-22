@@ -94,17 +94,17 @@ namespace StoryWatch.UserControls.Books
         {
             if(txtTitle.Text.Length > 100) 
             {
-                MessageBox.Show("Book title lenght needs to be lower than 100!");
+                MessageBox.Show("Book title lenght needs to be lower than 100!", "Title length!");
                 return false;
             }
             else if(txtSummary.Text.Length > 200)
             {
-                MessageBox.Show("Book summary lenght needs to be lower than 100!");
+                MessageBox.Show("Book summary lenght needs to be lower than 100!", "Book length!");
                 return false;
             }
             else if(txtAuthor.Text.Length > 100)
             {
-                MessageBox.Show("Book author lenght needs to be lower than 100!");
+                MessageBox.Show("Book author lenght needs to be lower than 100!", "Author length!");
                 return false;
             }
             return true;

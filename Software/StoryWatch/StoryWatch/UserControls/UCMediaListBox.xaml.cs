@@ -104,7 +104,6 @@ namespace StoryWatch.UserControls
             }
             else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
-                
             }
         }
     }
