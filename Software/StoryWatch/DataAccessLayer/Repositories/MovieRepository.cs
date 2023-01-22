@@ -22,6 +22,20 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public int DeleteMovieFromList(MovieListItem movieListItem, bool saveChanges = true)
+        {
+            Context.MovieListItems.Attach(movieListItem);
+            Context.MovieListItems.Remove(movieListItem);
+            if (saveChanges)
+            {
+                return Context.SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public IQueryable<Movie> GetMovieByTitle(string title)
         {
             var query = from m in Entities
@@ -81,5 +95,7 @@ namespace DataAccessLayer.Repositories
                 return 0;
             }
         }
+
+        
     }
 }

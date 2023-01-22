@@ -107,11 +107,23 @@ namespace BusinessLayer
             }
         }
 
-        public int DeleteMovie(EntitiesLayer.Entities.Movie movie)
+        public bool DeleteMovieFromList(EntitiesLayer.Entities.Movie movie, MovieListCategory movieListCategory, User loggedUser)
         {
+            bool isSuccessful = false;
+
+            var movieListItem = new MovieListItem
+            {
+                Id_MovieListCategories = movieListCategory.Id,
+                Id_Movies = movie.Id,
+                Id_Users = loggedUser.Id
+            };
+
             using (var repo = new MovieRepository())
             {
-                return repo.Delete(movie);
+                int affectedRows = repo.DeleteMovieFromList(movieListItem);
+                isSuccessful = affectedRows > 0;
+
+                return isSuccessful;
             }
         }
 

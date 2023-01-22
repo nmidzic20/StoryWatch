@@ -146,7 +146,7 @@ namespace StoryWatch.UserControls
                 {
                     EntitiesLayer.Entities.Movie movie = (EntitiesLayer.Entities.Movie)btn.DataContext;
                     var movieServices = new MovieServices();
-                    movieServices.DeleteMovie(movie);
+                    movieServices.DeleteMovieFromList(movie, listCategory as MovieListCategory, StateManager.LoggedUser);
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Movie));
                 }
             }
