@@ -69,24 +69,21 @@ namespace BusinessLayer
             using(var db = new BookRepository())
             {
                 List<Book> addBook = db.GetAll().ToList();
-                Book foundBookTitle = addBook.FirstOrDefault(b => b.Title == book.Title);
-                Book foundBookAuthor = addBook.FirstOrDefault(b => b.Author == book.Author);
-                Book foundBookSummary = addBook.FirstOrDefault(b => b.Summary == book.Summary);
+                Book foundBookTitleAndAuthor = addBook.FirstOrDefault(b => b.Title == book.Title && b.Author == book.Author);
+                Book foundBookAuthorAndSummary = addBook.FirstOrDefault(b => b.Author == book.Author && b.Summary == book.Summary);
+                Book foundBookSummaryAndTitle = addBook.FirstOrDefault(b => b.Summary == book.Summary && b.Title == book.Title);
 
-                if (foundBookTitle != null)
+                if (foundBookTitleAndAuthor != null)
                 {
-                    if (foundBookAuthor != null || foundBookSummary != null)
-                        return foundBookTitle;
+                    return foundBookTitleAndAuthor;
                 }
-                else if (foundBookAuthor != null)
+                else if(foundBookAuthorAndSummary != null)
                 {
-                    if(foundBookTitle != null || foundBookSummary != null)
-                        return foundBookTitle;
+                    return foundBookAuthorAndSummary;
                 }
-                else if(foundBookSummary != null)
+                else if(foundBookSummaryAndTitle != null)
                 {
-                    if(foundBookTitle != null || foundBookAuthor != null)
-                        return foundBookTitle;
+                    return foundBookSummaryAndTitle;
                 }
                 else
                 {
@@ -104,25 +101,21 @@ namespace BusinessLayer
             using (var db = new BookRepository())
             {
                 List<Book> books = db.GetBooksForListBox(bookListCategory, loggedUser).ToList();
-                Book bookTitleExistsOnList = books.FirstOrDefault(b => b.Title == book.Title);
-                Book bookAuthorExistsOnList = books.FirstOrDefault(b => b.Author == book.Author);
-                Book bookSummaryExistsOnList = books.FirstOrDefault(b => b.Summary == book.Summary);
+                Book bookTitleandAuthorExistsOnList = books.FirstOrDefault(b => b.Title == book.Title && b.Author == book.Author);
+                Book bookTitleAndSummaryExistsOnList = books.FirstOrDefault(b => b.Author == book.Author && b.Summary == book.Summary);
+                Book bookSummaryAndAuthorExistsOnList = books.FirstOrDefault(b => b.Summary == book.Summary && b.Author == b.Author);
 
-                if (bookTitleExistsOnList != null)
+                if (bookTitleandAuthorExistsOnList != null)
                 {
-                    if (bookAuthorExistsOnList != null || bookSummaryExistsOnList != null)
-                        saved = false;
-                    
+                   saved = false;
                 }
-                else if (bookAuthorExistsOnList != null)
+                else if(bookTitleAndSummaryExistsOnList != null)
                 {
-                    if(bookTitleExistsOnList != null || bookSummaryExistsOnList != null)
-                        saved = false;
+                    saved = false;
                 }
-                else if (bookSummaryExistsOnList != null)
+                else if(bookSummaryAndAuthorExistsOnList != null)
                 {
-                    if(bookTitleExistsOnList != null || bookAuthorExistsOnList != null)
-                        saved = false;
+                    saved = false;
                 }
                 else
                 {
