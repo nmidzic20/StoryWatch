@@ -154,7 +154,7 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
-        public List<BookListCategory> CurrentBookListCategory(string title)
+        public BookListCategory CurrentBookListCategory(string title)
         {
             BookListCategory bc;
             using (var db = new BookListCategoryRepository())

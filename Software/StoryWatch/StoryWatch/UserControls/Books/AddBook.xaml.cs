@@ -61,7 +61,7 @@ namespace StoryWatch.UserControls.Books
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            List<BookListCategory> bc = listCategoryServices.CurrentBookListCategory(title);
+            BookListCategory bc = listCategoryServices.CurrentBookListCategory(title);
 
             if (int.Parse(txtID.Text) == 0)
             {
@@ -74,7 +74,7 @@ namespace StoryWatch.UserControls.Books
                 Title = txtTitle.Text,
                 Summary = txtSummary.Text,
                 Author = txtAuthor.Text,
-                BookListCategories = bc
+                //BookListCategories = bc //Ovo ne radi ne znam zasto, zbog toga se pojedine knjige ne mogu dodat na listu
             };
 
             var sameBook = listCategoryServices.CheckForBooksOnCurrentListCategory(title, newBook);
