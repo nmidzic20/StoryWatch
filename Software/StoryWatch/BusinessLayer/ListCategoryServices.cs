@@ -153,57 +153,6 @@ namespace BusinessLayer
 
             return isSuccessful;
         }
-
-        public BookListCategory CurrentBookListCategory(string title)
-        {
-            BookListCategory bc;
-            using (var db = new BookListCategoryRepository())
-            {
-                bc = db.GetBookListCategories().ToList().FirstOrDefault(l => l.Title == title);
-            }
-            
-            return bc;
-        }
-
-        public int CheckForBooksOnCurrentListCategory(string title, Book newBook)
-        {
-            BookListCategory bc;
-            using(var db = new BookListCategoryRepository())
-            {
-                bc = db.GetBookListCategories().ToList().FirstOrDefault(l => l.Title == title);
-                foreach (var book in bc.Books)
-                {
-                    if (newBook.Id == book.Id)
-                    {
-                        return 1;
-                    }
-
-                    if (newBook.Title == book.Title)
-                    {
-                        if (newBook.Author == book.Author || newBook.Summary == book.Summary)
-                        {
-                            return 2;
-                        }
-                    }
-
-                }
-            }
-            return 0;
-        }
-
-        public List<Book> GetAllBooksForCurrentCategory(string title)
-        {
-            BookListCategory bc;
-            List<Book> books = new List<Book>();
-            using (var db = new BookListCategoryRepository())
-            {
-                bc = db.GetBookListCategories().ToList().FirstOrDefault(l => l.Title == title);
-                foreach(var book in bc.Books)
-                    books.Add(book);
-            }
-            return books;
-        }
-
         public bool AddGameListCategory(GameListCategory gameListCategory, User loggedUser)
         {
             bool isSuccessful = false;

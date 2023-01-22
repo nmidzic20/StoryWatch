@@ -61,7 +61,7 @@ namespace StoryWatch.UserControls.Books
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            BookListCategory bc = listCategoryServices.CurrentBookListCategory(title);
+            //BookListCategory bc = listCategoryServices.CurrentBookListCategory(title);
 
             if (int.Parse(txtID.Text) == 0)
             {
@@ -77,9 +77,9 @@ namespace StoryWatch.UserControls.Books
                 //BookListCategories = bc //Ovo ne radi ne znam zasto, zbog toga se pojedine knjige ne mogu dodat na listu
             };
 
-            var sameBook = listCategoryServices.CheckForBooksOnCurrentListCategory(title, newBook);
+            //var sameBook = listCategoryServices.CheckForBooksOnCurrentListCategory(title, newBook);
 
-            if (sameBook == 1)
+            /*if (sameBook == 1)
             {
                 MessageBox.Show("Book with this ID on this list already exists!");
                 return;
@@ -93,7 +93,7 @@ namespace StoryWatch.UserControls.Books
             {
                 bookService.AddBook(newBook);
                 Close();
-            }
+            }*/
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

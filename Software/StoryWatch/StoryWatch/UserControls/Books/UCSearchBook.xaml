@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoryWatch.UserControls.Books"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Lavender" Loaded="UserControl_Loaded">
+             d:DesignHeight="450" d:DesignWidth="800" Background="PowderBlue" Loaded="UserControl_Loaded">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" TextChanged="txtSearch_TextChanged" Width="200" Height="25" Margin="20" Text="Search books by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
@@ -14,7 +14,7 @@
             <Button  HorizontalAlignment="Right" x:Name="btnBooksHome" Click="btnBooksHome_Click" Content="Books home"  Width="80" Height="25" Margin="20" FontWeight="Bold"></Button>
         </DockPanel>
         <ScrollViewer>
-            <ListBox x:Name="lbResults" Background="Lavender" SelectionChanged="lbResults_SelectionChangedAsync">
+            <ListBox x:Name="lbResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChangedAsync">
             </ListBox>
         </ScrollViewer>
     </DockPanel>
