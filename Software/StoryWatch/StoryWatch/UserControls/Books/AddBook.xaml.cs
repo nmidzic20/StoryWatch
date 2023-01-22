@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
 using EntitiesLayer.Entities;
+using IGDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace StoryWatch.UserControls.Books
@@ -25,34 +27,33 @@ namespace StoryWatch.UserControls.Books
     {
         public Book currentBook;
         public BookService bookService;
-        public string title;
-        public ListCategoryServices listCategoryServices;
-        public AddBook(string Title)
+        public IListCategory listCategory { get; set; }
+        public AddBook(IListCategory ListCategory)
         {
             InitializeComponent();
             bookService = new BookService();
-            title = Title;
-            listCategoryServices = new ListCategoryServices();
+            listCategory = ListCategory;
         }
-        public AddBook(Book book, string Title)
+        public AddBook(Book book, IListCategory ListCategory)
         {
             InitializeComponent();
             currentBook = book;
             bookService = new BookService();
-            title = Title;
-            listCategoryServices = new ListCategoryServices(); 
+            listCategory = ListCategory;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTextBoxes();
+            txtID.IsReadOnly = true;
         }
 
         private void LoadTextBoxes()
         {
-            if(currentBook != null)
+            var id = bookService.GetID().Count();
+            if (currentBook != null)
             {
-                txtID.Text =  (currentBook.Id).ToString();
+                txtID.Text =  id.ToString();
                 txtTitle.Text = currentBook.Title;
                 txtSummary.Text = currentBook.Summary;
                 txtAuthor.Text = currentBook.Author;
@@ -61,39 +62,52 @@ namespace StoryWatch.UserControls.Books
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //BookListCategory bc = listCategoryServices.CurrentBookListCategory(title);
 
-            if (int.Parse(txtID.Text) == 0)
-            {
-                MessageBox.Show("ID has to be > 0");
-                return;
-            }
+            var id = bookService.GetID().Count()+6;
 
-            Book newBook = new Book {
-                Id = int.Parse(txtID.Text),
-                Title = txtTitle.Text,
-                Summary = txtSummary.Text,
-                Author = txtAuthor.Text,
-                //BookListCategories = bc //Ovo ne radi ne znam zasto, zbog toga se pojedine knjige ne mogu dodat na listu
-            };
+            if (CheckInput())
+            {
+                Book newBook = new Book
+                {
+                    Id = id,
+                    Title = txtTitle.Text,
+                    Summary = txtSummary.Text,
+                    Author = txtAuthor.Text,
+                };
 
-            //var sameBook = listCategoryServices.CheckForBooksOnCurrentListCategory(title, newBook);
-
-            /*if (sameBook == 1)
-            {
-                MessageBox.Show("Book with this ID on this list already exists!");
-                return;
-            }
-            else if (sameBook == 2)
-            {
-                MessageBox.Show("This book on this list already exists!");
-                return;
-            }
-            else if (sameBook == 0)
-            {
                 bookService.AddBook(newBook);
+
+                BookListItem newBookList = new BookListItem
+                {
+                    Id_BookListCategories = listCategory.Id,
+                    Id_Books = id,
+                    Id_Users = StateManager.LoggedUser.Id
+                };
+
+                bookService.AddBookToList(newBookList);
+
                 Close();
-            }*/
+            }
+        }
+
+        private bool CheckInput()
+        {
+            if(txtTitle.Text.Length > 100) 
+            {
+                MessageBox.Show("Book title lenght needs to be lower than 100!");
+                return false;
+            }
+            else if(txtSummary.Text.Length > 200)
+            {
+                MessageBox.Show("Book summary lenght needs to be lower than 100!");
+                return false;
+            }
+            else if(txtAuthor.Text.Length > 100)
+            {
+                MessageBox.Show("Book author lenght needs to be lower than 100!");
+                return false;
+            }
+            return true;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

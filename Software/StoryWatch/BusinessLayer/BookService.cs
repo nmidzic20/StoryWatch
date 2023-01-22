@@ -73,9 +73,44 @@ namespace BusinessLayer
             return saved;
         }
 
+        public bool AddBookToList(BookListItem newBookList)
+        {
+            bool saved;
+            using (var db = new BookRepository())
+            {
+                var addedBook = db.AddMovieToList(newBookList);
+                saved = addedBook > 0;
+            }
+            return saved;
+        }
+
         public void clearList()
         {
             bookInfo.Clear();
+        }
+
+        public List<Book> GetBooksForList(BookListCategory bookListCategory, User loggedUser)
+        {
+            using(var db = new BookRepository())
+            {
+                return db.GetBooksForListBox(bookListCategory, loggedUser);
+            }
+        }
+
+        public List<Book> GetID()
+        {
+            using(var db = new BookRepository())
+            {
+                return db.GetAll().ToList();
+            }
+        }
+
+        public Book GetBookByTitle(string title)
+        {
+            using(var db = new BookRepository())
+            {
+                return db.GetBookByName(title).Single();
+            }
         }
     }
 }

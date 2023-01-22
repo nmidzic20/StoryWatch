@@ -29,12 +29,12 @@ namespace StoryWatch.UserControls.Books
     public partial class UCAddBook : UserControl
     {
         private BookService bookServices;
-        private BookListCategory bookListCategory = null;
-        public UCAddBook(IListCategory listCategory)
+        public IListCategory listCategory { get; set; }
+        public UCAddBook(IListCategory ListCategory)
         {
             InitializeComponent();
             bookServices = new BookService();
-            this.bookListCategory = listCategory as BookListCategory;
+            listCategory = ListCategory;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -82,7 +82,7 @@ namespace StoryWatch.UserControls.Books
             List<Book> books = bookServices.returnCurrentBookList();
             Book currentBook = books.FirstOrDefault(b => b.Title.Contains(item));
 
-            AddBook addBook = new AddBook(currentBook, bookListCategory.Title);
+            AddBook addBook = new AddBook(currentBook, listCategory);
             addBook.Show();
         }
 
@@ -108,7 +108,7 @@ namespace StoryWatch.UserControls.Books
 
         private void btnAddBookManually_Click(object sender, RoutedEventArgs e)
         {
-            AddBook addBook = new AddBook(bookListCategory.Title);
+            AddBook addBook = new AddBook(listCategory);
             addBook.Show();
         }
     }
