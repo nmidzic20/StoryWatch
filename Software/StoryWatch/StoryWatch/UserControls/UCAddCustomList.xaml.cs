@@ -84,7 +84,30 @@ namespace StoryWatch.UserControls
 
                     GuiManager.CloseContent();
                     break;
-                
+
+                case MediaCategory.Game:
+
+                    var allGameLists = listCategoryServices.GetMovieListCategories();
+                    var gameListId = (allGameLists.Count() != 0) ? allGameLists.Last().Id + 1 : 0;
+
+                    isSuccessful = listCategoryServices.AddGameListCategory(
+                        new GameListCategory
+                        {
+                            Id = gameListId,
+                            Title = txtName.Text,
+                            Color = color
+                        },
+                        StateManager.LoggedUser
+                        );
+
+                    if (isSuccessful == false)
+                    {
+                        MessageBox.Show("Custom list was not added!");
+                    }
+
+                    GuiManager.CloseContent();
+                    break;
+
             }
         }
 

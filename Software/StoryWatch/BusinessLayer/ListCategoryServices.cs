@@ -153,6 +153,7 @@ namespace BusinessLayer
 
             return isSuccessful;
         }
+        
         public bool AddGameListCategory(GameListCategory gameListCategory, User loggedUser)
         {
             bool isSuccessful = false;
