@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using TMDbLib.Objects.Movies;
 using System.Net.Http.Formatting;
 using Newtonsoft.Json;
+using EntitiesLayer;
 
 namespace StoryWatch.UserControls.Books
 {
@@ -27,20 +28,13 @@ namespace StoryWatch.UserControls.Books
     /// </summary>
     public partial class UCAddBook : UserControl
     {
-        private ListCategoryServices listCategoryServices = new ListCategoryServices();
-        private BookService bookServices = new BookService();
-
-        List<Book> bookInfo;
-
-        private string delimiter = " | ID: ";
-
-        HttpClient bookClient = new HttpClient();
-        public const string bookURL = "https://www.googleapis.com/books/v1/volumes/";
-        public UCAddBook()
+        private BookService bookServices;
+        private string title;
+        public UCAddBook(string Title)
         {
             InitializeComponent();
-            bookClient.BaseAddress = new Uri(bookURL);
-            bookInfo = new List<Book>();
+            bookServices = new BookService();
+            title = Title;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -84,49 +78,38 @@ namespace StoryWatch.UserControls.Books
         {
             if (e.AddedItems.Count == 0) return;
 
-            var item = lbResults.SelectedItem.ToString();   
-            var a = bookInfo.FirstOrDefault(b => b.Title.Contains(item));
+            var item = lbResults.SelectedItem.ToString();
+            List<Book> books = bookServices.returnCurrentBookList();
+            Book currentBook = books.FirstOrDefault(b => b.Title.Contains(item));
 
-            MessageBox.Show("Title: " + a.Title + ", Autor: " + a.Author + ", Summary:" + a.Summary);
+            AddBook addBook = new AddBook(currentBook, title);
+            addBook.Show();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             lbResults.Items.Clear();
-            bookInfo.Clear();
-            if (string.IsNullOrEmpty(txtSearchKeyword.Text))
+            bookServices.clearList();
+            if (string.IsNullOrEmpty(txtSearchKeyword.Text) || txtSearchKeyword.Text == "Search books by keyword")
                 return;
 
             lbResults.Items.Clear();
 
-            HttpResponseMessage response;
-            string urlParameters = "?q=" + txtSearchKeyword.Text;
-            response = bookClient.GetAsync(urlParameters).Result;
-
-            if (response.IsSuccessStatusCode)
+            foreach(var book in bookServices.findBookByName(txtSearchKeyword.Text))
             {
-                JObject bookJson = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-                JArray books = (JArray)bookJson["items"];
-                foreach (var book in books)
-                {
-                    JObject volumeInfoObject = (JObject)book["volumeInfo"];
-                    JArray autor = (JArray)volumeInfoObject["authors"];
-                    string title = (string)volumeInfoObject["title"];
-                    string summary = (string)volumeInfoObject["description"];
-                    if (autor != null)
-                    {
-                        string author = (string)autor[0];
-                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author };
-                        bookInfo.Add(bookAdd);
-                    }
-                    else
-                    {
-                        Book bookAdd = new Book { Title = title, Summary = summary };
-                        bookInfo.Add(bookAdd);
-                    }
-                    lbResults.Items.Add((string)volumeInfoObject["title"]);
-                }
+                lbResults.Items.Add(book.Title);
             }
+        }
+
+        private void btnBooksHome_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
+        }
+
+        private void btnAddBookManually_Click(object sender, RoutedEventArgs e)
+        {
+            AddBook addBook = new AddBook(title);
+            addBook.Show();
         }
     }
 }

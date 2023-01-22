@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
+using EntitiesLayer.Entities;
 using StoryWatch.UserControls.Books;
 using StoryWatch.UserControls.Games;
 using System;
@@ -24,14 +25,33 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class MediaListBox : UserControl
     {
+        string Title;
         public MediaListBox(string title, string colorString)
         {
             InitializeComponent();
 
             lblTitle.Content = title;
+            Title = title;
 
             Color color = (Color)ColorConverter.ConvertFromString(colorString);
             header.Background = new SolidColorBrush(color);
+        }
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            loadUserControl();
+        }
+
+        private void loadUserControl()
+        {
+            if (StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
+                ListCategoryServices listCategoryServices = new ListCategoryServices();
+                List<Book> book = listCategoryServices.GetAllBooksForCurrentCategory(Title);
+                foreach (var b in book)
+                {
+                    lbMedia.Items.Add(b.Title);
+                }
+            }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -42,7 +62,7 @@ namespace StoryWatch.UserControls
             }
             else if (StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
-                GuiManager.OpenContent(new UCAddBook());
+                GuiManager.OpenContent(new UCAddBook(Title));
             }
             else
             {
