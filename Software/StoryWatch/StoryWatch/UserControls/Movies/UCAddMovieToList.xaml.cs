@@ -41,13 +41,11 @@ namespace StoryWatch.UserControls.Movies
             btnAdd.Content = "Update";
 
             txtTitle.Text = movieToUpdate.Title;
-            /*
-            txtGenre.Text = movieToUpdate.Genres[0].Name;
-            txtOverview.Text = movieToUpdate.Overview;
-            dtReleaseDate.Text = movieToUpdate.ReleaseDate.ToString();
-            foreach (var country in movieToUpdate.ProductionCountries)
-                txtCountry.Text += country.Name + " ";
-            txtID.Text = movieToUpdate.Id.ToString();*/
+            //txtGenre.Text = movieToUpdate.Genres[0].Name;
+            txtOverview.Text = movieToUpdate.Description;
+            dtReleaseDate.Text = movieToUpdate.ReleaseDate;
+            txtCountry.Text = movieToUpdate.Countries;
+            txtID.Text = movieToUpdate.TMDB_ID;
 
             //TODO - when btn pressed, call movieServices.UpdateMovie -> repo.Update
         }
@@ -56,13 +54,15 @@ namespace StoryWatch.UserControls.Movies
         {
             if (!ValidateMovieInfo()) return;
 
-            var movieId = movieServices.GetAllMovies().Count;
+            var movieId = movieServices.GetAllMovies().Last().Id + 1;
             bool isSuccessful = movieServices.AddMovie(new Movie
             {
                 Id = movieId,
                 Title = txtTitle.Text,
                 Description = txtOverview.Text,
-                TMDB_ID = txtID.Text
+                TMDB_ID = txtID.Text,
+                Countries = txtCountry.Text,
+                ReleaseDate = dtReleaseDate.DisplayDate.ToString()
 
             });
 

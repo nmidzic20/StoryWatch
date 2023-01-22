@@ -147,6 +147,14 @@ namespace DataAccessLayer
                 .IsUnicode(false);
 
             modelBuilder.Entity<Movie>()
+                .Property(e => e.Countries)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Movie>()
+                .Property(e => e.ReleaseDate)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Movie>()
                 .HasMany(e => e.MovieListItems)
                 .WithRequired(e => e.Movy)
                 .HasForeignKey(e => e.Id_Movies);

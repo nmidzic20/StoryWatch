@@ -143,7 +143,10 @@ namespace StoryWatch.UserControls
             this.ucAddMovieToList.txtOverview.Text = selectedMovie.Overview;
             this.ucAddMovieToList.dtReleaseDate.Text = selectedMovie.ReleaseDate.ToString();
             foreach (var country in selectedMovie.ProductionCountries)
-                this.ucAddMovieToList.txtCountry.Text += country.Name + " ";
+            {
+                this.ucAddMovieToList.txtCountry.Text += country.Name;
+                this.ucAddMovieToList.txtCountry.Text += (country == selectedMovie.ProductionCountries.Last()) ? " " : ", ";
+            }
             this.ucAddMovieToList.txtID.Text = selectedMovie.Id.ToString();
 
             GuiManager.CloseContent();
