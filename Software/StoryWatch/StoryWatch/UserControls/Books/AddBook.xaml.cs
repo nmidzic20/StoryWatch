@@ -50,7 +50,7 @@ namespace StoryWatch.UserControls.Books
 
         private void LoadTextBoxes()
         {
-            var id = bookService.GetID().Count();
+            var id = bookService.GetID().Count()+6;
             if (currentBook != null)
             {
                 txtID.Text =  id.ToString();
