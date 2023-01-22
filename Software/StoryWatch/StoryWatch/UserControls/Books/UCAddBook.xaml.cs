@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using TMDbLib.Objects.Movies;
 using System.Net.Http.Formatting;
 using Newtonsoft.Json;
+using EntitiesLayer;
 
 namespace StoryWatch.UserControls.Books
 {
@@ -31,8 +32,6 @@ namespace StoryWatch.UserControls.Books
         private BookService bookServices = new BookService();
 
         List<Book> bookInfo;
-
-        private string delimiter = " | ID: ";
 
         HttpClient bookClient = new HttpClient();
         public const string bookURL = "https://www.googleapis.com/books/v1/volumes/";
@@ -127,6 +126,11 @@ namespace StoryWatch.UserControls.Books
                     lbResults.Items.Add((string)volumeInfoObject["title"]);
                 }
             }
+        }
+
+        private void btnBooksHome_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
         }
     }
 }
