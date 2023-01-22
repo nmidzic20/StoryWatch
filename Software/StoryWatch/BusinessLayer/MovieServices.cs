@@ -57,7 +57,12 @@ namespace BusinessLayer
             using (var repo = new MovieRepository())
             {
                 //check if exists in Movies - if not, add to Movies, if yes, return false
-                EntitiesLayer.Entities.Movie existingMovie = repo.GetMovieByTMDBId(movie.TMDB_ID).FirstOrDefault();
+                //important - this check must be performed only if movie was added from TMDb - if it was
+                //added manually, there is no TMDB ID and nothing to compare
+                EntitiesLayer.Entities.Movie existingMovie = null;
+
+                if (!string.IsNullOrEmpty(movie.TMDB_ID))
+                    existingMovie = repo.GetMovieByTMDBId(movie.TMDB_ID).FirstOrDefault();
 
                 if (existingMovie != null)
                 {

@@ -41,10 +41,13 @@ namespace StoryWatch.UserControls
             {
                 case MediaCategory.Movie:
 
+                    var allMovieLists = listCategoryServices.GetMovieListCategories();
+                    var listMovieId = (allMovieLists.Count() != 0) ? allMovieLists.Last().Id + 1 : 0;
+
                     isSuccessful = listCategoryServices.AddMovieListCategory(
                         new MovieListCategory
                         {
-                            Id = listCategoryServices.GetMovieListCategories().Count,
+                            Id = listMovieId,
                             Title = txtName.Text,
                             Color = color
                         },
@@ -61,10 +64,13 @@ namespace StoryWatch.UserControls
 
                 case MediaCategory.Book:
 
+                    var allBookLists = listCategoryServices.GetMovieListCategories();
+                    var listBookId = (allBookLists.Count() != 0) ? allBookLists.Last().Id + 1 : 0;
+
                     isSuccessful = listCategoryServices.AddBookListCategory(
                         new BookListCategory
                         {
-                            Id = listCategoryServices.GetBookListCategories().Count,
+                            Id = listBookId,
                             Title = txtName.Text,
                             Color = color
                         },

@@ -76,7 +76,7 @@ namespace StoryWatch.UserControls.Movies
                 Description = txtOverview.Text,
                 TMDB_ID = movieToUpdate.TMDB_ID,
                 Countries = txtCountry.Text,
-                ReleaseDate = dtReleaseDate.DisplayDate.ToString()
+                ReleaseDate = dtReleaseDate.Text
 
             };
 
