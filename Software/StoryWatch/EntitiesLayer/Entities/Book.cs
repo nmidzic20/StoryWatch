@@ -23,7 +23,7 @@ namespace EntitiesLayer.Entities
         [StringLength(100)]
         public string Author { get; set; }
 
-        [StringLength(200)]
+        [StringLength(900)]
         public string Summary { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

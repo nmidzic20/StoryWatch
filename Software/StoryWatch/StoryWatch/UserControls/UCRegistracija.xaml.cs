@@ -34,8 +34,12 @@ namespace StoryWatch.UserControls
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
+            var allUsers = userServices.GetAll().ToList();
+            var id = (allUsers.Count() != 0) ? allUsers.Last().Id + 1 : 0;
+
             User user = new User()
             {
+                Id = id,
                 Username = txtUsername.Text,
                 Password = txtPassword1.Password,
             };

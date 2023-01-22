@@ -54,7 +54,9 @@ namespace StoryWatch.UserControls.Movies
         {
             if (!ValidateMovieInfo()) return;
 
-            var movieId = movieServices.GetAllMovies().Last().Id + 1;
+            var allMovies = movieServices.GetAllMovies();
+            var movieId = (allMovies.Count() != 0) ? allMovies.Last().Id + 1 : 0;
+
             bool isSuccessful = movieServices.AddMovie(new Movie
             {
                 Id = movieId,
