@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMDbLib.Objects.Movies;
 
 namespace StoryWatch.UserControls.Movies
 {
@@ -23,9 +24,9 @@ namespace StoryWatch.UserControls.Movies
     public partial class UCAddMovieToList : UserControl
     {
         public IListCategory listCategory { get; set; }
-        public Movie SelectedMovieFromSearchTMDB { get; set; }
-
         private MovieServices movieServices = new MovieServices();
+        private bool update = false;
+        private EntitiesLayer.Entities.Movie movieToUpdate = null;
 
         public UCAddMovieToList(IListCategory listCategory)
         {
@@ -33,12 +34,14 @@ namespace StoryWatch.UserControls.Movies
             this.listCategory = listCategory;
         }
 
-        public UCAddMovieToList(IListCategory listCategory, EntitiesLayer.Entities.Movie movieToUpdate)
+        public UCAddMovieToList(IListCategory listCategory, EntitiesLayer.Entities.Movie movie)
         {
             InitializeComponent();
             this.listCategory = listCategory;
 
             btnAdd.Content = "Update";
+            update = true;
+            movieToUpdate = movie;
 
             txtTitle.Text = movieToUpdate.Title;
             //txtGenre.Text = movieToUpdate.Genres[0].Name;
@@ -54,10 +57,43 @@ namespace StoryWatch.UserControls.Movies
         {
             if (!ValidateMovieInfo()) return;
 
+            if (update)
+            {
+                UpdateMovie();
+            }
+            else
+            {
+                AddMovie();
+            }
+        }
+
+        private void UpdateMovie()
+        {
+            var movie = new EntitiesLayer.Entities.Movie
+            {
+                Id = movieToUpdate.Id,
+                Title = txtTitle.Text,
+                Description = txtOverview.Text,
+                TMDB_ID = movieToUpdate.TMDB_ID,
+                Countries = txtCountry.Text,
+                ReleaseDate = dtReleaseDate.DisplayDate.ToString()
+
+            };
+
+            int isSuccessful = movieServices.UpdateMovie(movie);
+            if (isSuccessful != 0)
+                GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
+            else
+                MessageBox.Show("Update failed");
+
+        }
+
+        private void AddMovie()
+        {
             var allMovies = movieServices.GetAllMovies();
             var movieId = (allMovies.Count() != 0) ? allMovies.Last().Id + 1 : 0;
 
-            bool isSuccessful = movieServices.AddMovie(new Movie
+            bool isSuccessful = movieServices.AddMovie(new EntitiesLayer.Entities.Movie
             {
                 Id = movieId,
                 Title = txtTitle.Text,

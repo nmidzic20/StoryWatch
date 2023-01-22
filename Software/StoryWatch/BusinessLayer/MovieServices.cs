@@ -99,6 +99,14 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
+        public int UpdateMovie(EntitiesLayer.Entities.Movie movie)
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.Update(movie);
+            }
+        }
+
         public int DeleteMovie(EntitiesLayer.Entities.Movie movie)
         {
             using (var repo = new MovieRepository())
@@ -164,6 +172,6 @@ namespace BusinessLayer
                 return null;
         }
 
-      
+     
     }
 }

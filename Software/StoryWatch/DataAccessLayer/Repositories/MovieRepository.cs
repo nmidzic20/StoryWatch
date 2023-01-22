@@ -63,5 +63,23 @@ namespace DataAccessLayer.Repositories
 
             return movies;
         }
+
+        public int Update(Movie entity, bool saveChanges = true)
+        {
+            var movie = Entities.SingleOrDefault(e => e.Id == entity.Id);
+            movie.Title = entity.Title;
+            movie.Description = entity.Description;
+            movie.ReleaseDate = entity.ReleaseDate;
+            movie.Countries = entity.Countries;
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
