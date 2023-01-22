@@ -42,7 +42,8 @@ namespace StoryWatch.UserControls.Movies
             {
                 Id = movieId,
                 Title = txtTitle.Text,
-                Description = txtOverview.Text
+                Description = txtOverview.Text,
+                //TMDB_ID = int.Parse(txtID.Text)
 
             });
 

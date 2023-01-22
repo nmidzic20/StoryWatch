@@ -49,9 +49,9 @@ namespace BusinessLayer
             using (var repo = new MovieRepository())
             {
                 //check if exists in Movies - if not, add to Movies, if yes, return false
-                EntitiesLayer.Entities.Movie m = null;//repo.GetMovie(movie.Id);
+                EntitiesLayer.Entities.Movie existingMovie = null;// repo.GetMovieByTMDBId(movie.Title).Single();
 
-                if (m != null)
+                if (existingMovie != null)
                 {
                     isSuccessful = false;
                 }

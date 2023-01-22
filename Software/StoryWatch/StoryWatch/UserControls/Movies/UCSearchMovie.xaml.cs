@@ -123,6 +123,8 @@ namespace StoryWatch.UserControls
             int idInt;
             Int32.TryParse(id, out idInt);*/
 
+            if (dgResults.SelectedItem == null) return;
+
             var item = dgResults.SelectedItem as TMDbLib.Objects.Search.SearchMovie;
             var movieTMDbId = item.Id;
 
@@ -148,7 +150,8 @@ namespace StoryWatch.UserControls
             this.ucAddMovieToList.txtGenre.Text = selectedMovie.Genres[0].Name;
             this.ucAddMovieToList.txtOverview.Text = selectedMovie.Overview;
             this.ucAddMovieToList.dtReleaseDate.Text = selectedMovie.ReleaseDate.ToString();
-            this.ucAddMovieToList.txtCountry.Text = selectedMovie.ProductionCountries[0].Name;
+            foreach (var country in selectedMovie.ProductionCountries)
+                this.ucAddMovieToList.txtCountry.Text += country.Name + " ";
             this.ucAddMovieToList.txtID.Text = selectedMovie.Id.ToString();
 
             GuiManager.CloseContent();
