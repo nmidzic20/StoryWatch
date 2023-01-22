@@ -133,5 +133,12 @@ namespace BusinessLayer
                 return isSuccessful;
             }
         }
+        public int UpdateBook(Book book)
+        {
+            using (var db = new BookRepository())
+            {
+                return db.Update(book);
+            }
+        }
     }
 }

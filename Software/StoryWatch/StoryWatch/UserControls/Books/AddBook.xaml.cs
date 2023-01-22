@@ -28,6 +28,7 @@ namespace StoryWatch.UserControls.Books
         public Book currentBook;
         public BookService bookService;
         public IListCategory listCategory { get; set; }
+        public bool update;
         public AddBook(IListCategory ListCategory)
         {
             InitializeComponent();
@@ -42,6 +43,15 @@ namespace StoryWatch.UserControls.Books
             listCategory = ListCategory;
         }
 
+        public AddBook(Book book, IListCategory ListCategory, bool Update)
+        {
+            InitializeComponent();
+            update = Update;
+            currentBook = book;
+            bookService = new BookService();
+            listCategory = ListCategory;
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTextBoxes();
@@ -50,9 +60,15 @@ namespace StoryWatch.UserControls.Books
 
         private void LoadTextBoxes()
         {
+            var allBooks = bookService.GetAll().ToList();
+            var id = (allBooks.Count() != 0) ? allBooks.Last().Id + 1 : 0;
+
             if (currentBook != null)
             {
-                txtID.Text = currentBook.Id.ToString();
+                if (update)
+                    txtID.Text = currentBook.Id.ToString();
+                else
+                    txtID.Text = id.ToString();
                 txtTitle.Text = currentBook.Title;
                 txtSummary.Text = currentBook.Summary;
                 txtAuthor.Text = currentBook.Author;
@@ -60,6 +76,18 @@ namespace StoryWatch.UserControls.Books
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (update) 
+            {
+                UpdateBook();
+            }
+            else
+            {
+                AddNewBook();
+            }
+        }
+
+        private void AddNewBook()
         {
             var allBooks = bookService.GetAll().ToList();
 
@@ -87,7 +115,25 @@ namespace StoryWatch.UserControls.Books
                 bookService.AddBookToList(newBookList);
 
                 Close();
+                GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
             }
+        }
+
+        private void UpdateBook()
+        {
+            Book updateBook = new Book
+            {
+                Id = currentBook.Id,
+                Title = txtTitle.Text,
+                Summary = txtSummary.Text,
+                Author = txtAuthor.Text,
+            };
+            var update = bookService.UpdateBook(updateBook);
+
+            if (update == 0)
+                MessageBox.Show("Update failed!");
+            Close();
+            GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
         }
 
         private bool CheckInput()

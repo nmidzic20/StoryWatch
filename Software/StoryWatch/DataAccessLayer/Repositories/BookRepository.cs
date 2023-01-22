@@ -46,5 +46,14 @@ namespace DataAccessLayer.Repositories
             Context.BookListItems.Remove(bookListItem);
             return Context.SaveChanges();
         }
+
+        public int Update(Book updateBook)
+        {
+            Book book = Entities.SingleOrDefault(e => e.Id == updateBook.Id);
+            book.Title = updateBook.Title;
+            book.Author = updateBook.Author;
+            book.Summary = updateBook.Summary;
+            return SaveChanges();
+        }
     }
 }

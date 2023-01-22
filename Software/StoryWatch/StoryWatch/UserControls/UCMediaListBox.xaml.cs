@@ -133,6 +133,15 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCAddMovieToList(listCategory, movie));
                 }
             }
+            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
+                if(btn.DataContext is Media)
+                {
+                    Book selectedBook = btn.DataContext as Book;
+                    AddBook addBook = new AddBook(selectedBook, listCategory, true);
+                    addBook.Show();
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
