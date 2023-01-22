@@ -97,7 +97,7 @@ namespace BusinessLayer
             }
         }
 
-        public List<Book> GetID()
+        public List<Book> GetAll()
         {
             using(var db = new BookRepository())
             {

@@ -16,8 +16,20 @@
         <ScrollViewer>
             <DataGrid AutoGenerateColumns="False" x:Name="dgResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChangedAsync">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Title}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Title}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Overview" Binding="{Binding Overview}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

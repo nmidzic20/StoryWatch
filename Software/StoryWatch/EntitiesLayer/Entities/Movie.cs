@@ -5,7 +5,7 @@ namespace EntitiesLayer.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class Movie
+    public partial class Movie : Media
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Movie()
@@ -27,7 +27,13 @@ namespace EntitiesLayer.Entities
         public string Language { get; set; }
 
         [StringLength(100)]
-        public string Director { get; set; }
+        public string TMDB_ID { get; set; }
+
+        [StringLength(100)]
+        public string Countries { get; set; }
+
+        [StringLength(100)]
+        public string ReleaseDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MovieListItem> MovieListItems { get; set; }

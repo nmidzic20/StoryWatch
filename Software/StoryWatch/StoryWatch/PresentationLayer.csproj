@@ -153,9 +153,6 @@
     <Compile Include="UserControls\Movies\UCAddMovieToList.xaml.cs">
       <DependentUpon>UCAddMovieToList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Movies\UCMovieInfo.xaml.cs">
-      <DependentUpon>UCMovieInfo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UCMediaListBox.xaml.cs">
       <DependentUpon>UCMediaListBox.xaml</DependentUpon>
     </Compile>
@@ -202,10 +199,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Movies\UCAddMovieToList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Movies\UCMovieInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
