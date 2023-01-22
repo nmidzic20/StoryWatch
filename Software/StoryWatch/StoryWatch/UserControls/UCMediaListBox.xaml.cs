@@ -50,6 +50,7 @@ namespace StoryWatch.UserControls
                     foreach (var movie in movies)
                     {
                         lbMedia.Items.Add(movie);
+                        AddButtons();
                     }
 
                     break;
@@ -60,11 +61,18 @@ namespace StoryWatch.UserControls
                     var books = bookServices.GetBooksForList(listCategory as BookListCategory, StateManager.LoggedUser);
                     foreach (var book in books)
                     {
-                            lbMedia.Items.Add(book.Title);
+                        lbMedia.Items.Add(book.Title);
+                        AddButtons();
+
                     }
                     break;
                 }
             }
+        }
+
+        private void AddButtons()
+        {
+
         }
 
         private void ModifyAppearance(IListCategory lc)
