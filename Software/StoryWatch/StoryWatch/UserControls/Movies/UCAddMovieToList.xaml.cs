@@ -33,6 +33,25 @@ namespace StoryWatch.UserControls.Movies
             this.listCategory = listCategory;
         }
 
+        public UCAddMovieToList(IListCategory listCategory, EntitiesLayer.Entities.Movie movieToUpdate)
+        {
+            InitializeComponent();
+            this.listCategory = listCategory;
+
+            btnAdd.Content = "Update";
+
+            txtTitle.Text = movieToUpdate.Title;
+            /*
+            txtGenre.Text = movieToUpdate.Genres[0].Name;
+            txtOverview.Text = movieToUpdate.Overview;
+            dtReleaseDate.Text = movieToUpdate.ReleaseDate.ToString();
+            foreach (var country in movieToUpdate.ProductionCountries)
+                txtCountry.Text += country.Name + " ";
+            txtID.Text = movieToUpdate.Id.ToString();*/
+
+            //TODO - when btn pressed, call movieServices.UpdateMovie -> repo.Update
+        }
+
         private void AddMovie(object sender, RoutedEventArgs e)
         {
             if (!ValidateMovieInfo()) return;

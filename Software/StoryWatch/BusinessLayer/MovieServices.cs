@@ -99,6 +99,14 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
+        public int DeleteMovie(EntitiesLayer.Entities.Movie movie)
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.Delete(movie);
+            }
+        }
+
         public async Task<TMDbLib.Objects.Movies.Movie> GetMovieInfoAsync(int movieTMDBid)
         {
             TMDbClient client = new TMDbClient(apiKey);
@@ -156,5 +164,6 @@ namespace BusinessLayer
                 return null;
         }
 
+      
     }
 }

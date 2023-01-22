@@ -1,11 +1,13 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
 using EntitiesLayer.Entities;
+using Goodreads.Models.Response;
 using StoryWatch.UserControls.Books;
 using StoryWatch.UserControls.Games;
 using StoryWatch.UserControls.Movies;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMDbLib.Objects.Movies;
 
 namespace StoryWatch.UserControls
 {
@@ -27,6 +30,7 @@ namespace StoryWatch.UserControls
     public partial class MediaListBox : UserControl
     {
         public IListCategory listCategory { get; set; }
+        public ObservableCollection<Media> MediaItems = new ObservableCollection<Media>();
 
         public MediaListBox(IListCategory lc)
         {
@@ -49,8 +53,8 @@ namespace StoryWatch.UserControls
 
                     foreach (var movie in movies)
                     {
-                        lbMedia.Items.Add(movie);
-                        AddButtons();
+                        MediaItems.Add(movie);
+                        //lbMedia.Items.Add(movie);
                     }
 
                     break;
@@ -61,19 +65,18 @@ namespace StoryWatch.UserControls
                     var books = bookServices.GetBooksForList(listCategory as BookListCategory, StateManager.LoggedUser);
                     foreach (var book in books)
                     {
-                        lbMedia.Items.Add(book.Title);
-                        AddButtons();
-
+                        MediaItems.Add(book);
+                        //lbMedia.Items.Add(book.Title);
                     }
                     break;
                 }
             }
-        }
 
-        private void AddButtons()
-        {
+            lbMedia.DataContext = MediaItems;
 
         }
+
+       
 
         private void ModifyAppearance(IListCategory lc)
         {
@@ -104,14 +107,48 @@ namespace StoryWatch.UserControls
 
         private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
+            if (lbMedia.SelectedItem == null)
+                return;
+
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
             {
-                /*var movieServices = new MovieServices();
-                var movie = await movieServices.GetMovieInfoAsync(0);
-                MessageBox.Show(movie.Title + " " + movie.Tagline + " ");*/
+                var selectedMovie = lbMedia.SelectedItem as EntitiesLayer.Entities.Movie;
+                var movieServices = new MovieServices();
+                //var movie = await movieServices.GetMovieInfoAsync(int.Parse(selectedMovie.TMDB_ID));
+                //MessageBox.Show(movie.Title + " " + movie.Tagline + " ");
             }
             else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
+            }
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
+            {
+                if (btn.DataContext is Media)
+                {
+                    EntitiesLayer.Entities.Movie movie = (EntitiesLayer.Entities.Movie) btn.DataContext;
+                    GuiManager.OpenContent(new UCAddMovieToList(listCategory, movie));
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
+            {
+                if (btn.DataContext is Media)
+                {
+                    EntitiesLayer.Entities.Movie movie = (EntitiesLayer.Entities.Movie)btn.DataContext;
+                    var movieServices = new MovieServices();
+                    movieServices.DeleteMovie(movie);
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Movie));
+                }
             }
         }
     }
