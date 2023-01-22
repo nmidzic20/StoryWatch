@@ -80,14 +80,16 @@ namespace StoryWatch.UserControls.Books
             List<Book> books = bookServices.returnCurrentBookList();
             Book currentBook = books.FirstOrDefault(b => b.Title.Contains(item));
 
-            MessageBox.Show("Title: " + currentBook.Title + ", Autor: " + currentBook.Author + ", Summary:" + currentBook.Summary);
+            AddBook addBook = new AddBook(currentBook);
+            addBook.Show();
+            //MessageBox.Show("Title: " + currentBook.Title + ", Autor: " + currentBook.Author + ", Summary:" + currentBook.Summary);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             lbResults.Items.Clear();
             bookServices.clearList();
-            if (string.IsNullOrEmpty(txtSearchKeyword.Text))
+            if (string.IsNullOrEmpty(txtSearchKeyword.Text) || txtSearchKeyword.Text == "Search books by keyword")
                 return;
 
             lbResults.Items.Clear();
@@ -101,6 +103,12 @@ namespace StoryWatch.UserControls.Books
         private void btnBooksHome_Click(object sender, RoutedEventArgs e)
         {
             GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
+        }
+
+        private void btnAddBookManually_Click(object sender, RoutedEventArgs e)
+        {
+            AddBook addBook = new AddBook();
+            addBook.Show();
         }
     }
 }
