@@ -54,6 +54,16 @@ namespace StoryWatch.UserControls
 
                     break;
                 }
+                case MediaCategory.Book:
+                {
+                    BookService bookServices = new BookService();
+                    var books = bookServices.GetBooksForList(listCategory as BookListCategory, StateManager.LoggedUser);
+                    foreach (var book in books)
+                    {
+                            lbMedia.Items.Add(book.Title);
+                    }
+                    break;
+                }
             }
         }
 
@@ -94,7 +104,6 @@ namespace StoryWatch.UserControls
             }
             else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
-
             }
         }
     }
