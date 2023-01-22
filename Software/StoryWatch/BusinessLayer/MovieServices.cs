@@ -43,13 +43,21 @@ namespace BusinessLayer
             }
         }
 
+        public EntitiesLayer.Entities.Movie GetMovieByTMDBId(string TMDB_ID)
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.GetMovieByTMDBId(TMDB_ID).Single();
+            }
+        }
+
         public bool AddMovie(EntitiesLayer.Entities.Movie movie)
         {
             bool isSuccessful = false;
             using (var repo = new MovieRepository())
             {
                 //check if exists in Movies - if not, add to Movies, if yes, return false
-                EntitiesLayer.Entities.Movie existingMovie = null;// repo.GetMovieByTMDBId(movie.Title).Single();
+                EntitiesLayer.Entities.Movie existingMovie = repo.GetMovieByTMDBId(movie.TMDB_ID).Single();
 
                 if (existingMovie != null)
                 {
@@ -72,7 +80,6 @@ namespace BusinessLayer
             bool isSuccessful = false;
             using (var repo = new MovieRepository())
             {
-                //check if exists in Movies - if not, add to Movies, if yes, fetch that Movie
                 //check if exists on that list already, if yes, return false, if no, add to list
                 MovieListItem ml = null;//repo.GetMovieFromList();
 

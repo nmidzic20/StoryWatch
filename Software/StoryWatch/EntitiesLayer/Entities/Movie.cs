@@ -27,7 +27,7 @@ namespace EntitiesLayer.Entities
         public string Language { get; set; }
 
         [StringLength(100)]
-        public string Director { get; set; }
+        public string TMDB_ID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MovieListItem> MovieListItems { get; set; }

@@ -143,7 +143,7 @@ namespace DataAccessLayer
                 .IsUnicode(false);
 
             modelBuilder.Entity<Movie>()
-                .Property(e => e.Director)
+                .Property(e => e.TMDB_ID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Movie>()

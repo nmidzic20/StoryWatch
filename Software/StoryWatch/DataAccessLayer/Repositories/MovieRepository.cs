@@ -31,6 +31,24 @@ namespace DataAccessLayer.Repositories
             return query;
         }
 
+        public IQueryable<Movie> GetMovieByTMDBId(string TMDB_ID)
+        {
+            var query = from m in Entities
+                        where m.TMDB_ID == TMDB_ID
+                        select m;
+
+            return query;
+        }
+
+        public IQueryable<Movie> GetMovieById(int id)
+        {
+            var query = from m in Entities
+                        where m.Id == id
+                        select m;
+
+            return query;
+        }
+
         public List<Movie> GetMoviesForList(MovieListCategory movieListCategory, User loggedUser)
         {
             //Context.Users.Attach(loggedUser);

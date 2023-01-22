@@ -38,14 +38,20 @@ namespace StoryWatch.UserControls.Movies
             if (!ValidateMovieInfo()) return;
 
             var movieId = movieServices.GetAllMovies().Count;
-            movieServices.AddMovie(new Movie
+            bool isSuccessful = movieServices.AddMovie(new Movie
             {
                 Id = movieId,
                 Title = txtTitle.Text,
                 Description = txtOverview.Text,
-                //TMDB_ID = int.Parse(txtID.Text)
+                TMDB_ID = txtID.Text
 
             });
+
+            if (!isSuccessful)
+            {
+                MessageBox.Show("This movie is already added from TMDB to database");
+                movieId = movieServices.GetMovieByTMDBId(txtID.Text).Id;
+            }
 
             MovieListItem movie = new MovieListItem
             {
