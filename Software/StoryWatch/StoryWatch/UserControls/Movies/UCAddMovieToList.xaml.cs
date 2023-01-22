@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TMDbLib.Objects.Movies;
 
 namespace StoryWatch.UserControls.Movies
 {
@@ -23,9 +24,9 @@ namespace StoryWatch.UserControls.Movies
     public partial class UCAddMovieToList : UserControl
     {
         public IListCategory listCategory { get; set; }
-        public Movie SelectedMovieFromSearchTMDB { get; set; }
-
         private MovieServices movieServices = new MovieServices();
+        private bool update = false;
+        private EntitiesLayer.Entities.Movie movieToUpdate = null;
 
         public UCAddMovieToList(IListCategory listCategory)
         {
@@ -33,18 +34,81 @@ namespace StoryWatch.UserControls.Movies
             this.listCategory = listCategory;
         }
 
+        public UCAddMovieToList(IListCategory listCategory, EntitiesLayer.Entities.Movie movie)
+        {
+            InitializeComponent();
+            this.listCategory = listCategory;
+
+            btnAdd.Content = "Update";
+            update = true;
+            movieToUpdate = movie;
+
+            txtTitle.Text = movieToUpdate.Title;
+            //txtGenre.Text = movieToUpdate.Genres[0].Name;
+            txtOverview.Text = movieToUpdate.Description;
+            dtReleaseDate.Text = movieToUpdate.ReleaseDate;
+            txtCountry.Text = movieToUpdate.Countries;
+            txtID.Text = movieToUpdate.TMDB_ID;
+
+            //TODO - when btn pressed, call movieServices.UpdateMovie -> repo.Update
+        }
+
         private void AddMovie(object sender, RoutedEventArgs e)
         {
             if (!ValidateMovieInfo()) return;
 
-            var movieId = movieServices.GetAllMovies().Count;
-            movieServices.AddMovie(new Movie
+            if (update)
+            {
+                UpdateMovie();
+            }
+            else
+            {
+                AddMovie();
+            }
+        }
+
+        private void UpdateMovie()
+        {
+            var movie = new EntitiesLayer.Entities.Movie
+            {
+                Id = movieToUpdate.Id,
+                Title = txtTitle.Text,
+                Description = txtOverview.Text,
+                TMDB_ID = movieToUpdate.TMDB_ID,
+                Countries = txtCountry.Text,
+                ReleaseDate = dtReleaseDate.Text
+
+            };
+
+            int isSuccessful = movieServices.UpdateMovie(movie);
+            if (isSuccessful != 0)
+                GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
+            else
+                MessageBox.Show("Update failed");
+
+        }
+
+        private void AddMovie()
+        {
+            var allMovies = movieServices.GetAllMovies();
+            var movieId = (allMovies.Count() != 0) ? allMovies.Last().Id + 1 : 0;
+
+            bool isSuccessful = movieServices.AddMovie(new EntitiesLayer.Entities.Movie
             {
                 Id = movieId,
                 Title = txtTitle.Text,
-                Description = txtOverview.Text
+                Description = txtOverview.Text,
+                TMDB_ID = txtID.Text,
+                Countries = txtCountry.Text,
+                ReleaseDate = dtReleaseDate.DisplayDate.ToString()
 
             });
+
+            if (!isSuccessful)
+            {
+                //MessageBox.Show("This movie is already added from TMDB to database");
+                movieId = movieServices.GetMovieByTMDBId(txtID.Text).Id;
+            }
 
             MovieListItem movie = new MovieListItem
             {
@@ -52,9 +116,12 @@ namespace StoryWatch.UserControls.Movies
                 Id_Movies = movieId,
                 Id_MovieListCategories = this.listCategory.Id
             };
-            movieServices.AddMovieToList(movie);
+            bool movieAddedToList = movieServices.AddMovieToList(movie, listCategory as MovieListCategory, StateManager.LoggedUser);
 
-            GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
+            if (!movieAddedToList)
+                MessageBox.Show("This movie is already added to this list");
+            else
+                GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
         }
 
         private bool ValidateMovieInfo()
@@ -67,8 +134,8 @@ namespace StoryWatch.UserControls.Movies
 
         private void SearchTMDb(object sender, RoutedEventArgs e)
         {
-            //open search form, when search form closes, if any movie chosen, get info and fill textboxes
-            //otherwise do nothing
+            //open search form, when search form closes, if any movie selected, it will fill textboxes in this UC
+            //otherwise if no movie selected, will do nothing
             GuiManager.OpenContent(new UCSearchMovie(this));
         }
 

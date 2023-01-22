@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\Book.ext.cs" />
     <Compile Include="Entities\BookListCategory.cs" />
     <Compile Include="Entities\BookListItem.cs" />
     <Compile Include="Entities\Game.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Entities\GameListItem.cs" />
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\IListCategory.cs" />
+    <Compile Include="Entities\Media.cs" />
     <Compile Include="Entities\Movie.ext.cs" />
     <Compile Include="Entities\MovieListCategory.cs" />
     <Compile Include="Entities\MovieListItem.cs" />

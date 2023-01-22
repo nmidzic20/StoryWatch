@@ -22,10 +22,42 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public int DeleteMovieFromList(MovieListItem movieListItem, bool saveChanges = true)
+        {
+            Context.MovieListItems.Attach(movieListItem);
+            Context.MovieListItems.Remove(movieListItem);
+            if (saveChanges)
+            {
+                return Context.SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public IQueryable<Movie> GetMovieByTitle(string title)
         {
             var query = from m in Entities
                         where m.Title == title
+                        select m;
+
+            return query;
+        }
+
+        public IQueryable<Movie> GetMovieByTMDBId(string TMDB_ID)
+        {
+            var query = from m in Entities
+                        where m.TMDB_ID == TMDB_ID
+                        select m;
+
+            return query;
+        }
+
+        public IQueryable<Movie> GetMovieById(int id)
+        {
+            var query = from m in Entities
+                        where m.Id == id
                         select m;
 
             return query;
@@ -45,5 +77,25 @@ namespace DataAccessLayer.Repositories
 
             return movies;
         }
+
+        public int Update(Movie entity, bool saveChanges = true)
+        {
+            var movie = Entities.SingleOrDefault(e => e.Id == entity.Id);
+            movie.Title = entity.Title;
+            movie.Description = entity.Description;
+            movie.ReleaseDate = entity.ReleaseDate;
+            movie.Countries = entity.Countries;
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        
     }
 }

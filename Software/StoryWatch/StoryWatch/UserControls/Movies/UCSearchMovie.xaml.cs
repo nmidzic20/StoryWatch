@@ -36,7 +36,6 @@ namespace StoryWatch.UserControls
 
         private string placeholderTextCollection = "Search movies by franchise";
         private string placeholderTextKeyword = "Search movies by keyword";
-        private string delimiter = " | ID: ";
 
         public UCSearchMovie(UCAddMovieToList UCAddMovieToList)
         {
@@ -115,13 +114,8 @@ namespace StoryWatch.UserControls
 
         private async void lbResults_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
-            /*if (e.AddedItems.Count == 0) return;
 
-            var item = e.AddedItems[0] as string;
-            var id = item.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries)[1];
-            
-            int idInt;
-            Int32.TryParse(id, out idInt);*/
+            if (dgResults.SelectedItem == null) return;
 
             var item = dgResults.SelectedItem as TMDbLib.Objects.Search.SearchMovie;
             var movieTMDbId = item.Id;
@@ -148,7 +142,11 @@ namespace StoryWatch.UserControls
             this.ucAddMovieToList.txtGenre.Text = selectedMovie.Genres[0].Name;
             this.ucAddMovieToList.txtOverview.Text = selectedMovie.Overview;
             this.ucAddMovieToList.dtReleaseDate.Text = selectedMovie.ReleaseDate.ToString();
-            this.ucAddMovieToList.txtCountry.Text = selectedMovie.ProductionCountries[0].Name;
+            foreach (var country in selectedMovie.ProductionCountries)
+            {
+                this.ucAddMovieToList.txtCountry.Text += country.Name;
+                this.ucAddMovieToList.txtCountry.Text += (country == selectedMovie.ProductionCountries.Last()) ? " " : ", ";
+            }
             this.ucAddMovieToList.txtID.Text = selectedMovie.Id.ToString();
 
             GuiManager.CloseContent();

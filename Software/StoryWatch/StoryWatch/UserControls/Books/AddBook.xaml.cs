@@ -50,10 +50,9 @@ namespace StoryWatch.UserControls.Books
 
         private void LoadTextBoxes()
         {
-            var id = bookService.GetID().Count()+6;
             if (currentBook != null)
             {
-                txtID.Text =  id.ToString();
+                txtID.Text = currentBook.Id.ToString();
                 txtTitle.Text = currentBook.Title;
                 txtSummary.Text = currentBook.Summary;
                 txtAuthor.Text = currentBook.Author;
@@ -62,8 +61,9 @@ namespace StoryWatch.UserControls.Books
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            var allBooks = bookService.GetAll().ToList();
 
-            var id = bookService.GetID().Count()+6;
+            var id = (allBooks.Count() != 0) ? allBooks.Last().Id + 1 : 0;
 
             if (CheckInput())
             {
@@ -94,17 +94,17 @@ namespace StoryWatch.UserControls.Books
         {
             if(txtTitle.Text.Length > 100) 
             {
-                MessageBox.Show("Book title lenght needs to be lower than 100!", "Title length!");
+                MessageBox.Show("Book title length needs to be lower than 100!", "Title length!");
                 return false;
             }
-            else if(txtSummary.Text.Length > 200)
+            else if(txtSummary.Text.Length > 900)
             {
-                MessageBox.Show("Book summary lenght needs to be lower than 100!", "Book length!");
+                MessageBox.Show("Book summary length needs to be lower than 900!", "Book length!");
                 return false;
             }
             else if(txtAuthor.Text.Length > 100)
             {
-                MessageBox.Show("Book author lenght needs to be lower than 100!", "Author length!");
+                MessageBox.Show("Book author length needs to be lower than 100!", "Author length!");
                 return false;
             }
             return true;

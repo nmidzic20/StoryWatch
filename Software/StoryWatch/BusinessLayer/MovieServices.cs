@@ -31,7 +31,7 @@ namespace BusinessLayer
         {
             using (var repo = new MovieRepository())
             {
-                return repo.GetMovieByTitle(title).Single();
+                return repo.GetMovieByTitle(title).FirstOrDefault();
             }
         }
 
@@ -43,15 +43,28 @@ namespace BusinessLayer
             }
         }
 
+        public EntitiesLayer.Entities.Movie GetMovieByTMDBId(string TMDB_ID)
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.GetMovieByTMDBId(TMDB_ID).FirstOrDefault();
+            }
+        }
+
         public bool AddMovie(EntitiesLayer.Entities.Movie movie)
         {
             bool isSuccessful = false;
             using (var repo = new MovieRepository())
             {
                 //check if exists in Movies - if not, add to Movies, if yes, return false
-                EntitiesLayer.Entities.Movie m = null;//repo.GetMovie(movie.Id);
+                //important - this check must be performed only if movie was added from TMDb - if it was
+                //added manually, there is no TMDB ID and nothing to compare
+                EntitiesLayer.Entities.Movie existingMovie = null;
 
-                if (m != null)
+                if (!string.IsNullOrEmpty(movie.TMDB_ID))
+                    existingMovie = repo.GetMovieByTMDBId(movie.TMDB_ID).FirstOrDefault();
+
+                if (existingMovie != null)
                 {
                     isSuccessful = false;
                 }
@@ -67,16 +80,16 @@ namespace BusinessLayer
 
         }
 
-        public bool AddMovieToList(MovieListItem movieListItem)
+        public bool AddMovieToList(MovieListItem movieListItem, MovieListCategory movieListCategory, User loggedUser)
         {
             bool isSuccessful = false;
             using (var repo = new MovieRepository())
             {
-                //check if exists in Movies - if not, add to Movies, if yes, fetch that Movie
                 //check if exists on that list already, if yes, return false, if no, add to list
-                MovieListItem ml = null;//repo.GetMovieFromList();
+                List<EntitiesLayer.Entities.Movie> movies = repo.GetMoviesForList(movieListCategory,loggedUser).ToList();
+                bool movieExistsOnList = movies.Exists(m => m.Id == movieListItem.Id_Movies);
 
-                if (ml != null)
+                if (movieExistsOnList)
                 {
                     isSuccessful = false;
                 }
@@ -89,6 +102,34 @@ namespace BusinessLayer
             }
 
             return isSuccessful;
+        }
+
+        public int UpdateMovie(EntitiesLayer.Entities.Movie movie)
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.Update(movie);
+            }
+        }
+
+        public bool DeleteMovieFromList(EntitiesLayer.Entities.Movie movie, MovieListCategory movieListCategory, User loggedUser)
+        {
+            bool isSuccessful = false;
+
+            var movieListItem = new MovieListItem
+            {
+                Id_MovieListCategories = movieListCategory.Id,
+                Id_Movies = movie.Id,
+                Id_Users = loggedUser.Id
+            };
+
+            using (var repo = new MovieRepository())
+            {
+                int affectedRows = repo.DeleteMovieFromList(movieListItem);
+                isSuccessful = affectedRows > 0;
+
+                return isSuccessful;
+            }
         }
 
         public async Task<TMDbLib.Objects.Movies.Movie> GetMovieInfoAsync(int movieTMDBid)
@@ -148,5 +189,6 @@ namespace BusinessLayer
                 return null;
         }
 
+     
     }
 }

@@ -6,12 +6,26 @@
              xmlns:local="clr-namespace:StoryWatch.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="260">
-    <StackPanel Background="Lavender" Margin="20,0,20,20">
+    <UserControl.Resources>
+        <DataTemplate x:Key="MediaTemplate">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Path=Title}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Update" x:Name="btnUpdate" Width="80" Click="btnUpdate_Click" Margin="7"/>
+                    <Button Content="Delete" x:Name="btnDelete" Width="80" Click="btnDelete_Click" Margin="7"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <StackPanel Margin="20,0,20,20">
         <DockPanel Height="40" x:Name="header" Width="220">
             <Label x:Name="lblTitle" Content="List title" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left"/>
-            <Button x:Name="btnAdd" Click="btnAdd_Click" Content="+ Add " HorizontalAlignment="Right" Height="30" Margin="0,0,5,0" Background="PowderBlue" FontWeight="Bold"></Button>
+            <Button x:Name="btnAdd" Click="btnAdd_Click" Content="+ Add " HorizontalAlignment="Right" Height="30" Margin="0,0,5,0" FontWeight="Bold"></Button>
         </DockPanel>
-        <ListBox x:Name="lbMedia" Height="180" Width="220" SelectionChanged="lbMedia_SelectionChangedAsync">
+        <ListBox x:Name="lbMedia" Height="180" Width="220" SelectionChanged="lbMedia_SelectionChangedAsync" Background="AliceBlue"
+            IsSynchronizedWithCurrentItem="True"
+            ItemsSource="{Binding}"
+            ItemTemplate="{StaticResource MediaTemplate}">
 
         </ListBox>
     </StackPanel>

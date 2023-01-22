@@ -5,7 +5,7 @@ namespace EntitiesLayer.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class Book
+    public partial class Book : Media
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
@@ -23,7 +23,7 @@ namespace EntitiesLayer.Entities
         [StringLength(100)]
         public string Author { get; set; }
 
-        [StringLength(200)]
+        [StringLength(900)]
         public string Summary { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
