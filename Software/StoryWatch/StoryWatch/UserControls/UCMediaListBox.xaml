@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoryWatch.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="240">
+             d:DesignHeight="250" d:DesignWidth="240" Loaded="UserControl_Loaded">
     <StackPanel Background="Lavender" Margin="20,0,20,20">
         <DockPanel Height="40" x:Name="header" Width="200">
             <Label x:Name="lblTitle" Content="List title" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left"/>

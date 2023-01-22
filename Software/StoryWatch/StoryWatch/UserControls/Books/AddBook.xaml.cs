@@ -25,7 +25,7 @@ namespace StoryWatch.UserControls.Books
     {
         public Book currentBook;
         public BookService bookService;
-        public string title
+        public string title;
         public ListCategoryServices listCategoryServices;
         public AddBook(string Title)
         {
@@ -61,7 +61,13 @@ namespace StoryWatch.UserControls.Books
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            BookListCategory bc = listCategoryServices.CurrentBookListCategory(title);
+            List<BookListCategory> bc = listCategoryServices.CurrentBookListCategory(title);
+
+            if (int.Parse(txtID.Text) == 0)
+            {
+                MessageBox.Show("ID has to be > 0");
+                return;
+            }
 
             Book newBook = new Book {
                 Id = int.Parse(txtID.Text),
@@ -71,9 +77,23 @@ namespace StoryWatch.UserControls.Books
                 BookListCategories = bc
             };
 
-            //Provjeriti da ne postoji knjiga sa istim ID-jem ili istim nazivom istim nazivom na istoj listi
-            bookService.AddBook(newBook);
-            Close();
+            var sameBook = listCategoryServices.CheckForBooksOnCurrentListCategory(title, newBook);
+
+            if (sameBook == 1)
+            {
+                MessageBox.Show("Book with this ID on this list already exists!");
+                return;
+            }
+            else if (sameBook == 2)
+            {
+                MessageBox.Show("This book on this list already exists!");
+                return;
+            }
+            else if (sameBook == 0)
+            {
+                bookService.AddBook(newBook);
+                Close();
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
