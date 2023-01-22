@@ -67,7 +67,6 @@ namespace StoryWatch.UserControls
             Color color = (Color)ColorConverter.ConvertFromString(colorString);
             header.Background = new SolidColorBrush(color);
         }
-
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
@@ -76,7 +75,7 @@ namespace StoryWatch.UserControls
             }
             else if (StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
-                GuiManager.OpenContent(new UCAddBook());
+                GuiManager.OpenContent(new UCAddBook(Title));
             }
             else
             {
