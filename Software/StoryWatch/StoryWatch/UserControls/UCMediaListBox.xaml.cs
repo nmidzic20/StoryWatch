@@ -75,7 +75,7 @@ namespace StoryWatch.UserControls
             }
             else if (StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
-                GuiManager.OpenContent(new UCAddBook(Title));
+                GuiManager.OpenContent(new UCAddBook(this.listCategory));
             }
             else
             {
