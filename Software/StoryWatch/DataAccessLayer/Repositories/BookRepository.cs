@@ -39,5 +39,12 @@ namespace DataAccessLayer.Repositories
 
             return query;
         }
+
+        public int DeleteBookFromList(BookListItem bookListItem)
+        {
+            Context.BookListItems.Attach(bookListItem);
+            Context.BookListItems.Remove(bookListItem);
+            return Context.SaveChanges();
+        }
     }
 }

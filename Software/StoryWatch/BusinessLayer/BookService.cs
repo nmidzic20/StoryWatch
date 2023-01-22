@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using DataAccessLayer.Repositories;
+using TMDbLib.Objects.Movies;
 
 namespace BusinessLayer
 {
@@ -110,6 +111,26 @@ namespace BusinessLayer
             using(var db = new BookRepository())
             {
                 return db.GetBookByName(title).Single();
+            }
+        }
+
+        public bool DeleteBookFromList(Book selectedBook, BookListCategory bookListCategory, User loggedUser)
+        {
+            bool isSuccessful = false;
+
+            var bookListItem = new BookListItem
+            {
+                Id_BookListCategories = bookListCategory.Id,
+                Id_Books = selectedBook.Id,
+                Id_Users = loggedUser.Id
+            };
+
+            using (var db = new BookRepository())
+            {
+                int affectedRows = db.DeleteBookFromList(bookListItem);
+                isSuccessful = affectedRows > 0;
+
+                return isSuccessful;
             }
         }
     }
