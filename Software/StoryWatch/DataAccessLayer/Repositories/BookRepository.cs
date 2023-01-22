@@ -25,7 +25,7 @@ namespace DataAccessLayer.Repositories
             return books;
         }
 
-        public int AddMovieToList(BookListItem bookListItem) 
+        public int AddBookToList(BookListItem bookListItem) 
         {
             Context.BookListItems.Add(bookListItem);
             return Context.SaveChanges();
@@ -38,6 +38,22 @@ namespace DataAccessLayer.Repositories
                         select m;
 
             return query;
+        }
+
+        public int DeleteBookFromList(BookListItem bookListItem)
+        {
+            Context.BookListItems.Attach(bookListItem);
+            Context.BookListItems.Remove(bookListItem);
+            return Context.SaveChanges();
+        }
+
+        public int Update(Book updateBook)
+        {
+            Book book = Entities.SingleOrDefault(e => e.Id == updateBook.Id);
+            book.Title = updateBook.Title;
+            book.Author = updateBook.Author;
+            book.Summary = updateBook.Summary;
+            return SaveChanges();
         }
     }
 }

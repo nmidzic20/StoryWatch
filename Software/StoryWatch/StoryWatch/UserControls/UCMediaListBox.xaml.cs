@@ -1,7 +1,6 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
 using EntitiesLayer.Entities;
-using Goodreads.Models.Response;
 using StoryWatch.UserControls.Books;
 using StoryWatch.UserControls.Games;
 using StoryWatch.UserControls.Movies;
@@ -134,6 +133,15 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCAddMovieToList(listCategory, movie));
                 }
             }
+            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
+                if(btn.DataContext is Media)
+                {
+                    Book selectedBook = btn.DataContext as Book;
+                    AddBook addBook = new AddBook(selectedBook, listCategory, true);
+                    addBook.Show();
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -148,6 +156,16 @@ namespace StoryWatch.UserControls
                     var movieServices = new MovieServices();
                     movieServices.DeleteMovieFromList(movie, listCategory as MovieListCategory, StateManager.LoggedUser);
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Movie));
+                }
+            }
+            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
+                if (btn.DataContext is Media)
+                {
+                    Book selectedBook = btn.DataContext as Book;
+                    BookService bookServices = new BookService();
+                    bookServices.DeleteBookFromList(selectedBook, listCategory as BookListCategory, StateManager.LoggedUser);
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
             }
         }

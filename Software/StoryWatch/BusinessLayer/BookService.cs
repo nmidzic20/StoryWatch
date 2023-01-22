@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using DataAccessLayer.Repositories;
+using TMDbLib.Objects.Movies;
 
 namespace BusinessLayer
 {
@@ -62,24 +63,72 @@ namespace BusinessLayer
             return bookInfo;
         }
 
-        public bool AddBook(Book book)
+        public Book AddBook(Book book)
         {
             bool saved;
             using(var db = new BookRepository())
             {
-                var addedBook = db.Add(book);
-                saved = addedBook > 0;
+                List<Book> addBook = db.GetAll().ToList();
+                Book foundBookTitle = addBook.FirstOrDefault(b => b.Title == book.Title);
+                Book foundBookAuthor = addBook.FirstOrDefault(b => b.Author == book.Author);
+                Book foundBookSummary = addBook.FirstOrDefault(b => b.Summary == book.Summary);
+
+                if (foundBookTitle != null)
+                {
+                    if (foundBookAuthor != null || foundBookSummary != null)
+                        return foundBookTitle;
+                }
+                else if (foundBookAuthor != null)
+                {
+                    if(foundBookTitle != null || foundBookSummary != null)
+                        return foundBookTitle;
+                }
+                else if(foundBookSummary != null)
+                {
+                    if(foundBookTitle != null || foundBookAuthor != null)
+                        return foundBookTitle;
+                }
+                else
+                {
+                    var addedBook = db.Add(book);
+                    saved = addedBook > 0;
+                    return null;
+                }
             }
-            return saved;
+            return null;
         }
 
-        public bool AddBookToList(BookListItem newBookList)
+        public bool AddBookToList(Book book, BookListItem newBookList, BookListCategory bookListCategory, User loggedUser)
         {
-            bool saved;
+            bool saved = false;
             using (var db = new BookRepository())
             {
-                var addedBook = db.AddMovieToList(newBookList);
-                saved = addedBook > 0;
+                List<Book> books = db.GetBooksForListBox(bookListCategory, loggedUser).ToList();
+                Book bookTitleExistsOnList = books.FirstOrDefault(b => b.Title == book.Title);
+                Book bookAuthorExistsOnList = books.FirstOrDefault(b => b.Author == book.Author);
+                Book bookSummaryExistsOnList = books.FirstOrDefault(b => b.Summary == book.Summary);
+
+                if (bookTitleExistsOnList != null)
+                {
+                    if (bookAuthorExistsOnList != null || bookSummaryExistsOnList != null)
+                        saved = false;
+                    
+                }
+                else if (bookAuthorExistsOnList != null)
+                {
+                    if(bookTitleExistsOnList != null || bookSummaryExistsOnList != null)
+                        saved = false;
+                }
+                else if (bookSummaryExistsOnList != null)
+                {
+                    if(bookTitleExistsOnList != null || bookAuthorExistsOnList != null)
+                        saved = false;
+                }
+                else
+                {
+                    int affectedRows = db.AddBookToList(newBookList);
+                    saved = affectedRows > 0;
+                }
             }
             return saved;
         }
@@ -110,6 +159,33 @@ namespace BusinessLayer
             using(var db = new BookRepository())
             {
                 return db.GetBookByName(title).Single();
+            }
+        }
+
+        public bool DeleteBookFromList(Book selectedBook, BookListCategory bookListCategory, User loggedUser)
+        {
+            bool isSuccessful = false;
+
+            var bookListItem = new BookListItem
+            {
+                Id_BookListCategories = bookListCategory.Id,
+                Id_Books = selectedBook.Id,
+                Id_Users = loggedUser.Id
+            };
+
+            using (var db = new BookRepository())
+            {
+                int affectedRows = db.DeleteBookFromList(bookListItem);
+                isSuccessful = affectedRows > 0;
+
+                return isSuccessful;
+            }
+        }
+        public int UpdateBook(Book book)
+        {
+            using (var db = new BookRepository())
+            {
+                return db.Update(book);
             }
         }
     }
