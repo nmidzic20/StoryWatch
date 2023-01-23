@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using EntitiesLayer;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -63,6 +64,11 @@ namespace StoryWatch.UserControls.Games
             txtSearch.FontStyle = FontStyles.Italic;
             txtSearch.FontWeight = FontWeights.Bold;
             txtSearch.Foreground = new SolidColorBrush(Colors.SlateGray);
+        }
+
+        private void btnBooksHome_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
         }
     }
 }
