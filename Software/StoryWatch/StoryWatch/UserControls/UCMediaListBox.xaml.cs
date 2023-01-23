@@ -201,8 +201,10 @@ namespace StoryWatch.UserControls
                 DataObject dragData = new DataObject("myFormat", mediaItem);
                 DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
 
+                //remove that media from list when the drop finalizes (here is a wait from the above line until drop is complete)
                 MediaItems.Remove(mediaItem);
                 listBox.Items.Refresh();
+
             }
         }
 
@@ -237,6 +239,11 @@ namespace StoryWatch.UserControls
                 ListBox listBox = sender as ListBox;
                 MediaItems.Add(mediaItem);
                 listBox.Items.Refresh();
+
+                //TODO update that media, from that list to this list
+                //in case that media already on this list, need to visually undo drop
+
+
             }
         }
     }
