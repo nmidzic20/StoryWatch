@@ -113,8 +113,10 @@ namespace StoryWatch.UserControls
             {
                 var selectedMovie = lbMedia.SelectedItem as EntitiesLayer.Entities.Movie;
                 var movieServices = new MovieServices();
+                //MessageBox.Show(selectedMovie.Title);
                 //var movie = await movieServices.GetMovieInfoAsync(int.Parse(selectedMovie.TMDB_ID));
                 //MessageBox.Show(movie.Title + " " + movie.Tagline + " ");
+                //GuiManager.OpenContent(new MovieInfo());
             }
             else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
@@ -168,6 +170,18 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
             }
+        }
+
+        private void lbMedia_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = ItemsControl.ContainerFromElement(lbMedia, e.OriginalSource as DependencyObject) as ListBoxItem;
+            if (item != null)
+            {
+                //MessageBox.Show(item.Content.ToString());
+                GuiManager.OpenContent(new MovieInfo());
+
+            }
+
         }
     }
 }

@@ -22,7 +22,9 @@
             <Label x:Name="lblTitle" Content="List title" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left"/>
             <Button x:Name="btnAdd" Click="btnAdd_Click" Content="+ Add " HorizontalAlignment="Right" Height="30" Margin="0,0,5,0" FontWeight="Bold"></Button>
         </DockPanel>
-        <ListBox x:Name="lbMedia" Height="180" Width="220" SelectionChanged="lbMedia_SelectionChangedAsync" Background="AliceBlue"
+        <ListBox x:Name="lbMedia" Height="180" Width="220" 
+            SelectionChanged="lbMedia_SelectionChangedAsync" PreviewMouseDown="lbMedia_PreviewMouseDown"
+            Background="AliceBlue"
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding}"
             ItemTemplate="{StaticResource MediaTemplate}">
