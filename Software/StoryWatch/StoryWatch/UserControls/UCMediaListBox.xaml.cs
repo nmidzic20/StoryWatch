@@ -200,6 +200,9 @@ namespace StoryWatch.UserControls
                 // Initialize the drag & drop operation
                 DataObject dragData = new DataObject("myFormat", mediaItem);
                 DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
+
+                MediaItems.Remove(mediaItem);
+                listBox.Items.Refresh();
             }
         }
 
@@ -232,7 +235,6 @@ namespace StoryWatch.UserControls
             {
                 Media mediaItem = e.Data.GetData("myFormat") as Media;
                 ListBox listBox = sender as ListBox;
-                //listBox.Items.Add(contact);
                 MediaItems.Add(mediaItem);
                 listBox.Items.Refresh();
             }
