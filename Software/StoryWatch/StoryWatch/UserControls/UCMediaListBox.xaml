@@ -8,7 +8,7 @@
              d:DesignHeight="250" d:DesignWidth="260">
     <UserControl.Resources>
         <DataTemplate x:Key="MediaTemplate">
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Background="AliceBlue">
                 <TextBlock Text="{Binding Path=Title}"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Update" x:Name="btnUpdate" Width="80" Click="btnUpdate_Click" Margin="7"/>
@@ -25,7 +25,14 @@
         <ListBox x:Name="lbMedia" Height="180" Width="220" SelectionChanged="lbMedia_SelectionChangedAsync" Background="AliceBlue"
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding}"
-            ItemTemplate="{StaticResource MediaTemplate}">
+            ItemTemplate="{StaticResource MediaTemplate}"
+                 
+            PreviewMouseLeftButtonDown="List_PreviewMouseLeftButtonDown" 
+            PreviewMouseMove="List_MouseMove"
+            
+            Drop="DropList_Drop" 
+            DragEnter="DropList_DragEnter" 
+            AllowDrop="True">
 
         </ListBox>
     </StackPanel>

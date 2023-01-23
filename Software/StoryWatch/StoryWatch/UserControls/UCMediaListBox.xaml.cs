@@ -14,11 +14,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+//using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Shell;
 using TMDbLib.Objects.Movies;
 
 namespace StoryWatch.UserControls
@@ -167,6 +169,72 @@ namespace StoryWatch.UserControls
                     bookServices.DeleteBookFromList(selectedBook, listCategory as BookListCategory, StateManager.LoggedUser);
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
+            }
+        }
+      
+        Point startPoint;
+        private void List_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Store the mouse position
+            startPoint = e.GetPosition(null);
+        }
+
+        private void List_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                // Get the dragged ListViewItem
+                ListBox listBox = sender as ListBox;
+                ListBoxItem listBoxItem = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+                if (listBoxItem == null) return;
+
+                // Find the data behind the ListViewItem
+                Media mediaItem = listBox.ItemContainerGenerator.ItemFromContainer(listBoxItem) as Media;
+
+                // Initialize the drag & drop operation
+                DataObject dragData = new DataObject("myFormat", mediaItem);
+                DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
+            }
+        }
+
+        // Helper to search up the VisualTree
+        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        {
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
+        }
+
+        private void DropList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("myFormat") || sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void DropList_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("myFormat"))
+            {
+                Media mediaItem = e.Data.GetData("myFormat") as Media;
+                ListBox listBox = sender as ListBox;
+                //listBox.Items.Add(contact);
+                MediaItems.Add(mediaItem);
+                listBox.Items.Refresh();
             }
         }
     }
