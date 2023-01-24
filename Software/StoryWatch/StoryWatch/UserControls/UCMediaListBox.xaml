@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <DataTemplate x:Key="MediaTemplate">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="{Binding Path=Title}" Background="AliceBlue" PreviewMouseDown="lbMedia_PreviewMouseDown"/>
+                <TextBlock Text="{Binding Path=Title}" Background="AliceBlue"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Update" x:Name="btnUpdate" Width="80" Click="btnUpdate_Click" Margin="7"/>
                     <Button Content="Delete" x:Name="btnDelete" Width="80" Click="btnDelete_Click" Margin="7"/>
