@@ -108,7 +108,7 @@ namespace StoryWatch.UserControls
 
         }
 
-        private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        /*private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
             if (lbMedia.SelectedItem == null)
                 return;
@@ -125,7 +125,7 @@ namespace StoryWatch.UserControls
             else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
             }
-        }
+        }*/
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -177,7 +177,7 @@ namespace StoryWatch.UserControls
             }
 
         }
-
+        /*
         private void lbMedia_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             var item = ItemsControl.ContainerFromElement(lbMedia, e.OriginalSource as DependencyObject) as ListBoxItem;
@@ -191,7 +191,7 @@ namespace StoryWatch.UserControls
             }
 
         }
-      
+      */
         Point startPoint;
         private void List_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -265,6 +265,29 @@ namespace StoryWatch.UserControls
 
 
             }
+        }
+
+        private void btnDetails_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbMedia.SelectedItem == null)
+                return;
+
+            if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
+            {
+                Button button = sender as Button;
+                EntitiesLayer.Entities.Movie movie = button.DataContext as EntitiesLayer.Entities.Movie;
+
+                if (movie != null)
+                {
+                    //MessageBox.Show(movie.Trailer_URL);
+                    GuiManager.OpenContent(new MovieInfo(movie));
+
+                }
+
+            }
+
+            
+
         }
     }
 }
