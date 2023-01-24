@@ -177,8 +177,10 @@ namespace StoryWatch.UserControls
             var item = ItemsControl.ContainerFromElement(lbMedia, e.OriginalSource as DependencyObject) as ListBoxItem;
             if (item != null)
             {
+                var movie = item.DataContext as EntitiesLayer.Entities.Movie;
+                //MessageBox.Show(movie.Trailer_URL);
                 //MessageBox.Show(item.Content.ToString());
-                GuiManager.OpenContent(new MovieInfo());
+                GuiManager.OpenContent(new MovieInfo(movie));
 
             }
 
