@@ -78,5 +78,10 @@ namespace StoryWatch.UserControls.Movies
                 ((WebView2)sender).ExecuteScriptAsync("document.querySelector('body').style.overflow='hidden'");
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.CloseContent();
+        }
     }
 }

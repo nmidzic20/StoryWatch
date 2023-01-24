@@ -28,8 +28,10 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class MediaListBox : UserControl
     {
+        
         public IListCategory listCategory { get; set; }
         public ObservableCollection<Media> MediaItems = new ObservableCollection<Media>();
+
 
         public MediaListBox(IListCategory lc)
         {
@@ -144,6 +146,7 @@ namespace StoryWatch.UserControls
                     addBook.Show();
                 }
             }
+
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -170,6 +173,7 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
             }
+
         }
 
         private void lbMedia_PreviewMouseDown(object sender, MouseButtonEventArgs e)
