@@ -23,8 +23,8 @@ namespace EntitiesLayer.Entities
         [StringLength(900)]
         public string Description { get; set; }
 
-        [StringLength(20)]
-        public string Language { get; set; }
+        [StringLength(100)]
+        public string Trailer_URL { get; set; }
 
         [StringLength(100)]
         public string TMDB_ID { get; set; }

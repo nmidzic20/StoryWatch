@@ -30,8 +30,10 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class MediaListBox : UserControl
     {
+        
         public IListCategory listCategory { get; set; }
         public ObservableCollection<Media> MediaItems = new ObservableCollection<Media>();
+
 
         public MediaListBox(IListCategory lc)
         {
@@ -115,8 +117,10 @@ namespace StoryWatch.UserControls
             {
                 var selectedMovie = lbMedia.SelectedItem as EntitiesLayer.Entities.Movie;
                 var movieServices = new MovieServices();
+                //MessageBox.Show(selectedMovie.Title);
                 //var movie = await movieServices.GetMovieInfoAsync(int.Parse(selectedMovie.TMDB_ID));
                 //MessageBox.Show(movie.Title + " " + movie.Tagline + " ");
+                //GuiManager.OpenContent(new MovieInfo());
             }
             else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
@@ -144,6 +148,7 @@ namespace StoryWatch.UserControls
                     addBook.Show();
                 }
             }
+
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -170,6 +175,21 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
             }
+
+        }
+
+        private void lbMedia_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = ItemsControl.ContainerFromElement(lbMedia, e.OriginalSource as DependencyObject) as ListBoxItem;
+            if (item != null)
+            {
+                var movie = item.DataContext as EntitiesLayer.Entities.Movie;
+                //MessageBox.Show(movie.Trailer_URL);
+                //MessageBox.Show(item.Content.ToString());
+                GuiManager.OpenContent(new MovieInfo(movie));
+
+            }
+
         }
       
         Point startPoint;

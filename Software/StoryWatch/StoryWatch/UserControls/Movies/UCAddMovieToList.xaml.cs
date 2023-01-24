@@ -49,6 +49,7 @@ namespace StoryWatch.UserControls.Movies
             dtReleaseDate.Text = movieToUpdate.ReleaseDate;
             txtCountry.Text = movieToUpdate.Countries;
             txtID.Text = movieToUpdate.TMDB_ID;
+            txtTrailerURL.Text = movieToUpdate.Trailer_URL;
 
             //TODO - when btn pressed, call movieServices.UpdateMovie -> repo.Update
         }
@@ -74,9 +75,10 @@ namespace StoryWatch.UserControls.Movies
                 Id = movieToUpdate.Id,
                 Title = txtTitle.Text,
                 Description = txtOverview.Text,
-                TMDB_ID = movieToUpdate.TMDB_ID,
+                TMDB_ID = txtID.Text,
                 Countries = txtCountry.Text,
-                ReleaseDate = dtReleaseDate.Text
+                ReleaseDate = dtReleaseDate.Text,
+                Trailer_URL = txtTrailerURL.Text
 
             };
 
@@ -100,7 +102,8 @@ namespace StoryWatch.UserControls.Movies
                 Description = txtOverview.Text,
                 TMDB_ID = txtID.Text,
                 Countries = txtCountry.Text,
-                ReleaseDate = dtReleaseDate.DisplayDate.ToString()
+                ReleaseDate = dtReleaseDate.DisplayDate.ToString(),
+                Trailer_URL = txtTrailerURL.Text
 
             });
 
