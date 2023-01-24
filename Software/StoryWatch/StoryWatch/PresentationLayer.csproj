@@ -150,8 +150,8 @@
     <Compile Include="UserControls\Games\AddGame.xaml.cs">
       <DependentUpon>AddGame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Games\UCSeachGame.xaml.cs">
-      <DependentUpon>UCSeachGame.xaml</DependentUpon>
+    <Compile Include="UserControls\Games\UCSearchGame.xaml.cs">
+      <DependentUpon>UCSearchGame.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Movies\UCAddMovieToList.xaml.cs">
       <DependentUpon>UCAddMovieToList.xaml</DependentUpon>
@@ -201,7 +201,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Games\UCSeachGame.xaml">
+    <Page Include="UserControls\Games\UCSearchGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AddBook" Height="350" Width="400" Background="Lavender">
     <DockPanel>
-        <Label Content="Add book manually" Background="CornflowerBlue" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontWeight="Bold"></Label>
+        <Label Content="Add game" Background="CornflowerBlue" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontWeight="Bold"></Label>
         <Grid Margin="10" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"></ColumnDefinition>
