@@ -1,6 +1,7 @@
 ﻿using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,6 +97,30 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        
+        public int UpdateMovieListItem(MovieListItem movieListItem, int idNewList, bool saveChanges = true)
+        {
+            
+            MovieListItem movieListItemDB = Context.MovieListItems.Where(ml => 
+                                        ml.Id_Movies == movieListItem.Id_Movies && 
+                                        ml.Id_Users == movieListItem.Id_Users && 
+                                        ml.Id_MovieListCategories == movieListItem.Id_MovieListCategories).SingleOrDefault();
+
+            Context.MovieListItems.Remove(movieListItemDB);
+            Context.MovieListItems.Add(new MovieListItem
+            {
+                Id_Movies = movieListItem.Id_Movies,
+                Id_MovieListCategories = idNewList,
+                Id_Users = movieListItem.Id_Users
+            });
+
+            if (saveChanges)
+            {
+                return Context.SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
