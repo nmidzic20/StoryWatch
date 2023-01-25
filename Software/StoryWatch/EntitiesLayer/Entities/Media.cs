@@ -9,5 +9,6 @@ namespace EntitiesLayer.Entities
     public interface Media
     {
         string Title { get; set; }
+        int Id { get; set; }
     }
 }

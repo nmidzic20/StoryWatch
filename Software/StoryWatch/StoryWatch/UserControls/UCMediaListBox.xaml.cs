@@ -14,11 +14,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+//using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Shell;
 using TMDbLib.Objects.Movies;
 
 namespace StoryWatch.UserControls
@@ -106,7 +108,7 @@ namespace StoryWatch.UserControls
 
         }
 
-        private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
+        /*private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
         {
             if (lbMedia.SelectedItem == null)
                 return;
@@ -123,7 +125,7 @@ namespace StoryWatch.UserControls
             else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
             }
-        }
+        }*/
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -175,7 +177,7 @@ namespace StoryWatch.UserControls
             }
 
         }
-
+        /*
         private void lbMedia_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             var item = ItemsControl.ContainerFromElement(lbMedia, e.OriginalSource as DependencyObject) as ListBoxItem;
@@ -187,6 +189,162 @@ namespace StoryWatch.UserControls
                 GuiManager.OpenContent(new MovieInfo(movie));
 
             }
+
+        }
+      */
+        class DragDropData
+        {
+            public Media MediaItem { get; set; }
+            public IListCategory SourceList { get; set; }
+            public MediaListBox UCMediaListBox { get; set; }
+        }
+
+        Point startPoint;
+        private void List_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Store the mouse position
+            startPoint = e.GetPosition(null);
+        }
+
+        private void List_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                // Get the dragged ListViewItem
+                ListBox listBox = sender as ListBox;
+                ListBoxItem listBoxItem = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+                if (listBoxItem == null) return;
+
+                // Find the data behind the ListViewItem
+                Media mediaItem = listBox.ItemContainerGenerator.ItemFromContainer(listBoxItem) as Media;
+
+                // Initialize the drag & drop operation
+                var dragDropData = new DragDropData 
+                { 
+                    MediaItem = mediaItem, 
+                    SourceList = listCategory,
+                    UCMediaListBox = this
+                };
+                DataObject dragData = new DataObject("sourceListMediaItemInfo", dragDropData);
+                DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
+
+                //remove that media from list when the drop finalizes (here is a wait from the above line until drop is complete)
+                MediaItems.Remove(mediaItem);
+                listBox.Items.Refresh();
+
+            }
+        }
+
+        // Helper to search up the VisualTree
+        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        {
+            do
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            while (current != null);
+            return null;
+        }
+
+        private void DropList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("sourceListMediaItemInfo") || sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void DropList_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("sourceListMediaItemInfo"))
+            {
+                var data = e.Data.GetData("sourceListMediaItemInfo") as DragDropData;
+                Media mediaItem = data.MediaItem;
+                IListCategory sourceList = data.SourceList;
+
+                ListBox listBox = sender as ListBox;
+                MediaItems.Add(mediaItem);
+                listBox.Items.Refresh();
+
+                //update that media in database, from that list to this list
+                //in case that media already on this list, need to visually undo drop
+
+                var ucParent = FindAncestor<UserControl>(listBox);
+                var userControl = ucParent as MediaListBox;
+                IListCategory destinationList = userControl.listCategory;
+
+                bool isSuccessful = false;
+                
+                switch (StateManager.CurrentMediaCategory)
+                {
+                    case MediaCategory.Movie:
+                        isSuccessful = UpdateList(mediaItem, sourceList, destinationList);
+                        break;
+
+                }
+
+                if (!isSuccessful)
+                {
+                    MediaItems.Remove(mediaItem);
+                    listBox.Items.Refresh();
+
+                    var mbox = new Xceed.Wpf.Toolkit.MessageBox
+                    {
+                        Text = "This title has already been added to the destination list!"
+                    };
+                    mbox.ShowDialog();
+
+                    data.UCMediaListBox.MediaItems.Add(mediaItem);
+                    data.UCMediaListBox.lbMedia.Items.Refresh();
+                }
+
+            }
+        }
+
+        private static bool UpdateList(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        {
+            var movieServices = new MovieServices();
+            var movieListItem = new MovieListItem
+            {
+                Id_MovieListCategories = sourceList.Id,
+                Id_Movies = mediaItem.Id,
+                Id_Users = StateManager.LoggedUser.Id
+
+            };
+            var isSuccessful = movieServices.UpdateMovieToAnotherList(movieListItem, destinationList as MovieListCategory, StateManager.LoggedUser);
+            return isSuccessful;
+        }
+
+        private void btnDetails_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbMedia.SelectedItem == null)
+                return;
+
+            if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
+            {
+                Button button = sender as Button;
+                EntitiesLayer.Entities.Movie movie = button.DataContext as EntitiesLayer.Entities.Movie;
+
+                if (movie != null)
+                {
+                    //MessageBox.Show(movie.Trailer_URL);
+                    GuiManager.OpenContent(new MovieInfo(movie));
+
+                }
+
+            }
+
+            
 
         }
     }

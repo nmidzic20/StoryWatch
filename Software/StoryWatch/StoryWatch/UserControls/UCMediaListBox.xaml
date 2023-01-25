@@ -9,8 +9,9 @@
     <UserControl.Resources>
         <DataTemplate x:Key="MediaTemplate">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="{Binding Path=Title}" PreviewMouseDown="lbMedia_PreviewMouseDown"/>
+                <TextBlock Text="{Binding Path=Title}" Background="AliceBlue"/>
                 <StackPanel Orientation="Horizontal">
+                    <Button Content="Details" x:Name="btnDetails" Width="80" Click="btnDetails_Click" Margin="7"/>
                     <Button Content="Update" x:Name="btnUpdate" Width="80" Click="btnUpdate_Click" Margin="7"/>
                     <Button Content="Delete" x:Name="btnDelete" Width="80" Click="btnDelete_Click" Margin="7"/>
                 </StackPanel>
@@ -23,11 +24,17 @@
             <Button x:Name="btnAdd" Click="btnAdd_Click" Content="+ Add " HorizontalAlignment="Right" Height="30" Margin="0,0,5,0" FontWeight="Bold"></Button>
         </DockPanel>
         <ListBox x:Name="lbMedia" Height="180" Width="220" 
-            SelectionChanged="lbMedia_SelectionChangedAsync"
             Background="AliceBlue"
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding}"
-            ItemTemplate="{StaticResource MediaTemplate}">
+            ItemTemplate="{StaticResource MediaTemplate}"
+                 
+            PreviewMouseLeftButtonDown="List_PreviewMouseLeftButtonDown" 
+            PreviewMouseMove="List_MouseMove"
+            
+            Drop="DropList_Drop" 
+            DragEnter="DropList_DragEnter" 
+            AllowDrop="True">
 
         </ListBox>
     </StackPanel>
