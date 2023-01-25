@@ -316,8 +316,10 @@ namespace StoryWatch.UserControls
 
                 if (book != null)
                 {
-                    if(book.PreviewURL != null || book.PreviewURL.StartsWith("http://books.google.com/books?"))
+                    if (book.PreviewURL != null)
                         GuiManager.OpenContent(new EBookPreview(book));
+                    else
+                        MessageBox.Show("This book does not support e-book preview", "E-book preview!");
                 }
             }
         }
