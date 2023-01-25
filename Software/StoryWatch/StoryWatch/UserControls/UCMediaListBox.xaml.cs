@@ -309,8 +309,18 @@ namespace StoryWatch.UserControls
 
             }
 
-            
+            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
+                Button button = sender as Button;
+                Book book = button.DataContext as Book;
 
+                if (book != null)
+                {
+                    System.Windows.Forms.MessageBox.Show(book.PreviewURL);
+                    var ebook = new E_book(book.PreviewURL);
+                    ebook.Show();
+                }
+            }
         }
     }
 }

@@ -63,6 +63,13 @@ namespace DataAccessLayer
                 .IsUnicode(false);
 
             modelBuilder.Entity<Book>()
+                .Property(e => e.PreviewURL)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Book>()
+                .Property(e => e.Pages)
+                .IsUnicode(false);
+            modelBuilder.Entity<Book>()
                 .HasMany(e => e.BookListItems)
                 .WithRequired(e => e.Book)
                 .HasForeignKey(e => e.Id_Books);
