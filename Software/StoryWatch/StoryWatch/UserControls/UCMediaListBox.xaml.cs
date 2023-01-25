@@ -162,7 +162,8 @@ namespace StoryWatch.UserControls
             {
                 if (btn.DataContext is Media)
                 {
-                    Game selectedGame = btn.DataContext as Game;
+                    IGDB.Models.Game selectedGame = btn.DataContext as IGDB.Models.Game;
+
                     AddGame addGame = new AddGame(listCategory, selectedGame);
                     addGame.Show();
                 }

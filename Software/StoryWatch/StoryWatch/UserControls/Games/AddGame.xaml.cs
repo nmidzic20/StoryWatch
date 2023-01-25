@@ -24,26 +24,38 @@ namespace StoryWatch.UserControls.Games
     {
         public IListCategory listCategory { get; set; }
         private GameServices gameServices;
-        private EntitiesLayer.Entities.Game gameToUpdate = null;
+        private IGDB.Models.Game selectedGame = null;
+        private int idToUpdate;
         private bool update = false;
 
-        public AddGame(IListCategory lc, EntitiesLayer.Entities.Game game, bool update = false)
+        public AddGame(IListCategory lc, IGDB.Models.Game game, bool update = false, int id = 0)
         {
             InitializeComponent();
+
             gameServices = new GameServices();
             listCategory = lc;
-            btnSave.Content = "Update";
-            gameToUpdate = game;
+            selectedGame = game;
+            idToUpdate = id;
             this.update = update;
+            
+            if (update)
+            {
+                btnSave.Content = "Update";
+            }
 
-            txtTitle.Text = gameToUpdate.Title;
-            //txtGenre.Text = movieToUpdate.Genres[0].Name;
-            txtSummary.Text = gameToUpdate.Summary;
-            //dtReleaseDate.Text = gameToUpdate.ReleaseDate;
-            //txtCountry.Text = gameToUpdate.Countries;
-            txtID.Text = gameToUpdate.IGDB_Id;
+            FillGameInfo();
 
             //TODO - when btn pressed, call movieServices.UpdateMovie -> repo.Update
+        }
+
+        private void FillGameInfo()
+        {
+            txtTitle.Text = selectedGame.Name;
+            //txtGenre.Text = movieToUpdate.Genres[0].Name;
+            txtSummary.Text = selectedGame.Summary;
+            //dtReleaseDate.Text = gameToUpdate.ReleaseDate;
+            //txtCountry.Text = gameToUpdate.Countries;
+            txtID.Text = selectedGame.Id.ToString();
         }
 
         private void AddGameToList(object sender, RoutedEventArgs e)
@@ -64,12 +76,12 @@ namespace StoryWatch.UserControls.Games
         {
             var game = new EntitiesLayer.Entities.Game
             {
-                Id = gameToUpdate.Id,
+                Id = idToUpdate,
                 Title = txtTitle.Text,
                 Summary = txtSummary.Text,
-                IGDB_Id = gameToUpdate.IGDB_Id,
-                Company = gameToUpdate.Company,
-                Indie = gameToUpdate.Indie
+                IGDB_Id = selectedGame.Id.ToString(),
+                Company = "",
+                Indie = 0
             };
 
             int isSuccessful = gameServices.UpdateGame(game);

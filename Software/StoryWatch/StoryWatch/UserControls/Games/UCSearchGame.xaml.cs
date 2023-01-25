@@ -15,7 +15,6 @@ namespace StoryWatch.UserControls.Games
     {
         private GameServices gameServices;
         private IListCategory listCategory;
-        private IGDB.Models.Game selectedGame;
         private readonly string placeholderTextKeyword = "Search games by keyword";
 
         public UCAddGame(IListCategory lc)
@@ -80,8 +79,10 @@ namespace StoryWatch.UserControls.Games
             {
                 return;
             }
-            
-            var winAddGame = new AddGame(listCategory, dgResults.SelectedValue as Game);
+
+            IGDB.Models.Game game = await gameServices.GetGameInfoAsync((int)(dgResults.SelectedItem as IGDB.Models.Game).Id);
+
+            var winAddGame = new AddGame(listCategory, game);
             winAddGame.Show();
         }
     }
