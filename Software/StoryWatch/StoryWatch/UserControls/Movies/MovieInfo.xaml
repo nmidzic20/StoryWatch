@@ -6,15 +6,16 @@
              xmlns:local="clr-namespace:StoryWatch.UserControls.Movies"
              xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800" Loaded="Window_Loaded">
+             d:DesignHeight="700" d:DesignWidth="800" Loaded="Window_Loaded">
     <ScrollViewer>
         <DockPanel Background="PowderBlue">
             <Button DockPanel.Dock="Top" Width="50" HorizontalAlignment="Left" Margin="20" Content="Back" Click="Button_Click"></Button>
-            <TextBlock Margin="20" FontWeight="Bold" TextWrapping="Wrap" DockPanel.Dock="Top" Width="100" Text="{Binding Title, Mode = OneWay}" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Background="MediumPurple" Padding="10" Margin="20" FontWeight="Bold" TextWrapping="Wrap" DockPanel.Dock="Top" Text="{Binding Title, Mode = OneWay}" HorizontalAlignment="Center"></TextBlock>
             <wv2:WebView2 Name="webView2" Height="315" Width="560" DockPanel.Dock="Top" NavigationCompleted="WebView2_NavigationCompleted"/>
             <TextBlock Margin="50" TextWrapping="Wrap" Width="500" DockPanel.Dock="Top" Text="{Binding Description, Mode = OneWay}" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Margin="5" TextWrapping="Wrap" Width="300" DockPanel.Dock="Top" Text="{Binding Countries, Mode = OneWay}" HorizontalAlignment="Center"></TextBlock>
-            <TextBlock Margin="5" TextWrapping="Wrap" Width="300" DockPanel.Dock="Top" Text="{Binding ReleaseDate, Mode = OneWay}" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Background="MediumPurple" Padding="10" Margin="5" TextWrapping="Wrap" DockPanel.Dock="Top" Text="{Binding Countries, Mode = OneWay}" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Background="MediumPurple" Padding="10" Margin="5" TextWrapping="Wrap" DockPanel.Dock="Top" Text="{Binding ReleaseDate, Mode = OneWay}" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Background="MediumPurple" Padding="10" Margin="5,5,5,50" TextWrapping="Wrap" DockPanel.Dock="Top" Text="{Binding Genre, Mode = OneWay}" HorizontalAlignment="Center"></TextBlock>
         </DockPanel>
     </ScrollViewer>
 </UserControl>

@@ -10,6 +10,25 @@ namespace DataAccessLayer.Repositories
 {
     public class MovieRepository : Repository<Movie>
     {
+        public override int Add(Movie entity, bool saveChanges = true)
+        {
+            var genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);
+
+            entity.Genre = genre;
+
+            Entities.Add(entity);
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        
+        }
+
         public int AddMovieToList(MovieListItem movieListItem, bool saveChanges = true)
         {
             Context.MovieListItems.Add(movieListItem);
@@ -39,7 +58,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<Movie> GetMovieByTitle(string title)
         {
-            var query = from m in Entities
+            var query = from m in Entities.Include("Genre")
                         where m.Title == title
                         select m;
 
@@ -48,7 +67,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<Movie> GetMovieByTMDBId(string TMDB_ID)
         {
-            var query = from m in Entities
+            var query = from m in Entities.Include("Genre")
                         where m.TMDB_ID == TMDB_ID
                         select m;
 
@@ -57,7 +76,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<Movie> GetMovieById(int id)
         {
-            var query = from m in Entities
+            var query = from m in Entities.Include("Genre")
                         where m.Id == id
                         select m;
 
@@ -86,6 +105,7 @@ namespace DataAccessLayer.Repositories
             movie.Description = entity.Description;
             movie.ReleaseDate = entity.ReleaseDate;
             movie.Countries = entity.Countries;
+            movie.Genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);
 
             if (saveChanges)
             {
