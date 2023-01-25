@@ -112,6 +112,32 @@ namespace BusinessLayer
             }
         }
 
+        public bool UpdateMovieToAnotherList(MovieListItem movieListItem, MovieListCategory destMovieListCategory, User loggedUser)
+        {
+            bool isSuccessful = false;
+            using (var repo = new MovieRepository())
+            {
+                //check if exists on destination list already, if yes, return false, if no, change to that list
+                List<EntitiesLayer.Entities.Movie> movies = repo.GetMoviesForList(destMovieListCategory, loggedUser).ToList();
+                bool movieExistsOnList = movies.Exists(m => m.Id == movieListItem.Id_Movies);
+
+                if (movieExistsOnList)
+                {
+                    isSuccessful = false;
+                }
+                else
+                {
+                    //fetch movieListItem for this movie, this list and this user
+                    //change the list
+                    int affectedRows = repo.UpdateMovieListItem(movieListItem, destMovieListCategory.Id);
+                    isSuccessful = affectedRows > 0;
+                }
+
+            }
+
+            return isSuccessful;
+        }
+
         public bool DeleteMovieFromList(EntitiesLayer.Entities.Movie movie, MovieListCategory movieListCategory, User loggedUser)
         {
             bool isSuccessful = false;

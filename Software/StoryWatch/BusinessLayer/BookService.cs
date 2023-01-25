@@ -92,7 +92,6 @@ namespace BusinessLayer
                     return null;
                 }
             }
-            return null;
         }
 
         public bool AddBookToList(Book book, BookListItem newBookList, BookListCategory bookListCategory, User loggedUser)

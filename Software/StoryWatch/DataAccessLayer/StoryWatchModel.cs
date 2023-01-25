@@ -147,7 +147,7 @@ namespace DataAccessLayer
                 .IsUnicode(false);
 
             modelBuilder.Entity<Movie>()
-                .Property(e => e.Language)
+                .Property(e => e.Trailer_URL)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Movie>()

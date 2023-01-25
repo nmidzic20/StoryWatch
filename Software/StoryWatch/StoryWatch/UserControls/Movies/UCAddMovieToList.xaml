@@ -21,6 +21,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Width="100" Height="25" Content="Title" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"></Label>
             <TextBox TextChanged="TextTitleChanged" x:Name="txtTitle" Width="300" Height="25" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"></TextBox>
@@ -33,9 +34,10 @@
             <Label Width="100" Height="30" Content="Countries" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right"></Label>
             <TextBox x:Name="txtCountry" Width="300" Height="25" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"></TextBox>
             <Label Width="100" Height="25" Content="TMDb ID" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"></Label>
-            <TextBox IsEnabled="False" x:Name="txtID" Width="300" Height="25" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"></TextBox>
-            <Button x:Name="btnAdd" Content="Add to list" IsEnabled="False" Width="100" Height="25" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Click="AddMovie"></Button>
-            <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" Click="Return"></Button>
+            <TextBox IsEnabled="False" x:Name="txtID" Width="300" Height="25" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"></TextBox>
+            <TextBox IsEnabled="False" x:Name="txtTrailerURL" Width="300" Height="25" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"></TextBox>
+            <Button x:Name="btnAdd" Content="Add to list" IsEnabled="False" Width="100" Height="25" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Click="AddMovie"></Button>
+            <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" Click="Return"></Button>
         </Grid>
     </DockPanel>
 </UserControl>

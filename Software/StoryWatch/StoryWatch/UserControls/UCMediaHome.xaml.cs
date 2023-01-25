@@ -75,7 +75,7 @@ namespace StoryWatch.UserControls
             GuiManager.OpenContent(new UCAddCustomList());           
         }
 
-        private void AddListBoxToGrid(ContentControl list)//ListBox list)
+        private void AddListBoxToGrid(ContentControl list)
         {
             var columnCount = gridLists.ColumnDefinitions.Count;
             var rowCount = gridLists.RowDefinitions.Count;
