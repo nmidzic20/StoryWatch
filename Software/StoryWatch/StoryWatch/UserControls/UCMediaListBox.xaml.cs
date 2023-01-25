@@ -316,9 +316,8 @@ namespace StoryWatch.UserControls
 
                 if (book != null)
                 {
-                    System.Windows.Forms.MessageBox.Show(book.PreviewURL);
-                    var ebook = new E_book(book.PreviewURL);
-                    ebook.Show();
+                    if(book.PreviewURL != null || book.PreviewURL.StartsWith("http://books.google.com/books?"))
+                        GuiManager.OpenContent(new EBookPreview(book));
                 }
             }
         }
