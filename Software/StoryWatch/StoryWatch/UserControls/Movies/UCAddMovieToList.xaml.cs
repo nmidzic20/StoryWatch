@@ -27,6 +27,7 @@ namespace StoryWatch.UserControls.Movies
         private MovieServices movieServices = new MovieServices();
         private bool update = false;
         private EntitiesLayer.Entities.Movie movieToUpdate = null;
+        private string youtubeURL = "https://www.youtube.com/embed/5PSNL1qE6VY";
 
         public UCAddMovieToList(IListCategory listCategory)
         {
@@ -41,17 +42,16 @@ namespace StoryWatch.UserControls.Movies
 
             btnAdd.Content = "Update";
             update = true;
-            movieToUpdate = movie;
+            movieToUpdate = movieServices.GetMovieById(movie.Id); 
 
             txtTitle.Text = movieToUpdate.Title;
-            //txtGenre.Text = movieToUpdate.Genres[0].Name;
+            txtGenre.Text = movieToUpdate.Genre != null ? movieToUpdate.Genre.Name : "None";
             txtOverview.Text = movieToUpdate.Description;
             dtReleaseDate.Text = movieToUpdate.ReleaseDate;
             txtCountry.Text = movieToUpdate.Countries;
             txtID.Text = movieToUpdate.TMDB_ID;
-            txtTrailerURL.Text = movieToUpdate.Trailer_URL;
+            txtTrailerURL.Text = youtubeURL + movieToUpdate.Trailer_URL;
 
-            //TODO - when btn pressed, call movieServices.UpdateMovie -> repo.Update
         }
 
         private void AddMovie(object sender, RoutedEventArgs e)
@@ -70,6 +70,8 @@ namespace StoryWatch.UserControls.Movies
 
         private void UpdateMovie()
         {
+            var genre = UpdateGenre();
+
             var movie = new EntitiesLayer.Entities.Movie
             {
                 Id = movieToUpdate.Id,
@@ -78,7 +80,8 @@ namespace StoryWatch.UserControls.Movies
                 TMDB_ID = txtID.Text,
                 Countries = txtCountry.Text,
                 ReleaseDate = dtReleaseDate.Text,
-                Trailer_URL = txtTrailerURL.Text
+                Trailer_URL = txtTrailerURL.Text,
+                Genre = genre
 
             };
 
@@ -90,10 +93,37 @@ namespace StoryWatch.UserControls.Movies
 
         }
 
+        private Genre UpdateGenre()
+        {
+            var genreServices = new GenreServices();
+            int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
+            var genre = new Genre
+            {
+                Id = genreId,
+                Name = txtGenre.Text
+            };
+            genreServices.AddGenre(genre);
+            return genre;
+        }
+
         private void AddMovie()
         {
             var allMovies = movieServices.GetAllMovies();
             var movieId = (allMovies.Count() != 0) ? allMovies.Last().Id + 1 : 0;
+
+            Genre genre = null;
+            //add genre, fetch that genre, add it to the movie below
+            if (!string.IsNullOrEmpty(txtGenre.Text))
+            {
+                var genreServices = new GenreServices();
+                int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
+                genre = new Genre
+                {
+                    Id = genreId,
+                    Name = txtGenre.Text
+                };
+                genreServices.AddGenre(genre);
+            }
 
             bool isSuccessful = movieServices.AddMovie(new EntitiesLayer.Entities.Movie
             {
@@ -103,7 +133,8 @@ namespace StoryWatch.UserControls.Movies
                 TMDB_ID = txtID.Text,
                 Countries = txtCountry.Text,
                 ReleaseDate = dtReleaseDate.DisplayDate.ToString(),
-                Trailer_URL = txtTrailerURL.Text
+                Trailer_URL = txtTrailerURL.Text,
+                Genre = genre
 
             });
 

@@ -1,4 +1,5 @@
-﻿using EntitiesLayer.Entities;
+﻿using BusinessLayer;
+using EntitiesLayer.Entities;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using System;
@@ -30,6 +31,10 @@ namespace StoryWatch.UserControls.Movies
             InitializeComponent();
 
             this.movie = movie;
+
+            var movieServices = new MovieServices();
+            movie.Genre = movieServices.GetMovieById(movie.Id).Genre;
+
             this.DataContext = movie;
         }
 

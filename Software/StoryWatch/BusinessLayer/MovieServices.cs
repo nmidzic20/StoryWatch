@@ -35,6 +35,14 @@ namespace BusinessLayer
             }
         }
 
+        public EntitiesLayer.Entities.Movie GetMovieById(int id)
+        {
+            using (var repo = new MovieRepository())
+            {
+                return repo.GetMovieById(id).FirstOrDefault();
+            }
+        }
+
         public List<EntitiesLayer.Entities.Movie> GetMoviesForList(MovieListCategory movieListCategory, User loggedUser)
         {
             using (var repo = new MovieRepository())
@@ -73,6 +81,7 @@ namespace BusinessLayer
                     int affectedRows = repo.Add(movie);
                     isSuccessful = affectedRows > 0;
                 }
+
 
             }
 

@@ -102,6 +102,7 @@
     <Compile Include="Entities\GameListCategory.cs" />
     <Compile Include="Entities\GameListItem.cs" />
     <Compile Include="Entities\Genre.cs" />
+    <Compile Include="Entities\Genre.ext.cs" />
     <Compile Include="Entities\IListCategory.cs" />
     <Compile Include="Entities\Media.cs" />
     <Compile Include="Entities\Movie.ext.cs" />
