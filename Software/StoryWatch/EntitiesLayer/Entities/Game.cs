@@ -20,6 +20,9 @@ namespace EntitiesLayer.Entities
         [StringLength(100)]
         public string Title { get; set; }
 
+        [StringLength(900)]
+        public string Summary { get; set; }
+
         [StringLength(100)]
         public string Company { get; set; }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class GameRepository : Repository<Game>
+    public class GameRepository : Repository<EntitiesLayer.Entities.Game>
     {
         public int AddGameToList(GameListItem gameListItem, bool saveChanges = true)
         {
@@ -49,11 +49,9 @@ namespace DataAccessLayer.Repositories
         
         public IQueryable<Game> GetGameByIGDBId(string id)
         {
-            var query = from m in Entities
-                        where m.IGDB_Id == id
-                        select m;
-
-            return query;
+            return from m in Entities
+                    where m.IGDB_Id == id
+                    select m;
         }
 
         public IQueryable<Game> GetGameById(int id)
@@ -74,18 +72,23 @@ namespace DataAccessLayer.Repositories
             List<Game> games = new List<Game>();
 
             foreach (var game in Entities)
+            {
                 if (game_ids.Exists(id => id == game.Id))
+                {
                     games.Add(game);
+                }
+            }
 
             return games;
         }
         
         public int Update(Game entity, bool saveChanges = true)
         {
-            var movie = Entities.SingleOrDefault(e => e.Id == entity.Id);
-            movie.Title = entity.Title;
-            movie.Company = entity.Company;
-            movie.Indie = entity.Indie;
+            Game game = Entities.SingleOrDefault(e => e.Id == entity.Id);
+            game.Title = entity.Title;
+            game.Company = entity.Company;
+            game.IGDB_Id = entity.IGDB_Id;
+            game.Indie = entity.Indie;
 
             if (saveChanges)
             {

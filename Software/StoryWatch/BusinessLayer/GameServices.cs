@@ -1,17 +1,9 @@
 ﻿using EntitiesLayer.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using IGDB;
-using IGDB.Models;
-using System.Web.UI;
-using TMDbLib.Objects.Search;
 using DataAccessLayer.Repositories;
-using TMDbLib.Client;
-using TMDbLib.Objects.General;
-using TMDbLib.Objects.Movies;
 
 namespace BusinessLayer
 {
@@ -56,13 +48,13 @@ namespace BusinessLayer
             }
         }
 
-        //public EntitiesLayer.Entities.Game GetGameByIGDBId(string IGDB_ID)
-        //{
-        //    using (var repo = new GameRepository())
-        //    {
-        //        return repo.GetGameByIGDBId(IGDB_ID).FirstOrDefault();
-        //    }
-        //}
+        public EntitiesLayer.Entities.Game GetGameByIGDBId(string IGDB_ID)
+        {
+            using (var repo = new GameRepository())
+            {
+                return repo.GetGameByIGDBId(IGDB_ID).FirstOrDefault();
+            }
+        }
 
         public bool AddGame(EntitiesLayer.Entities.Game game)
         {
@@ -70,9 +62,6 @@ namespace BusinessLayer
             
             using (var repo = new GameRepository())
             {
-                //check if exists in Movies - if not, add to Movies, if yes, return false
-                //important - this check must be performed only if movie was added from TMDb - if it was
-                //added manually, there is no TMDB ID and nothing to compare
                 EntitiesLayer.Entities.Game existingGame = null;
 
                 if (!string.IsNullOrEmpty(game.IGDB_Id))
@@ -125,20 +114,17 @@ namespace BusinessLayer
 
         public bool DeleteGameFromList(EntitiesLayer.Entities.Game game, GameListCategory gameListCategory, User loggedUser)
         {
-            bool isSuccessful = false;
-
-            var gameListItem = new MovieListItem
+            var gameListItem = new GameListItem
             {
-                Id_MovieListCategories = gameListCategory.Id,
-                Id_Movies = game.Id,
+                Id_GameListCategories = gameListCategory.Id,
+                Id_Games = game.Id,
                 Id_Users = loggedUser.Id
             };
 
-            using (var repo = new MovieRepository())
+            using (var repo = new GameRepository())
             {
-                int affectedRows = repo.DeleteMovieFromList(gameListItem);
-                isSuccessful = affectedRows > 0;
-
+                int affectedRows = repo.DeleteGameFromList(gameListItem);
+                bool isSuccessful = affectedRows > 0;
                 return isSuccessful;
             }
         }

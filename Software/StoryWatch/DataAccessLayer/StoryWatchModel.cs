@@ -93,6 +93,10 @@ namespace DataAccessLayer
             modelBuilder.Entity<Game>()
                 .Property(e => e.Title)
                 .IsUnicode(false);
+            
+            modelBuilder.Entity<Game>()
+                .Property(e => e.Summary)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Game>()
                 .Property(e => e.IGDB_Id)

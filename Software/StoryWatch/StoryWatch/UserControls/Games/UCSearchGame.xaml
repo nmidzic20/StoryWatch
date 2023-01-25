@@ -9,14 +9,21 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <TextBox HorizontalAlignment="Center" x:Name="txtSearchKeyword" Width="200" Height="25" Margin="20" Text="Search games by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" TextChanged="txtSearch_TextChanged" LostFocus="txtSearch_LostFocus" GotFocus="txtSearch_GotFocus"/>
-            <Button HorizontalAlignment="Right" Margin="0 0 40 0" x:Name="btnBooksHome" Content="Cancel" FontWeight="Bold" Width="90" Height="35" Click="btnBooksHome_Click"/>
+            <Button HorizontalAlignment="Right" Margin="0 0 0 0" x:Name="btnAdd" Content="Select" FontWeight="Bold" Width="90" Height="35" Click="AddClicked"/>
+            <Button HorizontalAlignment="Right" Margin="0 0 40 0" x:Name="btnBooksHome" Content="Cancel" FontWeight="Bold" Width="90" Height="35" Click="Back_Clicked"/>
         </DockPanel>
         <ScrollViewer>
             <DataGrid HorizontalAlignment="Stretch" 
-                        HorizontalContentAlignment="Stretch" 
-                        ColumnWidth="*"
-                        AutoGenerateColumns="False" x:Name="dgResults" Background="PowderBlue" Cursor="Hand" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" ScrollViewer.CanContentScroll="True">
-                <DataGrid.RowStyle>
+                      HorizontalContentAlignment="Stretch" 
+                      ColumnWidth="*"
+                      AutoGenerateColumns="False" 
+                      x:Name="dgResults" Background="PowderBlue" 
+                      Cursor="Hand" 
+                      CanUserAddRows="False" 
+                      CanUserDeleteRows="False" 
+                      IsReadOnly="True" 
+                      ScrollViewer.CanContentScroll="True">
+                <DataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -24,7 +31,7 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
-                </DataGrid.RowStyle>
+                </DataGrid.ItemContainerStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}">
                         <DataGridTextColumn.ElementStyle>
