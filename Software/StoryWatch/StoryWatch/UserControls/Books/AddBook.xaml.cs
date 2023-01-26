@@ -1,10 +1,10 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
 using EntitiesLayer.Entities;
-using IGDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,12 +28,15 @@ namespace StoryWatch.UserControls.Books
     {
         public Book currentBook;
         public BookService bookService;
+        public GenreServices genreServices;
         public IListCategory listCategory { get; set; }
         public bool update;
+
         public AddBook(IListCategory ListCategory)
         {
             InitializeComponent();
             bookService = new BookService();
+            genreServices = new GenreServices();
             listCategory = ListCategory;
         }
         public AddBook(Book book, IListCategory ListCategory)
@@ -41,6 +44,7 @@ namespace StoryWatch.UserControls.Books
             InitializeComponent();
             currentBook = book;
             bookService = new BookService();
+            genreServices = new GenreServices();
             listCategory = ListCategory;
         }
 
@@ -50,28 +54,34 @@ namespace StoryWatch.UserControls.Books
             update = Update;
             currentBook = book;
             bookService = new BookService();
+            genreServices = new GenreServices();
             listCategory = ListCategory;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTextBoxes();
-            txtID.IsReadOnly = true;
         }
 
         private void LoadTextBoxes()
         {
+            txtID.IsReadOnly = true;
             var allBooks = bookService.GetAll().ToList();
             var id = (allBooks.Count() != 0) ? allBooks.Last().Id + 1 : 0;
             if (currentBook != null)
             {
                 if (update)
+                {
+                    var genre = bookService.GetBookById(currentBook.Id).Genre;
                     txtID.Text = currentBook.Id.ToString();
+                    txtGenre.Text = genre.Name;
+                }
                 else
                     txtID.Text = id.ToString();
                 txtTitle.Text = currentBook.Title;
                 txtSummary.Text = currentBook.Summary;
                 txtAuthor.Text = currentBook.Author;
+                txtPages.Text = currentBook.Pages;
             }
             txtID.Text = id.ToString();
         }
@@ -94,8 +104,18 @@ namespace StoryWatch.UserControls.Books
 
             var id = (allBooks.Count() != 0) ? allBooks.Last().Id + 1 : 0;
 
-            if (CheckInput())
+            if (CheckInput() && CheckEmptyInput())
             {
+                Genre genre;
+                int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
+                genre = new Genre
+                {
+                    Id = genreId,
+                    Name = txtGenre.Text
+                };
+                var dohvaceniGenre = genreServices.AddGenre(genre).Id;
+                genre = genreServices.GetGenreById(dohvaceniGenre);
+
                 Book newBook;
                 if (currentBook != null)
                 {
@@ -105,7 +125,9 @@ namespace StoryWatch.UserControls.Books
                         Title = txtTitle.Text,
                         Summary = txtSummary.Text,
                         Author = txtAuthor.Text,
-                        PreviewURL = currentBook.PreviewURL
+                        PreviewURL = currentBook.PreviewURL,
+                        Pages = currentBook.Pages,
+                        Genre = genre,
                     };
                   
                 }
@@ -117,6 +139,8 @@ namespace StoryWatch.UserControls.Books
                         Title = txtTitle.Text,
                         Summary = txtSummary.Text,
                         Author = txtAuthor.Text,
+                        Pages = txtPages.Text,
+                        Genre = genre,
                     };
                 }
 
@@ -146,19 +170,38 @@ namespace StoryWatch.UserControls.Books
 
         private void UpdateBook()
         {
-            Book updateBook = new Book
+            if (CheckInput() && CheckEmptyInput())
             {
-                Id = currentBook.Id,
-                Title = txtTitle.Text,
-                Summary = txtSummary.Text,
-                Author = txtAuthor.Text,
-            };
-            var update = bookService.UpdateBook(updateBook);
+                var oldGenre = bookService.GetBookById(currentBook.Id).Genre;
+                var genre = UpdateGenre(oldGenre);
 
-            if (update == 0)
-                MessageBox.Show("Update failed! You didn't changed anything!");
-            Close();
-            GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
+                Book updateBook = new Book
+                {
+                    Id = currentBook.Id,
+                    Title = txtTitle.Text,
+                    Summary = txtSummary.Text,
+                    Author = txtAuthor.Text,
+                    Pages = txtPages.Text,
+                    Genre = genre
+                };
+                var update = bookService.UpdateBook(updateBook);
+
+                if (update == 0)
+                    MessageBox.Show("Update failed! You didn't changed anything!");
+                Close();
+                GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
+            }
+        }
+
+        private Genre UpdateGenre(Genre oldGenre)
+        {
+            int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
+            var newGenre = new Genre
+            {
+                Id = genreId,
+                Name = txtGenre.Text
+            };
+            return genreServices.UpdateBookGenre(oldGenre, newGenre);
         }
 
         private bool CheckInput()
@@ -176,6 +219,41 @@ namespace StoryWatch.UserControls.Books
             else if(txtAuthor.Text.Length > 100)
             {
                 MessageBox.Show("Book author length needs to be lower than 100!", "Author length!");
+                return false;
+            }
+            return true;
+        }
+        private bool CheckEmptyInput()
+        {
+            int parsedValue;
+            if (txtTitle.Text == "")
+            {
+                MessageBox.Show("Book title TextBox Empty!", "Title TextBox Empty!");
+                return false;
+            }
+            else if (txtSummary.Text == "")
+            {
+                MessageBox.Show("Book summary TextBox Empty!", "Book TextBox Empty!");
+                return false;
+            }
+            else if (txtAuthor.Text == "")
+            {
+                MessageBox.Show("Book author TextBox Empty!", "Author TextBox is Empty!");
+                return false;
+            }
+            else if (txtPages.Text == "")
+            {
+                MessageBox.Show("Book pages TextBox Empty!", "Pages TextBox is Empty!");
+                return false;
+            }
+            else if (txtGenre.Text == "")
+            {
+                MessageBox.Show("Book genre TextBox Empty!", "Genre TextBox is Empty!");
+                return false;
+            }
+            else if (!int.TryParse(txtPages.Text, out parsedValue))
+            {
+                MessageBox.Show("Book pages TextBox is a number field only!", "Pages TextBox is number field!");
                 return false;
             }
             return true;

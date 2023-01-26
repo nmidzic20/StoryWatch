@@ -1,4 +1,6 @@
 ﻿using BusinessLayer;
+using EntitiesLayer;
+using EntitiesLayer.Entities;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,13 +14,14 @@ namespace StoryWatch.UserControls.Games
     public partial class UCAddGame : UserControl
     {
         private GameServices gameServices;
-        
+        private IListCategory listCategory;
         private readonly string placeholderTextKeyword = "Search games by keyword";
 
-        public UCAddGame()
+        public UCAddGame(IListCategory lc)
         {
             InitializeComponent();
             gameServices = new GameServices();
+            listCategory = lc;
         }
 
         private async void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -63,6 +66,34 @@ namespace StoryWatch.UserControls.Games
             txtSearch.FontStyle = FontStyles.Italic;
             txtSearch.FontWeight = FontWeights.Bold;
             txtSearch.Foreground = new SolidColorBrush(Colors.SlateGray);
+        }
+
+        private void Back_Clicked(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
+        }
+
+        private async void AddClicked(object sender, RoutedEventArgs e)
+        {
+            if (dgResults.SelectedItem == null)
+            {
+                return;
+            }
+
+            IGDB.Models.Game game = await gameServices.GetGameInfoAsync((int)(dgResults.SelectedItem as IGDB.Models.Game).Id);
+
+            Game selectedGame = new Game()
+            {
+                IGDB_Id = game.Id.ToString(),
+                Title = game.Name,
+                Summary = game.Summary,
+                Release_Date = game.FirstReleaseDate.ToString(),
+                Company = "",
+                Genres = ""
+            };
+
+            var winAddGame = new AddGame(listCategory, selectedGame);
+            winAddGame.ShowDialog();
         }
     }
 }

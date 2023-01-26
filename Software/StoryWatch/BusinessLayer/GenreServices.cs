@@ -61,5 +61,13 @@ namespace BusinessLayer
                 return repo.Update(oldGenre, newGenre);
             }
         }
+
+        public Genre UpdateBookGenre(Genre oldGenre, Genre newGenre)
+        {
+            using (var db = new GenreRepository())
+            {
+                return db.UpdateBookGenre(oldGenre, newGenre);
+            }
+        }
     }
 }

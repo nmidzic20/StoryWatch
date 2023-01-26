@@ -101,9 +101,25 @@ namespace DataAccessLayer
             modelBuilder.Entity<Game>()
                 .Property(e => e.Title)
                 .IsUnicode(false);
+            
+            modelBuilder.Entity<Game>()
+                .Property(e => e.Summary)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Game>()
+                .Property(e => e.IGDB_Id)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Game>()
                 .Property(e => e.Company)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Game>()
+                .Property(e => e.Genres)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Game>()
+                .Property(e => e.Release_Date)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Game>()

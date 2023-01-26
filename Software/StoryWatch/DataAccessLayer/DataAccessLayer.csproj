@@ -124,6 +124,7 @@
     <Compile Include="Repositories\BookRepository.cs" />
     <Compile Include="Repositories\GameListCategoryRepository.cs" />
     <Compile Include="Repositories\GenreRepository.cs" />
+    <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Repositories\MovieListCategoryRepository.cs" />
     <Compile Include="Repositories\MovieRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
