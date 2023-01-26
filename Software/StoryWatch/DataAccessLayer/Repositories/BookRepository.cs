@@ -42,9 +42,17 @@ namespace DataAccessLayer.Repositories
 
         public int DeleteBookFromList(BookListItem bookListItem)
         {
+            int isSuccessful;
             Context.BookListItems.Attach(bookListItem);
             Context.BookListItems.Remove(bookListItem);
-            return Context.SaveChanges();
+            isSuccessful = Context.SaveChanges();
+
+            if (Context.BookListItems.Count(m => m.Id_Books == bookListItem.Id_Books) == 0)
+            {
+                var unusedBook = Entities.SingleOrDefault(m => m.Id == bookListItem.Id_Books);
+                Delete(unusedBook);
+            }
+            return isSuccessful;
         }
 
         public int Update(Book updateBook)
