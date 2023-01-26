@@ -309,8 +309,19 @@ namespace StoryWatch.UserControls
 
             }
 
-            
+            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
+                Button button = sender as Button;
+                Book book = button.DataContext as Book;
 
+                if (book != null)
+                {
+                    if (book.PreviewURL != null)
+                        GuiManager.OpenContent(new EBookPreview(book));
+                    else
+                        MessageBox.Show("This book does not support e-book preview", "E-book preview!");
+                }
+            }
         }
     }
 }
