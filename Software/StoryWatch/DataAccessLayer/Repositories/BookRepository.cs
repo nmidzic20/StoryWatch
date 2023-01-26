@@ -31,6 +31,25 @@ namespace DataAccessLayer.Repositories
             return Context.SaveChanges();
         }
 
+        public override int Add(Book entity, bool saveChanges = true)
+        {
+            var genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);
+
+            entity.Genre = genre;
+
+            Entities.Add(entity);
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
         public IQueryable<Book> GetBookByName(string title) 
         {
             var query = from m in Entities
@@ -63,6 +82,7 @@ namespace DataAccessLayer.Repositories
             book.Summary = updateBook.Summary;
             book.Pages = updateBook.Pages;
             book.Genre = updateBook.Genre;
+            book.Genre = Context.Genres.SingleOrDefault(g => g.Id == book.Genre.Id);
             return SaveChanges();
         }
 
