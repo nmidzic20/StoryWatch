@@ -343,7 +343,8 @@ namespace StoryWatch.UserControls
             };
             var isSuccessful = bookService.UpdateBookToAnotherList(bookListItem, destinationList as BookListCategory, StateManager.LoggedUser);
             return isSuccessful;
-        } 
+
+        }
 
         private static bool UpdateListGame(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
         {
