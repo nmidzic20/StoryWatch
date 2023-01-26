@@ -173,6 +173,16 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
             }
+            else
+            {
+                if (btn.DataContext is Media)
+                {
+                    Game selectedBook = btn.DataContext as Game;
+                    GameServices gameServices = new GameServices();
+                    gameServices.DeleteGameFromList(selectedBook, listCategory as GameListCategory, StateManager.LoggedUser);
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
+                }
+            }
         }
 
         class DragDropData
