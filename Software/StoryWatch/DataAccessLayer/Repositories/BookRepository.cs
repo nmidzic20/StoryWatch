@@ -61,6 +61,7 @@ namespace DataAccessLayer.Repositories
             book.Title = updateBook.Title;
             book.Author = updateBook.Author;
             book.Summary = updateBook.Summary;
+            book.Pages = updateBook.Pages;
             return SaveChanges();
         }
 

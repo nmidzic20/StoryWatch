@@ -149,19 +149,23 @@ namespace StoryWatch.UserControls.Books
 
         private void UpdateBook()
         {
-            Book updateBook = new Book
+            if (CheckInput() && CheckEmptyInput())
             {
-                Id = currentBook.Id,
-                Title = txtTitle.Text,
-                Summary = txtSummary.Text,
-                Author = txtAuthor.Text,
-            };
-            var update = bookService.UpdateBook(updateBook);
+                Book updateBook = new Book
+                {
+                    Id = currentBook.Id,
+                    Title = txtTitle.Text,
+                    Summary = txtSummary.Text,
+                    Author = txtAuthor.Text,
+                    Pages = txtPages.Text,
+                };
+                var update = bookService.UpdateBook(updateBook);
 
-            if (update == 0)
-                MessageBox.Show("Update failed! You didn't changed anything!");
-            Close();
-            GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
+                if (update == 0)
+                    MessageBox.Show("Update failed! You didn't changed anything!");
+                Close();
+                GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
+            }
         }
 
         private bool CheckInput()
