@@ -96,18 +96,34 @@ namespace StoryWatch.UserControls.Books
 
             if (CheckInput())
             {
-                Book newBook = new Book
+                Book newBook;
+                if (currentBook != null)
                 {
-                    Id = id,
-                    Title = txtTitle.Text,
-                    Summary = txtSummary.Text,
-                    Author = txtAuthor.Text,
-                };
+                    newBook = new Book
+                    {
+                        Id = id,
+                        Title = txtTitle.Text,
+                        Summary = txtSummary.Text,
+                        Author = txtAuthor.Text,
+                        PreviewURL = currentBook.PreviewURL
+                    };
+                  
+                }
+                else
+                {
+                    newBook = new Book
+                    {
+                        Id = id,
+                        Title = txtTitle.Text,
+                        Summary = txtSummary.Text,
+                        Author = txtAuthor.Text,
+                    };
+                }
 
                 Book addBook = bookService.AddBook(newBook);
                 var foundBookId = id;
-                if(addBook != null)
-                    foundBookId= addBook.Id;
+                if (addBook != null)
+                    foundBookId = addBook.Id;
 
                 BookListItem newBookList = new BookListItem
                 {

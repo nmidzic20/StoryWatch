@@ -57,7 +57,6 @@ namespace StoryWatch.UserControls
                     foreach (var movie in movies)
                     {
                         MediaItems.Add(movie);
-                        //lbMedia.Items.Add(movie);
                     }
 
                     break;
@@ -69,7 +68,6 @@ namespace StoryWatch.UserControls
                     foreach (var book in books)
                     {
                         MediaItems.Add(book);
-                        //lbMedia.Items.Add(book.Title);
                     }
                     break;
                 }
@@ -117,25 +115,6 @@ namespace StoryWatch.UserControls
             }
 
         }
-
-        /*private async void lbMedia_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
-        {
-            if (lbMedia.SelectedItem == null)
-                return;
-
-            if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
-            {
-                var selectedMovie = lbMedia.SelectedItem as EntitiesLayer.Entities.Movie;
-                var movieServices = new MovieServices();
-                //MessageBox.Show(selectedMovie.Title);
-                //var movie = await movieServices.GetMovieInfoAsync(int.Parse(selectedMovie.TMDB_ID));
-                //MessageBox.Show(movie.Title + " " + movie.Tagline + " ");
-                //GuiManager.OpenContent(new MovieInfo());
-            }
-            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
-            {
-            }
-        }*/
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -195,21 +174,7 @@ namespace StoryWatch.UserControls
                 }
             }
         }
-        /*
-        private void lbMedia_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var item = ItemsControl.ContainerFromElement(lbMedia, e.OriginalSource as DependencyObject) as ListBoxItem;
-            if (item != null)
-            {
-                var movie = item.DataContext as EntitiesLayer.Entities.Movie;
-                //MessageBox.Show(movie.Trailer_URL);
-                //MessageBox.Show(item.Content.ToString());
-                GuiManager.OpenContent(new MovieInfo(movie));
 
-            }
-
-        }
-      */
         class DragDropData
         {
             public Media MediaItem { get; set; }
@@ -250,7 +215,7 @@ namespace StoryWatch.UserControls
                     UCMediaListBox = this
                 };
                 DataObject dragData = new DataObject("sourceListMediaItemInfo", dragDropData);
-                DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
+                DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move); 
 
                 //remove that media from list when the drop finalizes (here is a wait from the above line until drop is complete)
                 MediaItems.Remove(mediaItem);
@@ -360,6 +325,20 @@ namespace StoryWatch.UserControls
 
                 }
 
+            }
+
+            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            {
+                Button button = sender as Button;
+                Book book = button.DataContext as Book;
+
+                if (book != null)
+                {
+                    if (book.PreviewURL != null)
+                        GuiManager.OpenContent(new EBookPreview(book));
+                    else
+                        MessageBox.Show("This book does not support e-book preview", "E-book preview!");
+                }
             }
         }
     }

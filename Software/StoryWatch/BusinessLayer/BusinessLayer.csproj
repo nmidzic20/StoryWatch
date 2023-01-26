@@ -153,6 +153,7 @@
   <ItemGroup>
     <Compile Include="BookService.cs" />
     <Compile Include="GameServices.cs" />
+    <Compile Include="GenreServices.cs" />
     <Compile Include="ListCategoryServices.cs" />
     <Compile Include="MovieServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

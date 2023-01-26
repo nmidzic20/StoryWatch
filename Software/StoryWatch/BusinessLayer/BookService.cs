@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using DataAccessLayer.Repositories;
 using TMDbLib.Objects.Movies;
+using System.Net;
+using System.IO;
 
 namespace BusinessLayer
 {
@@ -29,7 +31,7 @@ namespace BusinessLayer
         public List<Book> findBookByName(string name)
         {
             HttpResponseMessage response;
-            string urlParameters = "?q=" + name;
+            string urlParameters = "?q=" + name +"&maxResults=40";
             response = bookClient.GetAsync(urlParameters).Result;
 
             if (response.IsSuccessStatusCode)
@@ -42,22 +44,22 @@ namespace BusinessLayer
                     JArray autor = (JArray)volumeInfoObject["authors"];
                     string title = (string)volumeInfoObject["title"];
                     string summary = (string)volumeInfoObject["description"];
+                    string previewLink = (string)volumeInfoObject["previewLink"];
                     if (autor != null)
                     {
                         string author = (string)autor[0];
-                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author};
+                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author, PreviewURL = previewLink};
                         bookInfo.Add(bookAdd);
                     }
                     else
                     {
-                        Book bookAdd = new Book { Title = title, Summary = summary };
+                        Book bookAdd = new Book { Title = title, Summary = summary, PreviewURL = previewLink };
                         bookInfo.Add(bookAdd);
                     }
                 }
             }
             return bookInfo;
         }
-
         public List<Book> returnCurrentBookList()
         {
             return bookInfo;

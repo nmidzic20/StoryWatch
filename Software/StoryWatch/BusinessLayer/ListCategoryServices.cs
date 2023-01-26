@@ -40,6 +40,7 @@ namespace BusinessLayer
             return mediaListCategories;
         }
 
+
         public List<MovieListCategory> GetMovieListCategories()
         {
             using (var repo = new MovieListCategoryRepository())

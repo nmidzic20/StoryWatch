@@ -153,6 +153,9 @@
     <Compile Include="UserControls\Books\AddBook.xaml.cs">
       <DependentUpon>AddBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Books\EBookPreview.xaml.cs">
+      <DependentUpon>EBookPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Books\UCSearchBook.xaml.cs">
       <DependentUpon>UCSearchBook.xaml</DependentUpon>
     </Compile>
@@ -202,6 +205,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\Books\AddBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Books\EBookPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

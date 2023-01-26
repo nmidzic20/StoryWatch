@@ -10,6 +10,25 @@ namespace DataAccessLayer.Repositories
 {
     public class MovieRepository : Repository<Movie>
     {
+        public override int Add(Movie entity, bool saveChanges = true)
+        {
+            var genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);
+
+            entity.Genre = genre;
+
+            Entities.Add(entity);
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        
+        }
+
         public int AddMovieToList(MovieListItem movieListItem, bool saveChanges = true)
         {
             Context.MovieListItems.Add(movieListItem);
@@ -25,21 +44,34 @@ namespace DataAccessLayer.Repositories
 
         public int DeleteMovieFromList(MovieListItem movieListItem, bool saveChanges = true)
         {
+            int isSuccessful;
+
             Context.MovieListItems.Attach(movieListItem);
             Context.MovieListItems.Remove(movieListItem);
+
             if (saveChanges)
             {
-                return Context.SaveChanges();
+                isSuccessful = Context.SaveChanges();
             }
             else
             {
-                return 0;
+                isSuccessful = 0;
             }
+
+            //check if any list for any user, still references this movie
+            //if not, no sense in keeping the movie in DB - delete it as well, not just MovieListItem/movie on this specific list
+            if (Context.MovieListItems.Count(m => m.Id_Movies == movieListItem.Id_Movies) == 0)
+            {
+                var unusedMovie = Entities.SingleOrDefault(m => m.Id == movieListItem.Id_Movies);
+                Delete(unusedMovie);
+            }
+
+            return isSuccessful;
         }
 
         public IQueryable<Movie> GetMovieByTitle(string title)
         {
-            var query = from m in Entities
+            var query = from m in Entities.Include("Genre")
                         where m.Title == title
                         select m;
 
@@ -48,7 +80,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<Movie> GetMovieByTMDBId(string TMDB_ID)
         {
-            var query = from m in Entities
+            var query = from m in Entities.Include("Genre")
                         where m.TMDB_ID == TMDB_ID
                         select m;
 
@@ -57,7 +89,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<Movie> GetMovieById(int id)
         {
-            var query = from m in Entities
+            var query = from m in Entities.Include("Genre")
                         where m.Id == id
                         select m;
 
@@ -86,6 +118,7 @@ namespace DataAccessLayer.Repositories
             movie.Description = entity.Description;
             movie.ReleaseDate = entity.ReleaseDate;
             movie.Countries = entity.Countries;
+            movie.Genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);
 
             if (saveChanges)
             {
