@@ -71,6 +71,16 @@ namespace StoryWatch.UserControls
                     }
                     break;
                 }
+                case MediaCategory.Game:
+                {
+                    GameServices gameServices = new GameServices();
+                    var games = gameServices.GetGamesForList(listCategory as GameListCategory, StateManager.LoggedUser);
+                    foreach (var game in games)
+                    {
+                        MediaItems.Add(game);
+                    }
+                    break;
+                }
             }
 
             lbMedia.DataContext = MediaItems;
@@ -101,7 +111,7 @@ namespace StoryWatch.UserControls
             }
             else
             {
-                GuiManager.OpenContent(new UCAddGame());
+                GuiManager.OpenContent(new UCAddGame(this.listCategory));
             }
 
         }
@@ -118,7 +128,7 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCAddMovieToList(listCategory, movie));
                 }
             }
-            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
                 if(btn.DataContext is Media)
                 {
@@ -127,12 +137,28 @@ namespace StoryWatch.UserControls
                     addBook.Show();
                 }
             }
+            else
+            {
+                if (btn.DataContext is Media)
+                {
+                    Game selectedGame = btn.DataContext as Game;
 
+                    AddGame addGame = new AddGame(listCategory, selectedGame, true);
+                    addGame.Show();
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
+
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this item?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
 
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
             {
@@ -144,7 +170,7 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Movie));
                 }
             }
-            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
                 if (btn.DataContext is Media)
                 {
@@ -154,7 +180,16 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
             }
-
+            else
+            {
+                if (btn.DataContext is Media)
+                {
+                    Game selectedBook = btn.DataContext as Game;
+                    GameServices gameServices = new GameServices();
+                    gameServices.DeleteGameFromList(selectedBook, listCategory as GameListCategory, StateManager.LoggedUser);
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
+                }
+            }
         }
 
         class DragDropData
@@ -253,7 +288,11 @@ namespace StoryWatch.UserControls
                 switch (StateManager.CurrentMediaCategory)
                 {
                     case MediaCategory.Movie:
-                        isSuccessful = UpdateList(mediaItem, sourceList, destinationList);
+                        isSuccessful = UpdateListMovie(mediaItem, sourceList, destinationList);
+                        break;
+
+                    case MediaCategory.Game:
+                        isSuccessful = UpdateListGame(mediaItem, sourceList, destinationList);
                         break;
 
                     case MediaCategory.Book:
@@ -279,7 +318,7 @@ namespace StoryWatch.UserControls
             }
         }
 
-        private static bool UpdateList(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        private static bool UpdateListMovie(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
         {
             var movieServices = new MovieServices();
             var movieListItem = new MovieListItem
@@ -287,8 +326,8 @@ namespace StoryWatch.UserControls
                 Id_MovieListCategories = sourceList.Id,
                 Id_Movies = mediaItem.Id,
                 Id_Users = StateManager.LoggedUser.Id
-
             };
+            
             var isSuccessful = movieServices.UpdateMovieToAnotherList(movieListItem, destinationList as MovieListCategory, StateManager.LoggedUser);
             return isSuccessful;
         }
@@ -303,6 +342,19 @@ namespace StoryWatch.UserControls
                 Id_Users = StateManager.LoggedUser.Id
             };
             var isSuccessful = bookService.UpdateBookToAnotherList(bookListItem, destinationList as BookListCategory, StateManager.LoggedUser);
+            
+        private static bool UpdateListGame(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        {
+            var gameServices = new GameServices();
+            var gameListItem = new GameListItem
+            {
+                Id_GameListCategories = sourceList.Id,
+                Id_Games = mediaItem.Id,
+                Id_Users = StateManager.LoggedUser.Id
+            };
+
+            var isSuccessful = gameServices.UpdateGameToAnotherList(gameListItem, destinationList as GameListCategory, StateManager.LoggedUser);
+
             return isSuccessful;
         }
 

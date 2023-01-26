@@ -20,10 +20,20 @@ namespace EntitiesLayer.Entities
         [StringLength(100)]
         public string Title { get; set; }
 
+        [StringLength(900)]
+        public string Summary { get; set; }
+
         [StringLength(100)]
         public string Company { get; set; }
+        
+        [StringLength(100)]
+        public string Release_Date { get; set; }
 
-        public short? Indie { get; set; }
+        [StringLength(200)]
+        public string Genres { get; set; }
+
+        [StringLength(100)]
+        public string IGDB_Id { get; set; }
 
         public virtual Genre Genre { get; set; }
 
