@@ -56,11 +56,11 @@ namespace StoryWatch.UserControls.Books
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTextBoxes();
-            txtID.IsReadOnly = true;
         }
 
         private void LoadTextBoxes()
         {
+            txtID.IsReadOnly = true;
             var allBooks = bookService.GetAll().ToList();
             var id = (allBooks.Count() != 0) ? allBooks.Last().Id + 1 : 0;
             if (currentBook != null)
@@ -198,6 +198,11 @@ namespace StoryWatch.UserControls.Books
             else if (txtAuthor.Text == "")
             {
                 MessageBox.Show("Book author TextBox Empty!", "Author TextBox is Empty!");
+                return false;
+            }
+            else if (txtPages.Text == "")
+            {
+                MessageBox.Show("Book pages TextBox Empty!", "Pages TextBox is Empty!");
                 return false;
             }
             return true;
