@@ -37,11 +37,11 @@ namespace StoryWatch.UserControls.Games
 
         private void FillGameInfo()
         {
+            txtID.Text = selectedGame.IGDB_Id;
             txtTitle.Text = selectedGame.Title;
             txtGenres.Text = selectedGame.Genres;
             txtSummary.Text = selectedGame.Summary;
             txtDev.Text = selectedGame.Company;
-            txtID.Text = selectedGame.Id.ToString();
         }
 
         private void AddGameToList(object sender, RoutedEventArgs e)
@@ -67,7 +67,7 @@ namespace StoryWatch.UserControls.Games
                 Summary = txtSummary.Text,
                 Genres = txtGenres.Text,
                 Company = txtDev.Text,
-                IGDB_Id = selectedGame.Id.ToString(),
+                IGDB_Id = selectedGame.IGDB_Id
             };
 
             int isSuccessful = gameServices.UpdateGame(game);
