@@ -100,5 +100,32 @@ namespace DataAccessLayer.Repositories
                 return 0;
             }
         }
+
+        public int UpdateGameListItem(GameListItem gameListItem, int idNewList, bool saveChanges = true)
+        {
+
+            GameListItem gameListItemDB = Context.GameListItems.Where(ml =>
+                                        ml.Id_Games == gameListItem.Id_Games &&
+                                        ml.Id_Users == gameListItem.Id_Users &&
+                                        ml.Id_GameListCategories == gameListItem.Id_GameListCategories).SingleOrDefault();
+
+            Context.GameListItems.Remove(gameListItemDB);
+            
+            Context.GameListItems.Add(new GameListItem
+            {
+                Id_Games = gameListItem.Id_Games,
+                Id_GameListCategories = idNewList,
+                Id_Users = gameListItem.Id_Users
+            });
+
+            if (saveChanges)
+            {
+                return Context.SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

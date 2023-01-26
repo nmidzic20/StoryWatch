@@ -271,7 +271,11 @@ namespace StoryWatch.UserControls
                 switch (StateManager.CurrentMediaCategory)
                 {
                     case MediaCategory.Movie:
-                        isSuccessful = UpdateList(mediaItem, sourceList, destinationList);
+                        isSuccessful = UpdateListMovie(mediaItem, sourceList, destinationList);
+                        break;
+
+                    case MediaCategory.Game:
+                        isSuccessful = UpdateListGame(mediaItem, sourceList, destinationList);
                         break;
 
                 }
@@ -294,7 +298,7 @@ namespace StoryWatch.UserControls
             }
         }
 
-        private static bool UpdateList(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        private static bool UpdateListMovie(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
         {
             var movieServices = new MovieServices();
             var movieListItem = new MovieListItem
@@ -302,9 +306,23 @@ namespace StoryWatch.UserControls
                 Id_MovieListCategories = sourceList.Id,
                 Id_Movies = mediaItem.Id,
                 Id_Users = StateManager.LoggedUser.Id
-
             };
+            
             var isSuccessful = movieServices.UpdateMovieToAnotherList(movieListItem, destinationList as MovieListCategory, StateManager.LoggedUser);
+            return isSuccessful;
+        }
+
+        private static bool UpdateListGame(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        {
+            var gameServices = new GameServices();
+            var gameListItem = new GameListItem
+            {
+                Id_GameListCategories = sourceList.Id,
+                Id_Games = mediaItem.Id,
+                Id_Users = StateManager.LoggedUser.Id
+            };
+
+            var isSuccessful = gameServices.UpdateGameToAnotherList(gameListItem, destinationList as GameListCategory, StateManager.LoggedUser);
             return isSuccessful;
         }
 
