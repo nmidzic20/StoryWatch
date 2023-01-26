@@ -71,6 +71,16 @@ namespace StoryWatch.UserControls
                     }
                     break;
                 }
+                case MediaCategory.Game:
+                {
+                    GameServices gameServices = new GameServices();
+                    var games = gameServices.GetGamesForList(listCategory as GameListCategory, StateManager.LoggedUser);
+                    foreach (var game in games)
+                    {
+                        MediaItems.Add(game);
+                    }
+                    break;
+                }
             }
 
             lbMedia.DataContext = MediaItems;
@@ -101,7 +111,7 @@ namespace StoryWatch.UserControls
             }
             else
             {
-                GuiManager.OpenContent(new UCAddGame());
+                GuiManager.OpenContent(new UCAddGame(this.listCategory));
             }
 
         }
@@ -118,7 +128,7 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCAddMovieToList(listCategory, movie));
                 }
             }
-            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
                 if(btn.DataContext is Media)
                 {
@@ -127,7 +137,16 @@ namespace StoryWatch.UserControls
                     addBook.Show();
                 }
             }
+            else
+            {
+                if (btn.DataContext is Media)
+                {
+                    IGDB.Models.Game selectedGame = btn.DataContext as IGDB.Models.Game;
 
+                    AddGame addGame = new AddGame(listCategory, selectedGame);
+                    addGame.Show();
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -144,7 +163,7 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Movie));
                 }
             }
-            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
                 if (btn.DataContext is Media)
                 {
@@ -154,7 +173,6 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
             }
-
         }
 
         class DragDropData
