@@ -69,6 +69,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<Book>()
                 .Property(e => e.Pages)
                 .IsUnicode(false);
+
             modelBuilder.Entity<Book>()
                 .HasMany(e => e.BookListItems)
                 .WithRequired(e => e.Book)

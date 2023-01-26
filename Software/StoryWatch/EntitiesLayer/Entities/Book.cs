@@ -30,12 +30,9 @@ namespace EntitiesLayer.Entities
         public string PreviewURL { get; set; }
 
         [StringLength(5)]
-        public string Pages
-        {
-            get; set;
-        }
+        public string Pages { get; set; }
 
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookListItem> BookListItems { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
