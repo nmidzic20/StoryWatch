@@ -113,7 +113,8 @@ namespace StoryWatch.UserControls.Books
                     Id = genreId,
                     Name = txtGenre.Text
                 };
-                genre = genreServices.AddGenre(genre);
+                var dohvaceniGenre = genreServices.AddGenre(genre).Id;
+                genre = genreServices.GetGenreById(dohvaceniGenre);
 
                 Book newBook;
                 if (currentBook != null)

@@ -26,7 +26,7 @@ namespace BusinessLayer
 
             }
 
-            return existingGenre;
+            return genre;
 
         }
 
