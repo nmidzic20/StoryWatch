@@ -153,6 +153,13 @@ namespace StoryWatch.UserControls
         {
             Button btn = (Button)sender;
 
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this item?", "Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
             {
                 if (btn.DataContext is Media)
@@ -171,6 +178,16 @@ namespace StoryWatch.UserControls
                     BookService bookServices = new BookService();
                     bookServices.DeleteBookFromList(selectedBook, listCategory as BookListCategory, StateManager.LoggedUser);
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
+                }
+            }
+            else
+            {
+                if (btn.DataContext is Media)
+                {
+                    Game selectedBook = btn.DataContext as Game;
+                    GameServices gameServices = new GameServices();
+                    gameServices.DeleteGameFromList(selectedBook, listCategory as GameListCategory, StateManager.LoggedUser);
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
                 }
             }
         }
