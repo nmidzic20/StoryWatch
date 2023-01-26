@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
 using EntitiesLayer.Entities;
+using StoryWatch.UserControls.Movies;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -148,6 +149,11 @@ namespace StoryWatch.UserControls
             }
             StateManager.LoggedUser = null;
             GuiManager.OpenContent(new UCLogin());
+        }
+
+        private void btnRecommend_Click(object sender, RoutedEventArgs e)
+        {
+            GuiManager.OpenContent(new UCRecommendMovies());
         }
     }
 }
