@@ -50,9 +50,11 @@ namespace StoryWatch.UserControls.Books
             txtTitle.IsReadOnly = true;
             txtSummary.IsReadOnly = true;
             txtAuthor.IsReadOnly = true;
+            txtPages.IsReadOnly = true;
             txtTitle.Text = book.Title;
             txtAuthor.Text = book.Author;
             txtSummary.Text = book.Summary;
+            txtPages.Text = book.Pages;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

@@ -46,15 +46,16 @@ namespace BusinessLayer
                     string title = (string)volumeInfoObject["title"];
                     string summary = (string)volumeInfoObject["description"];
                     string previewLink = (string)volumeInfoObject["previewLink"];
+                    string pageCount = (string)volumeInfoObject["pageCount"];
                     if (autor != null)
                     {
                         string author = (string)autor[0];
-                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author, PreviewURL = previewLink};
+                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author, PreviewURL = previewLink, Pages = pageCount};
                         bookInfo.Add(bookAdd);
                     }
                     else
                     {
-                        Book bookAdd = new Book { Title = title, Summary = summary, PreviewURL = previewLink };
+                        Book bookAdd = new Book { Title = title, Summary = summary, PreviewURL = previewLink, Pages = pageCount};
                         bookInfo.Add(bookAdd);
                     }
                 }
@@ -189,7 +190,6 @@ namespace BusinessLayer
             bool isSuccessful = false;
             using (var db = new BookRepository())
             {
-                //check if exists on destination list already, if yes, return false, if no, change to that list
                 List<Book> books = db.GetBooksForListBox(destBookListCategory, loggedUser).ToList();
                 bool bookExistsOnList = books.Exists(m => m.Id == bookListItem.Id_Books);
 
@@ -199,8 +199,6 @@ namespace BusinessLayer
                 }
                 else
                 {
-                    //fetch movieListItem for this movie, this list and this user
-                    //change the list
                     int affectedRows = db.UpdateBookListItem(bookListItem, destBookListCategory.Id);
                     isSuccessful = affectedRows > 0;
                 }

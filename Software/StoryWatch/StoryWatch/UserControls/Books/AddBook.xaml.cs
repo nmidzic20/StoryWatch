@@ -72,6 +72,7 @@ namespace StoryWatch.UserControls.Books
                 txtTitle.Text = currentBook.Title;
                 txtSummary.Text = currentBook.Summary;
                 txtAuthor.Text = currentBook.Author;
+                txtPages.Text = currentBook.Pages;
             }
             txtID.Text = id.ToString();
         }
@@ -94,7 +95,7 @@ namespace StoryWatch.UserControls.Books
 
             var id = (allBooks.Count() != 0) ? allBooks.Last().Id + 1 : 0;
 
-            if (CheckInput())
+            if (CheckInput() && CheckEmptyInput())
             {
                 Book newBook;
                 if (currentBook != null)
@@ -105,7 +106,8 @@ namespace StoryWatch.UserControls.Books
                         Title = txtTitle.Text,
                         Summary = txtSummary.Text,
                         Author = txtAuthor.Text,
-                        PreviewURL = currentBook.PreviewURL
+                        PreviewURL = currentBook.PreviewURL,
+                        Pages = currentBook.Pages,
                     };
                   
                 }
@@ -117,6 +119,7 @@ namespace StoryWatch.UserControls.Books
                         Title = txtTitle.Text,
                         Summary = txtSummary.Text,
                         Author = txtAuthor.Text,
+                        Pages = txtPages.Text,
                     };
                 }
 
@@ -176,6 +179,25 @@ namespace StoryWatch.UserControls.Books
             else if(txtAuthor.Text.Length > 100)
             {
                 MessageBox.Show("Book author length needs to be lower than 100!", "Author length!");
+                return false;
+            }
+            return true;
+        }
+        private bool CheckEmptyInput()
+        {
+            if (txtTitle.Text == "")
+            {
+                MessageBox.Show("Book title TextBox Empty!", "Title TextBox Empty!");
+                return false;
+            }
+            else if (txtSummary.Text == "")
+            {
+                MessageBox.Show("Book summary TextBox Empty!", "Book TextBox Empty!");
+                return false;
+            }
+            else if (txtAuthor.Text == "")
+            {
+                MessageBox.Show("Book author TextBox Empty!", "Author TextBox is Empty!");
                 return false;
             }
             return true;
