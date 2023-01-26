@@ -88,7 +88,6 @@ namespace DataAccessLayer.Repositories
             game.Title = entity.Title;
             game.Company = entity.Company;
             game.IGDB_Id = entity.IGDB_Id;
-            game.Indie = entity.Indie;
 
             if (saveChanges)
             {

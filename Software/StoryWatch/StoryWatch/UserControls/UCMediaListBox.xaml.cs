@@ -194,7 +194,6 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                 }
             }
-
         }
         /*
         private void lbMedia_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -362,9 +361,6 @@ namespace StoryWatch.UserControls
                 }
 
             }
-
-            
-
         }
     }
 }

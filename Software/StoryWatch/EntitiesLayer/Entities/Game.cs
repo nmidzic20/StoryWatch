@@ -25,9 +25,14 @@ namespace EntitiesLayer.Entities
 
         [StringLength(100)]
         public string Company { get; set; }
-
-        public short? Indie { get; set; }
         
+        [StringLength(100)]
+        public string Release_Date { get; set; }
+
+        [StringLength(200)]
+        public string Genres { get; set; }
+
+        [StringLength(100)]
         public string IGDB_Id { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

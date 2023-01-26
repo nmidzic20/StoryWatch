@@ -1,19 +1,8 @@
 ﻿using BusinessLayer;
 using EntitiesLayer.Entities;
-using IGDB.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace StoryWatch.UserControls.Games
 {
@@ -80,8 +69,7 @@ namespace StoryWatch.UserControls.Games
                 Title = txtTitle.Text,
                 Summary = txtSummary.Text,
                 IGDB_Id = selectedGame.Id.ToString(),
-                Company = "",
-                Indie = 0
+                Company = ""
             };
 
             int isSuccessful = gameServices.UpdateGame(game);
@@ -108,8 +96,7 @@ namespace StoryWatch.UserControls.Games
                 Title = txtTitle.Text,
                 Summary = txtSummary.Text,
                 IGDB_Id = txtID.Text,
-                Company = txtDev.Text,
-                Indie = 0
+                Company = txtDev.Text
             });
 
             if (!isSuccessful)

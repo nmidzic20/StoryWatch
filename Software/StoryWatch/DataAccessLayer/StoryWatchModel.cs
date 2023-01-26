@@ -107,6 +107,14 @@ namespace DataAccessLayer
                 .IsUnicode(false);
 
             modelBuilder.Entity<Game>()
+                .Property(e => e.Genres)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Game>()
+                .Property(e => e.Release_Date)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Game>()
                 .HasMany(e => e.GameListItems)
                 .WithRequired(e => e.Game)
                 .HasForeignKey(e => e.Id_Games);

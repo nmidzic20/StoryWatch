@@ -5,14 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls.Games"
         mc:Ignorable="d"
-        Title="AddBook" Height="350" Width="400" Background="Lavender">
+        Title="AddBook" Height="500" Width="600" Background="Lavender">
     <DockPanel>
-        <Label Content="Add game" Background="CornflowerBlue" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontWeight="Bold"></Label>
-        <Grid Margin="10" HorizontalAlignment="Center">
+        <Grid Width="500" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"></ColumnDefinition>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="380"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
@@ -21,23 +19,23 @@
                 <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
                 <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
                 <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
-                <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+                <RowDefinition Height="50" MaxHeight="50"></RowDefinition>
             </Grid.RowDefinitions>
             <Label Content="ID:" Grid.Row="0" Grid.Column="0" FontWeight="Bold"></Label>
-            <TextBox x:Name="txtID" Grid.Row="0" Grid.Column="1" Margin="2"></TextBox>
+            <TextBox x:Name="txtID" Grid.Row="0" Grid.Column="1" Margin="2,2,18,2"/>
             <Label Content="Title:" Grid.Row="1" Grid.Column="0" FontWeight="Bold" ></Label>
-            <TextBox x:Name="txtTitle" Grid.Row="1" Grid.Column="1" Margin="2"></TextBox>
+            <TextBox x:Name="txtTitle" Grid.Row="1" Grid.Column="1" Margin="2,2,18,2"/>
             <Label Content="Summary:" Grid.Row="2" Grid.Column="0" FontWeight="Bold"></Label>
-            <TextBox x:Name="txtSummary" Grid.Row="2" Grid.Column="1" Margin="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"></TextBox>
+            <TextBox x:Name="txtSummary" Grid.Row="2" Grid.Column="1" Margin="2,2,18,2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" TextWrapping="Wrap"/>
             <Label Content="Genres:" Grid.Row="3" Grid.Column="0" FontWeight="Bold"></Label>
-            <TextBox x:Name="txtGenres" Grid.Row="3" Grid.Column="1" Margin="2"></TextBox>
+            <TextBox x:Name="txtGenres" Grid.Row="3" Grid.Column="1" Margin="2,2,18,2"/>
             <Label Content="Developer:" Grid.Row="4" Grid.Column="0" FontWeight="Bold"></Label>
-            <TextBox x:Name="txtDev" Grid.Row="4" Grid.Column="1" Margin="2"></TextBox>
+            <TextBox x:Name="txtDev" Grid.Row="4" Grid.Column="1" Margin="2,2,18,2"/>
             <Label Content="Engine:" Grid.Row="5" Grid.Column="0" FontWeight="Bold"></Label>
-            <TextBox x:Name="txtEngine" Grid.Row="5" Grid.Column="1" Margin="2"></TextBox>
-            <StackPanel Grid.Row="6" Grid.Column="1" Height="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button x:Name="btnSave" Content="Save" Width="60" Height="25" Margin="2" Background="LightBlue" Click="AddGameToList"></Button>
-                <Button x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="2" Background="LightBlue"></Button>
+            <TextBox x:Name="txtEngine" Grid.Row="5" Grid.Column="1" Margin="2,2,18,2"/>
+            <StackPanel Grid.Row="6" Grid.Column="1" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="94,0,0,0" Width="160">
+                <Button x:Name="btnSave" Content="Save" Width="60" Height="25" Margin="10" Background="LightBlue" Click="AddGameToList"></Button>
+                <Button x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="10" Background="LightBlue"></Button>
             </StackPanel>
         </Grid>
     </DockPanel>
