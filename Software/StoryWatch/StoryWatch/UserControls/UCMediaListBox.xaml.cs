@@ -256,6 +256,9 @@ namespace StoryWatch.UserControls
                         isSuccessful = UpdateList(mediaItem, sourceList, destinationList);
                         break;
 
+                    case MediaCategory.Book:
+                        isSuccessful = UpdateBookList(mediaItem, sourceList, destinationList);
+                        break;
                 }
 
                 if (!isSuccessful)
@@ -287,6 +290,19 @@ namespace StoryWatch.UserControls
 
             };
             var isSuccessful = movieServices.UpdateMovieToAnotherList(movieListItem, destinationList as MovieListCategory, StateManager.LoggedUser);
+            return isSuccessful;
+        }
+
+        private static bool UpdateBookList(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        {
+            BookService bookService = new BookService();
+            BookListItem bookListItem = new BookListItem
+            {
+                Id_BookListCategories = sourceList.Id,
+                Id_Books = mediaItem.Id,
+                Id_Users = StateManager.LoggedUser.Id
+            };
+            var isSuccessful = bookService.UpdateBookToAnotherList(bookListItem, destinationList as BookListCategory, StateManager.LoggedUser);
             return isSuccessful;
         }
 

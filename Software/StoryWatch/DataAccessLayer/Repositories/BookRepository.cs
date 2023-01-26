@@ -63,5 +63,31 @@ namespace DataAccessLayer.Repositories
             book.Summary = updateBook.Summary;
             return SaveChanges();
         }
+
+        public int UpdateBookListItem(BookListItem bookListItem, int idNewList, bool saveChanges = true)
+        {
+
+            BookListItem bookListItemDB = Context.BookListItems.Where(ml =>
+                                        ml.Id_Books == bookListItem.Id_Books &&
+                                        ml.Id_Users == bookListItem.Id_Users &&
+                                        ml.Id_BookListCategories == bookListItem.Id_BookListCategories).SingleOrDefault();
+
+            Context.BookListItems.Remove(bookListItemDB);
+            Context.BookListItems.Add(new BookListItem
+            {
+                Id_Books = bookListItem.Id_Books,
+                Id_BookListCategories = idNewList,
+                Id_Users = bookListItem.Id_Users
+            });
+
+            if (saveChanges)
+            {
+                return Context.SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

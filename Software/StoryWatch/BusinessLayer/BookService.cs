@@ -14,6 +14,7 @@ using DataAccessLayer.Repositories;
 using TMDbLib.Objects.Movies;
 using System.Net;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
 
 namespace BusinessLayer
 {
@@ -181,6 +182,32 @@ namespace BusinessLayer
             {
                 return db.Update(book);
             }
+        }
+
+        public bool UpdateBookToAnotherList(BookListItem bookListItem, BookListCategory destBookListCategory, User loggedUser)
+        {
+            bool isSuccessful = false;
+            using (var db = new BookRepository())
+            {
+                //check if exists on destination list already, if yes, return false, if no, change to that list
+                List<Book> books = db.GetBooksForListBox(destBookListCategory, loggedUser).ToList();
+                bool bookExistsOnList = books.Exists(m => m.Id == bookListItem.Id_Books);
+
+                if (bookExistsOnList)
+                {
+                    isSuccessful = false;
+                }
+                else
+                {
+                    //fetch movieListItem for this movie, this list and this user
+                    //change the list
+                    int affectedRows = db.UpdateBookListItem(bookListItem, destBookListCategory.Id);
+                    isSuccessful = affectedRows > 0;
+                }
+
+            }
+
+            return isSuccessful;
         }
     }
 }
