@@ -14,6 +14,7 @@ using DataAccessLayer.Repositories;
 using TMDbLib.Objects.Movies;
 using System.Net;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
 
 namespace BusinessLayer
 {
@@ -45,15 +46,16 @@ namespace BusinessLayer
                     string title = (string)volumeInfoObject["title"];
                     string summary = (string)volumeInfoObject["description"];
                     string previewLink = (string)volumeInfoObject["previewLink"];
+                    string pageCount = (string)volumeInfoObject["pageCount"];
                     if (autor != null)
                     {
                         string author = (string)autor[0];
-                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author, PreviewURL = previewLink};
+                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author, PreviewURL = previewLink, Pages = pageCount};
                         bookInfo.Add(bookAdd);
                     }
                     else
                     {
-                        Book bookAdd = new Book { Title = title, Summary = summary, PreviewURL = previewLink };
+                        Book bookAdd = new Book { Title = title, Summary = summary, PreviewURL = previewLink, Pages = pageCount};
                         bookInfo.Add(bookAdd);
                     }
                 }
@@ -156,6 +158,14 @@ namespace BusinessLayer
             }
         }
 
+        public Book GetBookById(int id)
+        {
+            using (var db = new BookRepository())
+            {
+                return db.GetBookById(id).FirstOrDefault();
+            }
+        }
+
         public bool DeleteBookFromList(Book selectedBook, BookListCategory bookListCategory, User loggedUser)
         {
             bool isSuccessful = false;
@@ -181,6 +191,29 @@ namespace BusinessLayer
             {
                 return db.Update(book);
             }
+        }
+
+        public bool UpdateBookToAnotherList(BookListItem bookListItem, BookListCategory destBookListCategory, User loggedUser)
+        {
+            bool isSuccessful = false;
+            using (var db = new BookRepository())
+            {
+                List<Book> books = db.GetBooksForListBox(destBookListCategory, loggedUser).ToList();
+                bool bookExistsOnList = books.Exists(m => m.Id == bookListItem.Id_Books);
+
+                if (bookExistsOnList)
+                {
+                    isSuccessful = false;
+                }
+                else
+                {
+                    int affectedRows = db.UpdateBookListItem(bookListItem, destBookListCategory.Id);
+                    isSuccessful = affectedRows > 0;
+                }
+
+            }
+
+            return isSuccessful;
         }
     }
 }

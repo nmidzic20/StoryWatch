@@ -26,6 +26,8 @@
                         <RowDefinition Height="100" MaxHeight="150"></RowDefinition>
                         <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
                         <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+                        <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+                        <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Content="Title:" Grid.Row="1" Grid.Column="0" FontWeight="Bold" ></Label>
                     <TextBox x:Name="txtTitle" Grid.Row="1" Grid.Column="1" Margin="2"></TextBox>
@@ -33,7 +35,11 @@
                     <TextBox x:Name="txtSummary" Grid.Row="2" Grid.Column="1" Margin="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
                     <Label Content="Author:" Grid.Row="3" Grid.Column="0" FontWeight="Bold"></Label>
                     <TextBox x:Name="txtAuthor" Grid.Row="3" Grid.Column="1" Margin="2"></TextBox>
-                    <StackPanel Grid.Row="4" Grid.Column="1" Height="30" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label Content="Pages:" Grid.Row="4" Grid.Column="0" FontWeight="Bold"></Label>
+                    <TextBox x:Name="txtPages" Grid.Row="4" Grid.Column="1" Margin="2"></TextBox>
+                    <Label Content="Genre:" Grid.Row="5" Grid.Column="0" FontWeight="Bold"></Label>
+                    <TextBox x:Name="txtGenre" Grid.Row="5" Grid.Column="1" Margin="2"></TextBox>
+                    <StackPanel Grid.Row="6" Grid.Column="1" Height="30" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button x:Name="btnHideInfo" Content="Hide info" Width="60" Height="25" Margin="2" Background="LightBlue" Click="btnHideInfo_Click"></Button>
                     </StackPanel>
                 </Grid>

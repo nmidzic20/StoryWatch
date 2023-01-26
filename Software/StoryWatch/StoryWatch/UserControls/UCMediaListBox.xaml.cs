@@ -295,6 +295,9 @@ namespace StoryWatch.UserControls
                         isSuccessful = UpdateListGame(mediaItem, sourceList, destinationList);
                         break;
 
+                    case MediaCategory.Book:
+                        isSuccessful = UpdateBookList(mediaItem, sourceList, destinationList);
+                        break;
                 }
 
                 if (!isSuccessful)
@@ -329,6 +332,17 @@ namespace StoryWatch.UserControls
             return isSuccessful;
         }
 
+        private static bool UpdateBookList(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        {
+            BookService bookService = new BookService();
+            BookListItem bookListItem = new BookListItem
+            {
+                Id_BookListCategories = sourceList.Id,
+                Id_Books = mediaItem.Id,
+                Id_Users = StateManager.LoggedUser.Id
+            };
+            var isSuccessful = bookService.UpdateBookToAnotherList(bookListItem, destinationList as BookListCategory, StateManager.LoggedUser);
+            
         private static bool UpdateListGame(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
         {
             var gameServices = new GameServices();
@@ -340,6 +354,7 @@ namespace StoryWatch.UserControls
             };
 
             var isSuccessful = gameServices.UpdateGameToAnotherList(gameListItem, destinationList as GameListCategory, StateManager.LoggedUser);
+
             return isSuccessful;
         }
 

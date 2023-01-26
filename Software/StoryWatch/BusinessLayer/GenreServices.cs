@@ -11,13 +11,13 @@ namespace BusinessLayer
 {
     public class GenreServices
     {
-        public bool AddGenre(Genre genre)
+        public Genre AddGenre(Genre genre)
         {
             bool isSuccessful = false;
 
             var existingGenre = GetGenreByName(genre.Name);
             if (existingGenre != null)
-                return isSuccessful;
+                return existingGenre;
 
             using (var repo = new GenreRepository())
             {
@@ -26,7 +26,7 @@ namespace BusinessLayer
 
             }
 
-            return isSuccessful;
+            return genre;
 
         }
 
@@ -59,6 +59,14 @@ namespace BusinessLayer
             using (var repo = new GenreRepository())
             {
                 return repo.Update(oldGenre, newGenre);
+            }
+        }
+
+        public Genre UpdateBookGenre(Genre oldGenre, Genre newGenre)
+        {
+            using (var db = new GenreRepository())
+            {
+                return db.UpdateBookGenre(oldGenre, newGenre);
             }
         }
     }
