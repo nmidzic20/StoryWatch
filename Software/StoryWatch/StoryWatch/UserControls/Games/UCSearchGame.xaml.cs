@@ -82,8 +82,18 @@ namespace StoryWatch.UserControls.Games
 
             IGDB.Models.Game game = await gameServices.GetGameInfoAsync((int)(dgResults.SelectedItem as IGDB.Models.Game).Id);
 
-            var winAddGame = new AddGame(listCategory, game);
-            winAddGame.Show();
+            Game selectedGame = new Game()
+            {
+                IGDB_Id = game.Id.ToString(),
+                Title = game.Name,
+                Summary = game.Summary,
+                Release_Date = game.FirstReleaseDate.ToString(),
+                Company = "",
+                Genres = ""
+            };
+
+            var winAddGame = new AddGame(listCategory, selectedGame);
+            winAddGame.ShowDialog();
         }
     }
 }

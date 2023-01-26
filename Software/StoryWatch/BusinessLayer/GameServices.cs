@@ -23,6 +23,11 @@ namespace BusinessLayer
         {
             return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, id, summary; search \"{name}\";");
         }
+        
+        public async Task<IGDB.Models.Game[]> GetGameGenresAsync(int id)
+        {
+            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Genres, query: $"fields name; where id = {id};");
+        }
 
         public List<EntitiesLayer.Entities.Game> GetAllGames()
         {
