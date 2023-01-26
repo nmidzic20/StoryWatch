@@ -54,11 +54,11 @@ namespace BusinessLayer
             }
         }
 
-        public int UpdateGenre(Genre genre)
+        public Genre UpdateGenre(Genre oldGenre, Genre newGenre)
         {
             using (var repo = new GenreRepository())
             {
-                return repo.Update(genre);
+                return repo.Update(oldGenre, newGenre);
             }
         }
     }

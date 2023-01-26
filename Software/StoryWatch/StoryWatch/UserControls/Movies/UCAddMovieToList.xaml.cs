@@ -70,7 +70,8 @@ namespace StoryWatch.UserControls.Movies
 
         private void UpdateMovie()
         {
-            var genre = UpdateGenre();
+            var oldGenre = movieServices.GetMovieById(movieToUpdate.Id).Genre;
+            var genre = UpdateGenre(oldGenre);
 
             var movie = new EntitiesLayer.Entities.Movie
             {
@@ -93,17 +94,18 @@ namespace StoryWatch.UserControls.Movies
 
         }
 
-        private Genre UpdateGenre()
+        private Genre UpdateGenre(Genre oldGenre)
         {
             var genreServices = new GenreServices();
             int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
-            var genre = new Genre
+            var newGenre = new Genre
             {
                 Id = genreId,
                 Name = txtGenre.Text
             };
-            genreServices.AddGenre(genre);
-            return genre;
+            //genreServices.AddGenre(genre);
+            return genreServices.UpdateGenre(oldGenre, newGenre);
+ 
         }
 
         private void AddMovie()
