@@ -42,10 +42,10 @@ namespace StoryWatch.UserControls
 
             var allLists = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
 
-            ShowLists(allLists);
+            LoadLists(allLists);
         }
 
-        private void ShowLists(List<IListCategory> listCategories)
+        private void LoadLists(List<IListCategory> listCategories)
         {
             
             foreach (var lc in listCategories)
@@ -81,26 +81,35 @@ namespace StoryWatch.UserControls
             if (string.IsNullOrEmpty(txtSearch.Text) || txtSearch.Text == "Search")
                 return;
 
-            List<MediaListBox> allLists = new List<MediaListBox>();
+            List<MediaListBox> allMediaListBoxes = new List<MediaListBox>();
 
             var contentControls = new List<DependencyObject>();
             for (int i = 0; i < gridLists.Children.Count; i++)
                 contentControls.Add(VisualTreeHelper.GetChild(gridLists, i));
 
             foreach (var contentControl in contentControls)
-                allLists.Add(StateManager.GetChildOfType<MediaListBox>(contentControl));
+                allMediaListBoxes.Add(StateManager.GetChildOfType<MediaListBox>(contentControl));
 
             //var lists = StateManager.GetChildOfType<MediaListBox>(gridLists);
             string movies = "";
-            foreach (var list in allLists)
+            foreach (var list in allMediaListBoxes)
                 movies += list.MediaItems.Count != 0 ? " " + list.MediaItems[0].ToString() + " " : " nema ";
             MessageBox.Show(movies);
-                    
-            gridLists.Children.Clear();
-            List<IListCategory> listsContainingSearchedMedia = new List<IListCategory>();
-            listsContainingSearchedMedia.Add(allLists[0].listCategory);
-            ShowLists(listsContainingSearchedMedia);
 
+            foreach (UIElement child in gridLists.Children)
+                child.Visibility = Visibility.Collapsed;
+            //gridLists.Children.Clear();
+
+            //List<IListCategory> listsContainingSearchedMedia = new List<IListCategory>();
+            //listsContainingSearchedMedia.Add(allMediaListBoxes[0].listCategory);
+            //ShowLists(listsContainingSearchedMedia);
+        
+
+            foreach (UIElement child in gridLists.Children)
+                if (StateManager.GetChildOfType<MediaListBox>(child).MediaItems
+                    .Count(m => m.Title.Contains("hinin")) != 0)
+                    
+                    child.Visibility = Visibility.Visible;
 
         }
 
