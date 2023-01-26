@@ -290,6 +290,35 @@ namespace StoryWatch.UserControls
             return isSuccessful;
         }
 
+        private static bool UpdateBookList(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        {
+            BookService bookService = new BookService();
+            BookListItem bookListItem = new BookListItem
+            {
+                Id_BookListCategories = sourceList.Id,
+                Id_Books = mediaItem.Id,
+                Id_Users = StateManager.LoggedUser.Id
+            };
+            var isSuccessful = bookService.UpdateBookToAnotherList(bookListItem, destinationList as BookListCategory, StateManager.LoggedUser);
+            return isSuccessful;
+
+        }
+
+        private static bool UpdateListGame(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
+        {
+            var gameServices = new GameServices();
+            var gameListItem = new GameListItem
+            {
+                Id_GameListCategories = sourceList.Id,
+                Id_Games = mediaItem.Id,
+                Id_Users = StateManager.LoggedUser.Id
+            };
+
+            var isSuccessful = gameServices.UpdateGameToAnotherList(gameListItem, destinationList as GameListCategory, StateManager.LoggedUser);
+
+            return isSuccessful;
+        }
+
         private void btnDetails_Click(object sender, RoutedEventArgs e)
         {
             if (lbMedia.SelectedItem == null)
