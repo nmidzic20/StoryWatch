@@ -8,21 +8,70 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel Background="PowderBlue">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Button x:Name="btnRecommend" Margin="10" Content="Recommend movies" IsEnabled="False" Width="150" Height="25" HorizontalAlignment="Left" Click="btnRecommend_Click"></Button>
-            <Button x:Name="btnBack" Content="Back" Width="100" Height="25" HorizontalAlignment="Right" Click="btnBack_Click"></Button>
+            <Button x:Name="btnBack" Margin="10" Content="Back" Width="100" Height="25" HorizontalAlignment="Right" Click="btnBack_Click"></Button>
         </StackPanel>
-        <StackPanel DockPanel.Dock="Top">
-            <Border CornerRadius="8,0,8,0">
-                <Border.Background>
-                    <ImageBrush Stretch="Fill" ImageSource="../../Images/img_relax.png"/>
-                </Border.Background>
-                
-            </Border>
-            <Image Width = "50" Source = "../../Images/img_relax.png" VerticalAlignment = "Top" Margin = "30" Opacity = "0.5"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Button" Height="120" Name="btnRelax" Margin="15" Width="100" Click="btnRelax_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source = "../../Images/img_relax.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    
+                </Button>
 
+                <Button Content="Button" Height="120" Name="btnScary" Margin="15" Width="100" Click="btnScary_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Width = "120" Source="../../Images/img_scary.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    
+                </Button>
+
+                <Button Content="Button" Height="120" Name="btnSocial" Margin="15" Width="100" Click="btnSocial_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Width = "120" Source="../../Images/img_social.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    
+                </Button>
+
+                <Button Content="Button" Height="120" Name="btnFantasy" Margin="15" Width="100" Click="btnFantasy_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Width = "120" Source="../../Images/img_fantasy.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    
+                </Button>
+            <Button Visibility="Collapsed" Content="Rewatch" Height="25" Name="btnOld" Margin="10" Width="100" Click="btnOld_Click">
+            </Button>
+            <Button Visibility="Collapsed" Content="Watch new" Height="25" Name="btnNew" Margin="10" Width="100" Click="btnnew_Click">
+            </Button>
+            <Button Visibility="Collapsed" Content="Either" Height="25" Name="btnEither" Margin="10" Width="100" Click="btnEither_Click">
+            </Button>
         </StackPanel>
-        <DataGrid Margin="10">
-            
-        </DataGrid>
+        <ScrollViewer>
+            <DataGrid Margin="10" AutoGenerateColumns="False" x:Name="dgRecommendedMovies" SelectionChanged="lbResults_SelectionChangedAsync">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Overview" Binding="{Binding Overview}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

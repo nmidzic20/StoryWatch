@@ -298,9 +298,17 @@
       <Name>EntitiesLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\img_scary.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\img_relax.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\img_fantasy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\img_social.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

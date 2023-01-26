@@ -124,7 +124,8 @@ namespace StoryWatch.UserControls.Movies
                     Id = genreId,
                     Name = txtGenre.Text
                 };
-                genre = genreServices.AddGenre(genre);
+                genreId = genreServices.AddGenre(genre).Id;
+                genre = genreServices.GetGenreById(genreId);
             }
 
             bool isSuccessful = movieServices.AddMovie(new EntitiesLayer.Entities.Movie
