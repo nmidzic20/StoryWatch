@@ -44,16 +44,29 @@ namespace DataAccessLayer.Repositories
 
         public int DeleteMovieFromList(MovieListItem movieListItem, bool saveChanges = true)
         {
+            int isSuccessful;
+
             Context.MovieListItems.Attach(movieListItem);
             Context.MovieListItems.Remove(movieListItem);
+
             if (saveChanges)
             {
-                return Context.SaveChanges();
+                isSuccessful = Context.SaveChanges();
             }
             else
             {
-                return 0;
+                isSuccessful = 0;
             }
+
+            //check if any list for any user, still references this movie
+            //if not, no sense in keeping the movie in DB - delete it as well, not just MovieListItem/movie on this specific list
+            if (Context.MovieListItems.Count(m => m.Id_Movies == movieListItem.Id_Movies) == 0)
+            {
+                var unusedMovie = Entities.SingleOrDefault(m => m.Id == movieListItem.Id_Movies);
+                Delete(unusedMovie);
+            }
+
+            return isSuccessful;
         }
 
         public IQueryable<Movie> GetMovieByTitle(string title)
