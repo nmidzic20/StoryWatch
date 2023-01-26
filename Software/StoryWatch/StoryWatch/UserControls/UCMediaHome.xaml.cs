@@ -81,41 +81,26 @@ namespace StoryWatch.UserControls
             if (string.IsNullOrEmpty(txtSearch.Text) || txtSearch.Text == "Search")
                 return;
 
-            switch (StateManager.CurrentMediaCategory)
-            {
-                case MediaCategory.Movie:
+            List<MediaListBox> allLists = new List<MediaListBox>();
 
-                    List<MediaListBox> allLists = new List<MediaListBox>();
+            var contentControls = new List<DependencyObject>();
+            for (int i = 0; i < gridLists.Children.Count; i++)
+                contentControls.Add(VisualTreeHelper.GetChild(gridLists, i));
 
-                    var contentControls = new List<DependencyObject>();
-                    for (int i = 0; i < gridLists.Children.Count; i++)
-                        contentControls.Add(VisualTreeHelper.GetChild(gridLists, i));
+            foreach (var contentControl in contentControls)
+                allLists.Add(StateManager.GetChildOfType<MediaListBox>(contentControl));
 
-                    foreach (var contentControl in contentControls)
-                        allLists.Add(StateManager.GetChildOfType<MediaListBox>(contentControl));
-
-                    //var lists = StateManager.GetChildOfType<MediaListBox>(gridLists);
-                    string movies = "";
-                    foreach (var list in allLists)
-                        movies += list.MediaItems.Count != 0 ? " " + list.MediaItems[0].ToString() + " " : " nema ";
-                    MessageBox.Show(movies);
-
-                    return;
-
-                    /*foreach (var list in gridLists.Children)
-                    {
-                        var mediaListBox = StateManager.GetChildOfType<MediaListBox>(gridLists);
-                        allLists.Add(mediaListBox);
-                    }*/
-
-                    MessageBox.Show(allLists[0].MediaItems[0].Title);
+            //var lists = StateManager.GetChildOfType<MediaListBox>(gridLists);
+            string movies = "";
+            foreach (var list in allLists)
+                movies += list.MediaItems.Count != 0 ? " " + list.MediaItems[0].ToString() + " " : " nema ";
+            MessageBox.Show(movies);
                     
-                    gridLists.Children.Clear();
-                    List<IListCategory> listsContainingSearchedMedia = new List<IListCategory>();
-                    listsContainingSearchedMedia.Add(allLists[0].listCategory);
-                    ShowLists(listsContainingSearchedMedia);
-                    break;
-            }
+            gridLists.Children.Clear();
+            List<IListCategory> listsContainingSearchedMedia = new List<IListCategory>();
+            listsContainingSearchedMedia.Add(allLists[0].listCategory);
+            ShowLists(listsContainingSearchedMedia);
+
 
         }
 
