@@ -30,7 +30,7 @@ namespace StoryWatch.UserControls
     /// </summary>
     public partial class MediaListBox : UserControl
     {
-        
+
         public IListCategory listCategory { get; set; }
         public ObservableCollection<Media> MediaItems = new ObservableCollection<Media>();
 
@@ -50,44 +50,44 @@ namespace StoryWatch.UserControls
             switch (StateManager.CurrentMediaCategory)
             {
                 case MediaCategory.Movie:
-                {
-                    var movieServices = new MovieServices();
-                    var movies = movieServices.GetMoviesForList(listCategory as MovieListCategory, StateManager.LoggedUser);
-
-                    foreach (var movie in movies)
                     {
-                        MediaItems.Add(movie);
-                    }
+                        var movieServices = new MovieServices();
+                        var movies = movieServices.GetMoviesForList(listCategory as MovieListCategory, StateManager.LoggedUser);
 
-                    break;
-                }
+                        foreach (var movie in movies)
+                        {
+                            MediaItems.Add(movie);
+                        }
+
+                        break;
+                    }
                 case MediaCategory.Book:
-                {
-                    BookService bookServices = new BookService();
-                    var books = bookServices.GetBooksForList(listCategory as BookListCategory, StateManager.LoggedUser);
-                    foreach (var book in books)
                     {
-                        MediaItems.Add(book);
+                        BookService bookServices = new BookService();
+                        var books = bookServices.GetBooksForList(listCategory as BookListCategory, StateManager.LoggedUser);
+                        foreach (var book in books)
+                        {
+                            MediaItems.Add(book);
+                        }
+                        break;
                     }
-                    break;
-                }
                 case MediaCategory.Game:
-                {
-                    GameServices gameServices = new GameServices();
-                    var games = gameServices.GetGamesForList(listCategory as GameListCategory, StateManager.LoggedUser);
-                    foreach (var game in games)
                     {
-                        MediaItems.Add(game);
+                        GameServices gameServices = new GameServices();
+                        var games = gameServices.GetGamesForList(listCategory as GameListCategory, StateManager.LoggedUser);
+                        foreach (var game in games)
+                        {
+                            MediaItems.Add(game);
+                        }
+                        break;
                     }
-                    break;
-                }
             }
 
             lbMedia.DataContext = MediaItems;
 
         }
 
-       
+
 
         private void ModifyAppearance(IListCategory lc)
         {
@@ -124,13 +124,13 @@ namespace StoryWatch.UserControls
             {
                 if (btn.DataContext is Media)
                 {
-                    EntitiesLayer.Entities.Movie movie = (EntitiesLayer.Entities.Movie) btn.DataContext;
+                    EntitiesLayer.Entities.Movie movie = (EntitiesLayer.Entities.Movie)btn.DataContext;
                     GuiManager.OpenContent(new UCAddMovieToList(listCategory, movie));
                 }
             }
-            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if (StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
-                if(btn.DataContext is Media)
+                if (btn.DataContext is Media)
                 {
                     Book selectedBook = btn.DataContext as Book;
                     AddBook addBook = new AddBook(selectedBook, listCategory, true);
@@ -170,7 +170,7 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCMediaHome(MediaCategory.Movie));
                 }
             }
-            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if (StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
                 if (btn.DataContext is Media)
                 {
@@ -225,14 +225,14 @@ namespace StoryWatch.UserControls
                 Media mediaItem = listBox.ItemContainerGenerator.ItemFromContainer(listBoxItem) as Media;
 
                 // Initialize the drag & drop operation
-                var dragDropData = new DragDropData 
-                { 
-                    MediaItem = mediaItem, 
+                var dragDropData = new DragDropData
+                {
+                    MediaItem = mediaItem,
                     SourceList = listCategory,
                     UCMediaListBox = this
                 };
                 DataObject dragData = new DataObject("sourceListMediaItemInfo", dragDropData);
-                DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move); 
+                DragDrop.DoDragDrop(listBoxItem, dragData, DragDropEffects.Move);
 
                 //remove that media from list when the drop finalizes (here is a wait from the above line until drop is complete)
                 MediaItems.Remove(mediaItem);
@@ -284,7 +284,7 @@ namespace StoryWatch.UserControls
                 IListCategory destinationList = userControl.listCategory;
 
                 bool isSuccessful = false;
-                
+
                 switch (StateManager.CurrentMediaCategory)
                 {
                     case MediaCategory.Movie:
@@ -327,7 +327,7 @@ namespace StoryWatch.UserControls
                 Id_Movies = mediaItem.Id,
                 Id_Users = StateManager.LoggedUser.Id
             };
-            
+
             var isSuccessful = movieServices.UpdateMovieToAnotherList(movieListItem, destinationList as MovieListCategory, StateManager.LoggedUser);
             return isSuccessful;
         }
@@ -342,7 +342,10 @@ namespace StoryWatch.UserControls
                 Id_Users = StateManager.LoggedUser.Id
             };
             var isSuccessful = bookService.UpdateBookToAnotherList(bookListItem, destinationList as BookListCategory, StateManager.LoggedUser);
-            
+            return isSuccessful;
+
+        }
+
         private static bool UpdateListGame(Media mediaItem, IListCategory sourceList, IListCategory destinationList)
         {
             var gameServices = new GameServices();
@@ -357,6 +360,7 @@ namespace StoryWatch.UserControls
 
             return isSuccessful;
         }
+
 
         private void btnDetails_Click(object sender, RoutedEventArgs e)
         {

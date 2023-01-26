@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using BusinessLayer;
+
 namespace StoryWatch
 {
     /// <summary>
@@ -29,7 +31,8 @@ namespace StoryWatch
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             GuiManager.MainWindow = this;
-            GuiManager.OpenContent(new UCLogin());
+            StateManager.LoggedUser = (new UserServices()).GetSpecific("korisnik1");
+            GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
 
         }
         

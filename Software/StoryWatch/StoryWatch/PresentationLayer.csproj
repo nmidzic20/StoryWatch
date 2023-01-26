@@ -171,6 +171,9 @@
     <Compile Include="UserControls\Movies\UCAddMovieToList.xaml.cs">
       <DependentUpon>UCAddMovieToList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Movies\UCRecommendMovies.xaml.cs">
+      <DependentUpon>UCRecommendMovies.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UCMediaListBox.xaml.cs">
       <DependentUpon>UCMediaListBox.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Movies\UCAddMovieToList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Movies\UCRecommendMovies.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -297,6 +304,18 @@
       <Project>{f53dac80-f3c3-4fc7-9d75-b64fcf0c9701}</Project>
       <Name>EntitiesLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\img_scary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\img_relax.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\img_fantasy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\img_social.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
