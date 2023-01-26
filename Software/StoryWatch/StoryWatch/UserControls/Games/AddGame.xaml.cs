@@ -13,18 +13,16 @@ namespace StoryWatch.UserControls.Games
     {
         public IListCategory listCategory { get; set; }
         private GameServices gameServices;
-        private IGDB.Models.Game selectedGame = null;
-        private int idToUpdate;
+        private Game selectedGame = null;
         private bool update = false;
 
-        public AddGame(IListCategory lc, IGDB.Models.Game game, bool update = false, int id = 0)
+        public AddGame(IListCategory lc, Game game, bool update = false, int id = 0)
         {
             InitializeComponent();
 
             gameServices = new GameServices();
             listCategory = lc;
             selectedGame = game;
-            idToUpdate = id;
             this.update = update;
             
             if (update)
@@ -39,11 +37,10 @@ namespace StoryWatch.UserControls.Games
 
         private void FillGameInfo()
         {
-            txtTitle.Text = selectedGame.Name;
-            //txtGenre.Text = movieToUpdate.Genres[0].Name;
+            txtTitle.Text = selectedGame.Title;
+            txtGenres.Text = selectedGame.Genres;
             txtSummary.Text = selectedGame.Summary;
-            //dtReleaseDate.Text = gameToUpdate.ReleaseDate;
-            //txtCountry.Text = gameToUpdate.Countries;
+            txtDev.Text = selectedGame.Company;
             txtID.Text = selectedGame.Id.ToString();
         }
 
@@ -65,11 +62,12 @@ namespace StoryWatch.UserControls.Games
         {
             var game = new EntitiesLayer.Entities.Game
             {
-                Id = idToUpdate,
+                Id = selectedGame.Id,
                 Title = txtTitle.Text,
                 Summary = txtSummary.Text,
+                Genres = txtGenres.Text,
+                Company = txtDev.Text,
                 IGDB_Id = selectedGame.Id.ToString(),
-                Company = ""
             };
 
             int isSuccessful = gameServices.UpdateGame(game);
@@ -145,9 +143,8 @@ namespace StoryWatch.UserControls.Games
             }
         }
 
-        private void Return(object sender, RoutedEventArgs e)
+        private void BtnCancelClick(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Game));
             Close();
         }
     }

@@ -23,6 +23,11 @@ namespace BusinessLayer
         {
             return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, id, summary; search \"{name}\";");
         }
+        
+        public async Task<IGDB.Models.Game[]> GetGameGenresAsync(int id)
+        {
+            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Genres, query: $"fields name; where id = {id};");
+        }
 
         public List<EntitiesLayer.Entities.Game> GetAllGames()
         {
@@ -81,6 +86,14 @@ namespace BusinessLayer
             }
             return isSuccessful;
         }
+        
+        public int UpdateGame(EntitiesLayer.Entities.Game game)
+        {
+            using (var repo = new GameRepository())
+            {
+                return repo.Update(game);
+            }
+        }
 
         public bool AddGameToList(GameListItem gameListItem, GameListCategory gameListCategory, User loggedUser)
         {
@@ -103,13 +116,31 @@ namespace BusinessLayer
             }
             return isSuccessful;
         }
-        
-        public int UpdateGame(EntitiesLayer.Entities.Game game)
+
+        public bool UpdateGameToAnotherList(GameListItem gameListItem, GameListCategory destGameListCategory, User loggedUser)
         {
+            bool isSuccessful = false;
             using (var repo = new GameRepository())
             {
-                return repo.Update(game);
+                //check if exists on destination list already, if yes, return false, if no, change to that list
+                List<EntitiesLayer.Entities.Game> games = repo.GetGamesForList(destGameListCategory, loggedUser).ToList();
+                bool gameExistsInList = games.Exists(m => m.Id == gameListItem.Id_Games);
+
+                if (gameExistsInList)
+                {
+                    isSuccessful = false;
+                }
+                else
+                {
+                    //fetch movieListItem for this movie, this list and this user
+                    //change the list
+                    int affectedRows = repo.UpdateGameListItem(gameListItem, destGameListCategory.Id);
+                    isSuccessful = affectedRows > 0;
+                }
+
             }
+
+            return isSuccessful;
         }
 
         public bool DeleteGameFromList(EntitiesLayer.Entities.Game game, GameListCategory gameListCategory, User loggedUser)
