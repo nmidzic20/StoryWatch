@@ -124,16 +124,6 @@ namespace StoryWatch.UserControls
 
             selectedMovie = movie;
 
-            /*important for trailers
-             *             
-             string movieInfo = "";
-
-             * string urlYoutube = "https://www.youtube.com/watch?v=";
-            string trailerURL = urlYoutube + movie.Videos.Results[0].Key;
-            movieInfo += movie.Title + " " + movie.Homepage + " " + movie.Genres[0].Name + " "
-                + movie.Runtime + " " + movie.BackdropPath + " " + trailerURL;*/
-
-
         }
 
         private void BtnSelectMovie(object sender, RoutedEventArgs e)

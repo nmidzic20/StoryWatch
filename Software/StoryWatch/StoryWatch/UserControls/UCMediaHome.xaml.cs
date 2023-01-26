@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using EntitiesLayer;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -39,8 +40,14 @@ namespace StoryWatch.UserControls
         {
             gridLists.Children.Clear();
 
-            var listCategories = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
+            var allLists = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
 
+            ShowLists(allLists);
+        }
+
+        private void ShowLists(List<IListCategory> listCategories)
+        {
+            
             foreach (var lc in listCategories)
             {
                 UserControl mediaListBox = new MediaListBox(lc);
@@ -51,7 +58,6 @@ namespace StoryWatch.UserControls
 
                 AddListBoxToGrid(control);
             }
-
         }
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
@@ -69,6 +75,37 @@ namespace StoryWatch.UserControls
             txtSearch.FontWeight = FontWeights.Bold;
             txtSearch.Foreground = new SolidColorBrush(Colors.SlateGray);
         }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtSearch.Text) || txtSearch.Text == "Search")
+                return;
+
+            List<MediaListBox> allLists = new List<MediaListBox>();
+
+            var contentControls = new List<DependencyObject>();
+            for (int i = 0; i < gridLists.Children.Count; i++)
+                contentControls.Add(VisualTreeHelper.GetChild(gridLists, i));
+
+            foreach (var contentControl in contentControls)
+                allLists.Add(StateManager.GetChildOfType<MediaListBox>(contentControl));
+
+            //var lists = StateManager.GetChildOfType<MediaListBox>(gridLists);
+            string movies = "";
+            foreach (var list in allLists)
+                movies += list.MediaItems.Count != 0 ? " " + list.MediaItems[0].ToString() + " " : " nema ";
+            MessageBox.Show(movies);
+                    
+            gridLists.Children.Clear();
+            List<IListCategory> listsContainingSearchedMedia = new List<IListCategory>();
+            listsContainingSearchedMedia.Add(allLists[0].listCategory);
+            ShowLists(listsContainingSearchedMedia);
+
+
+        }
+
+        
+
 
         private void btnAddCustomList_Click(object sender, RoutedEventArgs e)
         {
