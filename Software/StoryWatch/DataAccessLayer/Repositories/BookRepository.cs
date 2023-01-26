@@ -62,7 +62,16 @@ namespace DataAccessLayer.Repositories
             book.Author = updateBook.Author;
             book.Summary = updateBook.Summary;
             book.Pages = updateBook.Pages;
+            book.Genre = updateBook.Genre;
             return SaveChanges();
+        }
+
+        public IQueryable<Book> GetBookById(int id)
+        {
+            var query = from b in Entities.Include("Genre")
+                        where b.Id == id
+                        select b;
+            return query;
         }
 
         public int UpdateBookListItem(BookListItem bookListItem, int idNewList, bool saveChanges = true)

@@ -158,6 +158,14 @@ namespace BusinessLayer
             }
         }
 
+        public Book GetBookById(int id)
+        {
+            using (var db = new BookRepository())
+            {
+                return db.GetBookById(id).FirstOrDefault();
+            }
+        }
+
         public bool DeleteBookFromList(Book selectedBook, BookListCategory bookListCategory, User loggedUser)
         {
             bool isSuccessful = false;

@@ -1,4 +1,5 @@
-﻿using EntitiesLayer.Entities;
+﻿using BusinessLayer;
+using EntitiesLayer.Entities;
 using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,13 @@ namespace StoryWatch.UserControls.Books
     /// </summary>
     public partial class EBookPreview : UserControl
     {
+        BookService bookService;
         Book book;
         public EBookPreview(Book Book)
         {
             InitializeComponent();
             book = Book;
+            bookService = new BookService();
             PrepareFormWithData();
         }
 
@@ -47,14 +50,17 @@ namespace StoryWatch.UserControls.Books
         private void PrepareFormWithData()
         {
             stackPanelInfo.Visibility = Visibility.Collapsed;
+            var genre = bookService.GetBookById(book.Id).Genre;
             txtTitle.IsReadOnly = true;
             txtSummary.IsReadOnly = true;
             txtAuthor.IsReadOnly = true;
             txtPages.IsReadOnly = true;
+            txtGenre.IsReadOnly = true;
             txtTitle.Text = book.Title;
             txtAuthor.Text = book.Author;
             txtSummary.Text = book.Summary;
             txtPages.Text = book.Pages;
+            txtGenre.Text = genre.Name;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
