@@ -155,5 +155,12 @@ namespace StoryWatch.UserControls
         {
             GuiManager.OpenContent(new UCRecommendMovies());
         }
+
+        private void btnReport_Click(object sender, RoutedEventArgs e)
+        {
+            var moviereport = new MovieReport();
+            moviereport.Show();
+            //var report = new Report
+        }
     }
 }
