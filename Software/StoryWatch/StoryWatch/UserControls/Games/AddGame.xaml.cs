@@ -103,7 +103,6 @@ namespace StoryWatch.UserControls.Games
 
             if (!isSuccessful)
             {
-                //MessageBox.Show("This movie is already added from TMDB to database");
                 gameId = gameServices.GetGameByIGDBId(txtID.Text).Id;
             }
 
@@ -114,9 +113,9 @@ namespace StoryWatch.UserControls.Games
                 Id_GameListCategories = this.listCategory.Id
             };
             
-            bool gameAddedToList = gameServices.AddGameToList(game, listCategory as GameListCategory, StateManager.LoggedUser);
+            bool gameNotInList = gameServices.AddGameToList(game, listCategory as GameListCategory, StateManager.LoggedUser);
 
-            if (!gameAddedToList)
+            if (!gameNotInList)
             {
                 MessageBox.Show("This game is already added to this list");
             }
@@ -131,13 +130,6 @@ namespace StoryWatch.UserControls.Games
         {
             return !string.IsNullOrEmpty(txtTitle.Text);
         }
-
-        //private void SearchTMDb(object sender, RoutedEventArgs e)
-        //{
-        //    //open search form, when search form closes, if any movie selected, it will fill textboxes in this UC
-        //    //otherwise if no movie selected, will do nothing
-        //    GuiManager.OpenContent(new UCSearchMovie(this));
-        //}
 
         private void TextTitleChanged(object sender, TextChangedEventArgs e)
         {

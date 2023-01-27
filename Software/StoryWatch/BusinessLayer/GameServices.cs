@@ -21,7 +21,7 @@ namespace BusinessLayer
 
         public async Task<IGDB.Models.Game[]> SearchGamesAsync(string name)
         {
-            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, id, summary; search \"{name}\";");
+            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, id, summary; search \"{name}\"; where version_parent = null;");
         }
         
         public async Task<IGDB.Models.Game[]> GetGameGenresAsync(int id)

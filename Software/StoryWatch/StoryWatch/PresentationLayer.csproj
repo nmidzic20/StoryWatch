@@ -162,6 +162,9 @@
     <Compile Include="UserControls\Games\AddGame.xaml.cs">
       <DependentUpon>AddGame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Games\RecommendGames.xaml.cs">
+      <DependentUpon>RecommendGames.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Games\UCSearchGame.xaml.cs">
       <DependentUpon>UCSearchGame.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Games\AddGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Games\RecommendGames.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
