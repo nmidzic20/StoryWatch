@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using IGDB;
 using DataAccessLayer.Repositories;
+using IGDB.Models;
+using System.Runtime.Remoting.Messaging;
+using System.Xml.Linq;
 
 namespace BusinessLayer
 {
@@ -21,12 +24,29 @@ namespace BusinessLayer
 
         public async Task<IGDB.Models.Game[]> SearchGamesAsync(string name)
         {
-            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, id, summary; search \"{name}\";");
+            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, id, summary, version_parent; search \"{name}\"; where version_parent = null;");
         }
-        
-        public async Task<IGDB.Models.Game[]> GetGameGenresAsync(int id)
+
+        public async Task<IGDB.Models.Game[]> GetHighestRatedGames()
         {
-            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Genres, query: $"fields name; where id = {id};");
+            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, summary, aggregated_rating; sort aggregated_rating desc; limit 100;");
+        }
+
+        public async Task<IGDB.Models.Game[]> GetRecommendedGamesAsync(int[] ids)
+        {
+            List<IGDB.Models.Game> games = new List<IGDB.Models.Game>();
+            
+            for (int i = 0; i < ids.Length; i++)
+            {
+                games.AddRange(await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, summary, version_parent; where id = {ids[i]} & version_parent = null; limit 5;"));
+            }
+
+            return games.ToArray();
+        }
+
+        public async Task<IGDB.Models.Genre[]> GetGameGenresAsync(int id)
+        {
+            return await api.QueryAsync<IGDB.Models.Genre>(IGDBClient.Endpoints.Genres, query: $"fields name; where id = {id};");
         }
 
         public List<EntitiesLayer.Entities.Game> GetAllGames()
@@ -74,12 +94,9 @@ namespace BusinessLayer
                     existingGame = repo.GetGameByIGDBId(game.IGDB_Id).FirstOrDefault();
                 }
 
-                if (existingGame != null)
+                if (existingGame == null)
                 {
-                    isSuccessful = false;
-                }
-                else
-                {
+                    isSuccessful = true;
                     int affectedRows = repo.Add(game);
                     isSuccessful = affectedRows > 0;
                 }
@@ -100,9 +117,8 @@ namespace BusinessLayer
             bool isSuccessful = false;
             using (var repo = new GameRepository())
             {
-                //check if exists on that list already, if yes, return false, if no, add to list
                 List<EntitiesLayer.Entities.Game> games = repo.GetGamesForList(gameListCategory, loggedUser).ToList();
-                bool gameExistsInList = games.Exists(m => m.Id == gameListItem.Id_Games);
+                bool gameExistsInList = games.Exists(g => g.Id == gameListItem.Id_Games);
 
                 if (gameExistsInList)
                 {
@@ -162,7 +178,7 @@ namespace BusinessLayer
 
         public async Task<IGDB.Models.Game> GetGameInfoAsync(int gameIGDBId)
         {
-            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id = {gameIGDBId};")).First();
+            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres.name, id, involved_companies.company.name, first_release_date, summary, similar_games; where id = {gameIGDBId};")).First();
         }
     }
 }

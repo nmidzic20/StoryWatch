@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using EntitiesLayer.Entities;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,6 +42,7 @@ namespace StoryWatch.UserControls.Games
             txtTitle.Text = selectedGame.Title;
             txtGenres.Text = selectedGame.Genres;
             txtSummary.Text = selectedGame.Summary;
+            datePicker.Text = selectedGame.Release_Date;
             txtDev.Text = selectedGame.Company;
         }
 
@@ -67,7 +69,7 @@ namespace StoryWatch.UserControls.Games
                 Summary = txtSummary.Text,
                 Genres = txtGenres.Text,
                 Company = txtDev.Text,
-                IGDB_Id = selectedGame.IGDB_Id
+                IGDB_Id = selectedGame.IGDB_Id,
             };
 
             int isSuccessful = gameServices.UpdateGame(game);
@@ -94,12 +96,13 @@ namespace StoryWatch.UserControls.Games
                 Title = txtTitle.Text,
                 Summary = txtSummary.Text,
                 IGDB_Id = txtID.Text,
-                Company = txtDev.Text
+                Company = txtDev.Text,
+                Genres = txtGenres.Text,
+                Release_Date = datePicker.Text
             });
 
             if (!isSuccessful)
             {
-                //MessageBox.Show("This movie is already added from TMDB to database");
                 gameId = gameServices.GetGameByIGDBId(txtID.Text).Id;
             }
 
@@ -110,9 +113,9 @@ namespace StoryWatch.UserControls.Games
                 Id_GameListCategories = this.listCategory.Id
             };
             
-            bool gameAddedToList = gameServices.AddGameToList(game, listCategory as GameListCategory, StateManager.LoggedUser);
+            bool gameNotInList = gameServices.AddGameToList(game, listCategory as GameListCategory, StateManager.LoggedUser);
 
-            if (!gameAddedToList)
+            if (!gameNotInList)
             {
                 MessageBox.Show("This game is already added to this list");
             }
@@ -127,13 +130,6 @@ namespace StoryWatch.UserControls.Games
         {
             return !string.IsNullOrEmpty(txtTitle.Text);
         }
-
-        //private void SearchTMDb(object sender, RoutedEventArgs e)
-        //{
-        //    //open search form, when search form closes, if any movie selected, it will fill textboxes in this UC
-        //    //otherwise if no movie selected, will do nothing
-        //    GuiManager.OpenContent(new UCSearchMovie(this));
-        //}
 
         private void TextTitleChanged(object sender, TextChangedEventArgs e)
         {

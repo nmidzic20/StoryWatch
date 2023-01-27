@@ -99,6 +99,7 @@ namespace StoryWatch.UserControls
             Color color = (Color)ColorConverter.ConvertFromString(colorString);
             header.Background = new SolidColorBrush(color);
         }
+        
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (StateManager.CurrentMediaCategory == MediaCategory.Movie)
