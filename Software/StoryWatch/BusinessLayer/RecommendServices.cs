@@ -32,5 +32,11 @@ namespace BusinessLayer
             var gameServices = new GameServices();
             return (await gameServices.GetRecommendedGamesAsync(ids)).ToList();
         }
+        
+        public async Task<List<IGDB.Models.Game>> RecommendBestGames()
+        {
+            var gameServices = new GameServices();
+            return (await gameServices.GetHighestRatedGames()).ToList();
+        }
     }
 }

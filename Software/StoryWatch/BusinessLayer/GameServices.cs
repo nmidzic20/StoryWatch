@@ -24,16 +24,21 @@ namespace BusinessLayer
 
         public async Task<IGDB.Models.Game[]> SearchGamesAsync(string name)
         {
-            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, id, summary; search \"{name}\"; where version_parent = null;");
+            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, id, summary, version_parent; search \"{name}\"; where version_parent = null;");
         }
-        
+
+        public async Task<IGDB.Models.Game[]> GetHighestRatedGames()
+        {
+            return await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, summary, aggregated_rating; sort aggregated_rating desc; limit 100;");
+        }
+
         public async Task<IGDB.Models.Game[]> GetRecommendedGamesAsync(int[] ids)
         {
             List<IGDB.Models.Game> games = new List<IGDB.Models.Game>();
             
             for (int i = 0; i < ids.Length; i++)
             {
-                games.AddRange(await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id = {ids[i]} & version_parent = null;"));
+                games.AddRange(await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, summary, version_parent; where id = {ids[i]} & version_parent = null; limit 5;"));
             }
 
             return games.ToArray();
@@ -173,12 +178,7 @@ namespace BusinessLayer
 
         public async Task<IGDB.Models.Game> GetGameInfoAsync(int gameIGDBId)
         {
-            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres.name, id, involved_companies.company.name, first_release_date, summary; where id = {gameIGDBId};")).First();
-        }
-
-        public async Task<IGDB.Models.Game> GetGameInfoWithGenreIds(int gameIGDBId)
-        {
-            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres, id, involved_companies.company.name, first_release_date, summary; where id = {gameIGDBId};")).First();
+            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres.name, id, involved_companies.company.name, first_release_date, summary, similar_games; where id = {gameIGDBId};")).First();
         }
     }
 }

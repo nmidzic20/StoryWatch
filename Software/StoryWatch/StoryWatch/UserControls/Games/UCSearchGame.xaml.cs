@@ -74,7 +74,7 @@ namespace StoryWatch.UserControls.Games
             GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
         }
 
-        private async void AddClicked(object sender, RoutedEventArgs e)
+        public async void AddClicked(object sender, RoutedEventArgs e)
         {
             if (dgResults.SelectedItem == null)
             {
