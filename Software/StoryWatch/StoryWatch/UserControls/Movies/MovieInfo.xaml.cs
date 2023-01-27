@@ -40,16 +40,6 @@ namespace StoryWatch.UserControls.Movies
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string sHTML = "<!DOCTYPE html>" +
-            "<html>" +
-            "<head>" +
-                "<meta charset=\"utf-8\" />" +
-            "</head>" +
-            "<body" +
-                "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/5PSNL1qE6VY\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>" +
-            "</body>" +
-            "</html>";
-
             string htmlBeginning = "<!DOCTYPE html>" +
                                     "<html>" +
                                     "<head>" +
