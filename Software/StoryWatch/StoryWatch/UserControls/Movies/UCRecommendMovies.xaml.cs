@@ -28,17 +28,9 @@ namespace StoryWatch.UserControls.Movies
         private List<GenreTMDB> preferredGenres = new List<GenreTMDB>();
         private List<MovieListCategory> preferredListCategories = new List<MovieListCategory>();
 
-        private List<GenreTMDB> genresTMDB = new List<GenreTMDB>();
-
-        private List<string> genreNamesRelax = new List<string>();
-        private List<string> genreNamesSocial = new List<string>();
-        private List<string> genreNamesAdrenaline = new List<string>();
-        private List<string> genreNamesFantasy = new List<string>();
-
-
         private Dictionary<string, List<GenreTMDB>> genresDict;
 
-        private RecommendServices recommendServices = new RecommendServices(StateManager.LoggedUser);
+        private RecommendServices recommendServices;
         private MovieServices movieServices = new MovieServices();
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
 
@@ -46,34 +38,26 @@ namespace StoryWatch.UserControls.Movies
         public UCRecommendMovies()
         {
             InitializeComponent();
+            recommendServices = new RecommendServices(StateManager.LoggedUser);
             FillGenres();
         }
 
-        private async void FillGenres()
+        private async Task FillGenres()
         {
-            await GetGenresTMDBAsync();
+            await recommendServices.FillGenres();
+            FillGenreDict();
+        }
 
-            genreNamesRelax.AddRange(new List<string>
-            {
-                "Animation", "Comedy", "Documentary", "Family", "Music", "Romance"
-            });
-            genreNamesSocial.AddRange(new List<string>
-            {
-                "Crime", "Documentary", "Drama", "Family", "TV Movie", "War"
-            });
-            genreNamesFantasy.AddRange(new List<string>
-            {
-                "Fantasy", "Science Fiction", "Western"
-            });
-            genreNamesAdrenaline.AddRange(new List<string>
-            {
-                "Action", "Adventure", "Crime", "Horror", "Thriller", "War"
-            });
-
-            var genresRelax = genresTMDB.Where(g => genreNamesRelax.Exists(n => n == g.Name)).ToList();
-            var genresAdrenaline = genresTMDB.Where(g => genreNamesAdrenaline.Exists(n => n == g.Name)).ToList();
-            var genresSocial = genresTMDB.Where(g => genreNamesSocial.Exists(n => n == g.Name)).ToList();
-            var genresFantasy = genresTMDB.Where(g => genreNamesFantasy.Exists(n => n == g.Name)).ToList();
+        private void FillGenreDict()
+        {
+            List<GenreTMDB> genresRelax = new List<GenreTMDB>();
+            genresRelax.AddRange(recommendServices.GenresRelax);
+            List<GenreTMDB> genresSocial = new List<GenreTMDB>();
+            genresSocial.AddRange(recommendServices.GenresSocial);
+            List<GenreTMDB> genresAdrenaline = new List<GenreTMDB>();
+            genresAdrenaline.AddRange(recommendServices.GenresAdrenaline);
+            List<GenreTMDB> genresFantasy = new List<GenreTMDB>();
+            genresFantasy.AddRange(recommendServices.GenresFantasy);
 
             genresDict = new Dictionary<string, List<GenreTMDB>>()
             {
@@ -82,12 +66,6 @@ namespace StoryWatch.UserControls.Movies
                 { btnAdrenaline.Name, genresAdrenaline },
                 { btnFantasy.Name, genresFantasy }
             };
-
-        }
-
-        private async Task GetGenresTMDBAsync()
-        {
-            genresTMDB = await movieServices.GetTMDBGenresAsync();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

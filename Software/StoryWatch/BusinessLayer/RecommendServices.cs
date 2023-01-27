@@ -16,18 +16,21 @@ namespace BusinessLayer
 {
     public class RecommendServices
     {
+        public List<GenreTMDB> GenresTMDB { get; set; } = new List<GenreTMDB>();
+        public List<GenreTMDB> GenresRelax { get; set; } = new List<GenreTMDB>();
+        public List<GenreTMDB> GenresSocial { get; set; } = new List<GenreTMDB>();
+        public List<GenreTMDB> GenresAdrenaline { get; set; } = new List<GenreTMDB>();
+        public List<GenreTMDB> GenresFantasy { get; set; } = new List<GenreTMDB>();
+
+
         private List<GenreTMDB> preferredGenres;
         private List<MovieListCategory> preferredListCategories;
         private User loggedUser;
         private HashSet<Movie> moviesFromOtherLists = new HashSet<Movie>();
         private HashSet<Movie> moviesFromTODO = new HashSet<Movie>();
         private HashSet<Movie> moviesFromFavorites = new HashSet<Movie>();
-
         private MovieServices movieServices = new MovieServices();
-
         private Dictionary<SearchMovie, double> recommendedMoviesPoints;
-
-
 
         public RecommendServices(User loggedUser)
         {
@@ -59,26 +62,46 @@ namespace BusinessLayer
 
         }
 
+        public async Task FillGenres()
+        {
+            await GetGenresTMDBAsync();
+            List<string> genreNamesRelax = new List<string>();
+            List<string> genreNamesSocial = new List<string>();
+            List<string> genreNamesAdrenaline = new List<string>();
+            List<string> genreNamesFantasy = new List<string>();
+
+
+            genreNamesRelax.AddRange(new List<string>
+            {
+                "Animation", "Comedy", "Documentary", "Family", "Music", "Romance"
+            });
+            genreNamesSocial.AddRange(new List<string>
+            {
+                "Crime", "Documentary", "Drama", "Family", "TV Movie", "War"
+            });
+            genreNamesFantasy.AddRange(new List<string>
+            {
+                "Fantasy", "Science Fiction", "Western"
+            });
+            genreNamesAdrenaline.AddRange(new List<string>
+            {
+                "Action", "Adventure", "Crime", "Horror", "Thriller", "War"
+            });
+
+            GenresRelax = GenresTMDB.Where(g => genreNamesRelax.Exists(n => n == g.Name)).ToList();
+            GenresAdrenaline = GenresTMDB.Where(g => genreNamesAdrenaline.Exists(n => n == g.Name)).ToList();
+            GenresSocial = GenresTMDB.Where(g => genreNamesSocial.Exists(n => n == g.Name)).ToList();
+            GenresFantasy = GenresTMDB.Where(g => genreNamesFantasy.Exists(n => n == g.Name)).ToList();
+
+        }
+
+        private async Task GetGenresTMDBAsync()
+        {
+            GenresTMDB = await movieServices.GetTMDBGenresAsync();
+        }
+
         public async Task<List<SearchMovie>> RecommendMovies(List<GenreTMDB> preferredGenres, List<MovieListCategory> preferredListCategories)
         {
-            /*
-             * if lists only favorites, watched... -> take into account those movies, if possible match with preferred genres (db info only)
-             * give 3 points to favorited movies, and 1 point to rest
-             * and return ordered by points, with message warning of too little info if few movies
-             * 
-             * if lists are either or only TODO, then involve TMDB:
-             - take into account only movies within those genres -> GetMovieByGenre for all preferred genres
-            - from chosen lists (all including TODO, or just TODO) get movies, iterate through them
-            get director+main cast info via TMDB for each, then select the TMDB movies taken into account above that include
-            that cast/director info,
-            and give each movies points according to their credit info:
-            3 points for same director
-            0.5 point for each cast member that appears in those as well
-            in case of either list, additionally give 3 points to fav, 2 points to all watched lists, and 1 point to todo
-                then join that list with tmdb movies
-            order by points and return
-             */
-
             recommendedMoviesPoints = new Dictionary<SearchMovie, double>();
 
             this.preferredListCategories = preferredListCategories;
@@ -91,12 +114,25 @@ namespace BusinessLayer
 
         }
 
+        private async Task<List<SearchMovie>> RecommendWatched()
+        {
+            List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
+
+            AssignPoints(moviesFromOtherLists, 1);
+            AssignPoints(moviesFromFavorites, 2);
+
+            List<SearchMovie> recommendedMovies = RankMoviesByPoints();
+
+            return recommendedMovies;
+
+        }
+
         [Obsolete]
         private async Task<List<SearchMovie>> RecommendUnwatched()
         {
             List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
 
-            AssignPoints(moviesFromTODO, 1);
+            AssignPoints(moviesFromTODO, 0.3);
             await FindMoviesTMDBByFavouriteGenres(moviesTMDB);
 
             List<SearchMovie> recommendedMovies = RankMoviesByPoints();
@@ -179,19 +215,6 @@ namespace BusinessLayer
                 Director = director,
                 MainCast = mainCast
             };
-        }
-
-        private async Task<List<SearchMovie>> RecommendWatched()
-        {
-            List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
-            
-            AssignPoints(moviesFromOtherLists, 1);
-            AssignPoints(moviesFromFavorites, 2);
-
-            List<SearchMovie> recommendedMovies = RankMoviesByPoints();
-
-            return recommendedMovies;
-
         }
 
         private void AssignPoints(HashSet<Movie> movies, double points)
