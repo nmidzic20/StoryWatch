@@ -20,7 +20,7 @@
                     
                 </Button>
 
-                <Button Content="Button" Height="120" Name="btnScary" Margin="15" Width="100" Click="btnScary_Click">
+                <Button Content="Button" Height="120" Name="btnAdrenaline" Margin="15" Width="100" Click="btnAdrenaline_Click">
                     <Button.Template>
                         <ControlTemplate>
                             <Image Width = "120" Source="../../Images/img_scary.png"/>

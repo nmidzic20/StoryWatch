@@ -6,15 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMDbLib.Objects.Movies;
+using GenreTMDB = TMDbLib.Objects.General.Genre;
 
 namespace BusinessLayer
 {
     public class RecommendServices
     {
-        public List<TMDbLib.Objects.Search.SearchMovie> RecommendMovies(List<string> criteria)
+        [Obsolete]
+        public async Task<List<TMDbLib.Objects.Search.SearchMovie>> RecommendMovies(List<GenreTMDB> preferredGenres, List<MovieListCategory> preferredListCategories)
         {
             var movieServices = new MovieServices();
-            var movies = movieServices.SearchMoviesByKeyword(criteria[0]);
+            var movies = await movieServices.GetMoviesByGenre(preferredGenres[0].Id);
+
 
             return movies;
 
