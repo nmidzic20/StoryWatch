@@ -20,7 +20,7 @@ namespace StoryWatch.UserControls.Games
         {
             InitializeComponent();
             gameServices = new GameServices();
-            recommendServices = new RecommendServices();
+            recommendServices = new RecommendServices(StateManager.LoggedUser);
         }
         
         private async Task PopulateDg()
