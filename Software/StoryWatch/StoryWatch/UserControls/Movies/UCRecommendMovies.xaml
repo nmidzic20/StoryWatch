@@ -11,7 +11,7 @@
             <Button x:Name="btnBack" Margin="10" Content="Back" Width="100" Height="25" HorizontalAlignment="Right" Click="btnBack_Click"></Button>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Button" Height="120" Name="btnRelax" Margin="15" Width="100" Click="btnRelax_Click">
+                <Button Content="Button" Height="90" Name="btnRelax" Margin="15" Width="100" Click="btnRelax_Click">
                     <Button.Template>
                         <ControlTemplate>
                             <Image Source = "../../Images/img_relax.png"/>
@@ -20,7 +20,7 @@
                     
                 </Button>
 
-                <Button Content="Button" Height="120" Name="btnAdrenaline" Margin="15" Width="100" Click="btnAdrenaline_Click">
+                <Button Content="Button" Height="90" Name="btnAdrenaline" Margin="15" Width="100" Click="btnAdrenaline_Click">
                     <Button.Template>
                         <ControlTemplate>
                             <Image Width = "120" Source="../../Images/img_scary.png"/>
@@ -29,7 +29,7 @@
                     
                 </Button>
 
-                <Button Content="Button" Height="120" Name="btnSocial" Margin="15" Width="100" Click="btnSocial_Click">
+                <Button Content="Button" Height="90" Name="btnSocial" Margin="15" Width="100" Click="btnSocial_Click">
                     <Button.Template>
                         <ControlTemplate>
                             <Image Width = "120" Source="../../Images/img_social.png"/>
@@ -38,7 +38,7 @@
                     
                 </Button>
 
-                <Button Content="Button" Height="120" Name="btnFantasy" Margin="15" Width="100" Click="btnFantasy_Click">
+                <Button Content="Button" Height="90" Name="btnFantasy" Margin="15" Width="100" Click="btnFantasy_Click">
                     <Button.Template>
                         <ControlTemplate>
                             <Image Width = "120" Source="../../Images/img_fantasy.png"/>
@@ -50,8 +50,7 @@
             </Button>
             <Button Visibility="Collapsed" Content="Watch new" Height="25" Name="btnNew" Margin="10" Width="100" Click="btnnew_Click">
             </Button>
-            <Button Visibility="Collapsed" Content="Either" Height="25" Name="btnEither" Margin="10" Width="100" Click="btnEither_Click">
-            </Button>
+            
         </StackPanel>
         <ScrollViewer>
             <DataGrid Margin="10" AutoGenerateColumns="False" x:Name="dgRecommendedMovies" SelectionChanged="lbResults_SelectionChangedAsync">

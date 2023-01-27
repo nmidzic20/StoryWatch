@@ -38,7 +38,7 @@ namespace StoryWatch.UserControls.Movies
 
         private Dictionary<string, List<GenreTMDB>> genresDict;
 
-        private RecommendServices recommendServices = new RecommendServices();
+        private RecommendServices recommendServices = new RecommendServices(StateManager.LoggedUser);
         private MovieServices movieServices = new MovieServices();
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
 
@@ -55,15 +55,15 @@ namespace StoryWatch.UserControls.Movies
 
             genreNamesRelax.AddRange(new List<string>
             {
-                "Animation", "Comedy", "Documentary", "Family", "History", "Music", "Romance"
+                "Animation", "Comedy", "Documentary", "Family", "Music", "Romance"
             });
             genreNamesSocial.AddRange(new List<string>
             {
-                "Crime", "Documentary", "Drama", "Family", "TV Movie", "War", "Mystery"
+                "Crime", "Documentary", "Drama", "Family", "TV Movie", "War"
             });
             genreNamesFantasy.AddRange(new List<string>
             {
-                "Fantasy", "Science Fiction", "Adventure", "Western"
+                "Fantasy", "Science Fiction", "Western"
             });
             genreNamesAdrenaline.AddRange(new List<string>
             {
@@ -127,7 +127,6 @@ namespace StoryWatch.UserControls.Movies
 
             btnOld.Visibility = Visibility.Visible;
             btnNew.Visibility = Visibility.Visible;
-            btnEither.Visibility = Visibility.Visible;
 
         }
 
@@ -161,44 +160,29 @@ namespace StoryWatch.UserControls.Movies
 
             btnOld.Visibility = Visibility.Collapsed;
             btnNew.Visibility = Visibility.Collapsed;
-            btnEither.Visibility = Visibility.Collapsed;
 
         }
 
         private void SavePreferredListsChoice(string btnName)
         {
-            if (btnName == btnOld.Name)
+            if (btnName == btnNew.Name)
             {
                 preferredListCategories = listCategoryServices.GetMovieListCategories().Where(l => l.Title == "TODO").ToList();
             }
-            else if (btnName == btnNew.Name)
+            else if (btnName == btnOld.Name)
             {
                 preferredListCategories = listCategoryServices.GetMovieListCategories().Where(l => l.Title != "TODO").ToList();
             }
-            else if (btnName == btnEither.Name)
-            {
-                preferredListCategories = listCategoryServices.GetMovieListCategories();
-            }
+            
         }
 
-        [Obsolete]
         private async void RecommendMovies()
         {
-            /*string msg = "";
-            foreach (var list in preferredListCategories) msg += list.Title + " ";
-            foreach (var g in preferredGenres) msg += g.Name + " ";
-            MessageBox.Show(msg);*/
-
-
             var movies = await recommendServices.RecommendMovies(preferredGenres, preferredListCategories);
             dgRecommendedMovies.ItemsSource = movies;
 
-            var credit = await movieServices.GetMovieCreditsAsync(movies[0].Id);
-            var director = credit.Crew.Where(c => c.Job == "Director").Select(c => c.Name).SingleOrDefault();
-            var mainCast = credit.Cast.Take(credit.Cast.Count < 5 ? credit.Cast.Count : 5).Select(c => c.Name).ToList();
-            string cast = "";
-            foreach (var c in mainCast) cast += c + " ";
-            MessageBox.Show("DIRECTOR: " + director + " CAST:" + cast);
+            if (movies.Count < 3)
+                MessageBox.Show("Too few movies watched to give more recommendations");
 
         }
 
