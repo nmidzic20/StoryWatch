@@ -79,12 +79,9 @@ namespace BusinessLayer
                     existingGame = repo.GetGameByIGDBId(game.IGDB_Id).FirstOrDefault();
                 }
 
-                if (existingGame != null)
+                if (existingGame == null)
                 {
-                    isSuccessful = false;
-                }
-                else
-                {
+                    isSuccessful = true;
                     int affectedRows = repo.Add(game);
                     isSuccessful = affectedRows > 0;
                 }
@@ -105,9 +102,8 @@ namespace BusinessLayer
             bool isSuccessful = false;
             using (var repo = new GameRepository())
             {
-                //check if exists on that list already, if yes, return false, if no, add to list
                 List<EntitiesLayer.Entities.Game> games = repo.GetGamesForList(gameListCategory, loggedUser).ToList();
-                bool gameExistsInList = games.Exists(m => m.Id == gameListItem.Id_Games);
+                bool gameExistsInList = games.Exists(g => g.Id == gameListItem.Id_Games);
 
                 if (gameExistsInList)
                 {
@@ -167,7 +163,7 @@ namespace BusinessLayer
 
         public async Task<IGDB.Models.Game> GetGameInfoAsync(int gameIGDBId)
         {
-            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields *; where id = {gameIGDBId};")).First();
+            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres.name, id, involved_companies.company.name, first_release_date, summary; where id = {gameIGDBId};")).First();
         }
     }
 }

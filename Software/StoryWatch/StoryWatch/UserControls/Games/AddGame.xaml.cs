@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using EntitiesLayer.Entities;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,6 +42,7 @@ namespace StoryWatch.UserControls.Games
             txtTitle.Text = selectedGame.Title;
             txtGenres.Text = selectedGame.Genres;
             txtSummary.Text = selectedGame.Summary;
+            datePicker.Text = selectedGame.Release_Date;
             txtDev.Text = selectedGame.Company;
         }
 
@@ -67,7 +69,7 @@ namespace StoryWatch.UserControls.Games
                 Summary = txtSummary.Text,
                 Genres = txtGenres.Text,
                 Company = txtDev.Text,
-                IGDB_Id = selectedGame.IGDB_Id
+                IGDB_Id = selectedGame.IGDB_Id,
             };
 
             int isSuccessful = gameServices.UpdateGame(game);
@@ -94,7 +96,9 @@ namespace StoryWatch.UserControls.Games
                 Title = txtTitle.Text,
                 Summary = txtSummary.Text,
                 IGDB_Id = txtID.Text,
-                Company = txtDev.Text
+                Company = txtDev.Text,
+                Genres = txtGenres.Text,
+                Release_Date = datePicker.Text
             });
 
             if (!isSuccessful)
