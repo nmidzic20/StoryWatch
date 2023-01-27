@@ -2,7 +2,9 @@
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using TMDbLib.Objects.Movies;
@@ -23,6 +25,19 @@ namespace BusinessLayer
                 var movies = repo.
                 return movies;
             }*/
+        }
+        
+        public async Task<List<IGDB.Models.Game>> RecommendGames(int[] ids)
+        {
+            var gameServices = new GameServices();
+            List<IGDB.Models.Game> games = new List<IGDB.Models.Game>();
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                games.Add((await gameServices.GetRecommendedGameAsync(ids[i])).First());
+            }
+
+            return games;
         }
     }
 }
