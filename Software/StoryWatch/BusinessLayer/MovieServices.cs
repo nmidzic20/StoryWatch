@@ -12,6 +12,8 @@ using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
 using Movie = TMDbLib.Objects.Movies.Movie;
+using Collection = TMDbLib.Objects.Collections.Collection;
+using System.Security.AccessControl;
 
 namespace BusinessLayer
 {
@@ -224,6 +226,30 @@ namespace BusinessLayer
                 return null;
         }
 
-     
+        public async Task<List<TMDbLib.Objects.General.Genre>> GetTMDBGenresAsync()
+        {
+            TMDbClient client = new TMDbClient(apiKey);
+            var genresTMDB = await client.GetMovieGenresAsync();
+
+            return genresTMDB;
+
+        }
+
+        [Obsolete]
+        public async Task<List<SearchMovie>> GetMoviesByGenre(int genreId)
+        {
+            TMDbClient client = new TMDbClient(apiKey);
+            var movies = await client.GetGenreMoviesAsync(genreId);
+
+            return movies.Results;
+        }
+
+        public async Task<Credits> GetMovieCreditsAsync(int movieId)
+        {
+            TMDbClient client = new TMDbClient(apiKey);
+            var credits = await client.GetMovieCreditsAsync(movieId);
+            
+            return credits;
+        }
     }
 }
