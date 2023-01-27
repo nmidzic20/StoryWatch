@@ -30,14 +30,7 @@ namespace BusinessLayer
         public async Task<List<IGDB.Models.Game>> RecommendGames(int[] ids)
         {
             var gameServices = new GameServices();
-            List<IGDB.Models.Game> games = new List<IGDB.Models.Game>();
-
-            for (int i = 0; i < ids.Length; i++)
-            {
-                games.Add((await gameServices.GetRecommendedGameAsync(ids[i])).First());
-            }
-
-            return games;
+            return (await gameServices.GetRecommendedGamesAsync(ids)).ToList();
         }
     }
 }
