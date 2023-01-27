@@ -389,7 +389,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Movies\Report1.rdlc" />
+    <EmbeddedResource Include="UserControls\Movies\Reports\Report1.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Movie.datasource" />
     <None Include="Properties\Settings.settings">

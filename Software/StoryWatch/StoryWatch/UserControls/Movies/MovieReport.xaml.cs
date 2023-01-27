@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BoldReports.UI.Xaml;
+using BusinessLayer;
+using Microsoft.Reporting.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,13 +27,30 @@ namespace StoryWatch.UserControls.Movies
         {
             InitializeComponent();
 
-        }
+            reportViewer.Load += ReportViewer_Load;
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        }
+        private bool _isReportViewerLoaded;
+
+        private void ReportViewer_Load(object sender, EventArgs e)
         {
-            PrintDialog printDialog = new PrintDialog();
-            if (printDialog.ShowDialog() == true)
-                printDialog.PrintVisual(print, "test");
+            if (!_isReportViewerLoaded)
+            {
+                ReportDataSource reportDataSource = new ReportDataSource();
+                var movieServices = new MovieServices();
+                var dataset = movieServices.GetAllMovies();
+
+                reportViewer.LocalReport.DataSources.Clear();
+                var DataSource = new ReportDataSource() { Name = "DataSet1", Value = dataset };
+                reportViewer.LocalReport.DataSources.Add(DataSource);
+                string Path = "UserControls/Movies/Reports/Report1.rdlc";
+                reportViewer.LocalReport.ReportPath = Path;
+                reportViewer.Refresh();
+                reportViewer.RefreshReport();
+
+                _isReportViewerLoaded = true;
+            }
         }
     }
+    
 }
