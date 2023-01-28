@@ -11,6 +11,10 @@ using TMDbLib.Objects.Movies;
 
 namespace BusinessLayer
 {
+    /// <summary>
+    /// Function: game management service
+    /// Author: Hrvoje Lukšić
+    /// </summary>
     public class GameServices
     {
         private readonly string id = "ba8wwb974gpp9d1azk47t4g7mzibg5";

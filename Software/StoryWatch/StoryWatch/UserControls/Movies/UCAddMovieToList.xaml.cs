@@ -20,6 +20,7 @@ namespace StoryWatch.UserControls.Movies
 {
     /// <summary>
     /// Interaction logic for UCAddMovieToList.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class UCAddMovieToList : UserControl
     {

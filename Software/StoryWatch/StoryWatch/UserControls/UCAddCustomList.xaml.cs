@@ -20,6 +20,7 @@ namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for UCAddCustomList.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class UCAddCustomList : UserControl
     {

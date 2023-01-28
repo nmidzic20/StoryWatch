@@ -16,6 +16,10 @@ using Movie = EntitiesLayer.Entities.Movie;
 
 namespace BusinessLayer
 {
+    /// <summary>
+    /// Function: service for providing media recommendations
+    /// Authors: Noa Midžić - base, Hrvoje Lukšić and David Kajzogaj for media-specific functions
+    /// </summary>
     public class RecommendServices
     {
         public List<GenreTMDB> GenresTMDB { get; set; } = new List<GenreTMDB>();

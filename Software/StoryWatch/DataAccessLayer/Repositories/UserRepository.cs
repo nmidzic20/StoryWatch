@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.Repositories
 {
     /// <summary>
+    /// Function: database communication for user management
     /// Autor: Hrvoje Lukšić
-    /// Namjena: repozitorij za korisnike
     /// </summary>
     public class UserRepository : Repository<User>
     {

@@ -24,6 +24,7 @@ namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for UCAddMedia.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class UCSearchMovie : UserControl
     {

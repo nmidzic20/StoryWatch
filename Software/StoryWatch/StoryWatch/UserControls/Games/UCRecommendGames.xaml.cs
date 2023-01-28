@@ -10,6 +10,7 @@ namespace StoryWatch.UserControls.Games
 {
     /// <summary>
     /// Interaction logic for UCRecommendGames.xaml
+    /// Author: Hrvoje Lukšić
     /// </summary>
     public partial class UCRecommendGames : UserControl
     {

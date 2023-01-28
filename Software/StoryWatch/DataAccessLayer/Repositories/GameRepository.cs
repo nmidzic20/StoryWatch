@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Function: database communication for game management
+    /// Author: Hrvoje Lukšić
+    /// </summary>
     public class GameRepository : Repository<EntitiesLayer.Entities.Game>
     {
         public int AddGameToList(GameListItem gameListItem, bool saveChanges = true)

@@ -11,6 +11,7 @@ namespace StoryWatch.UserControls.Games
 {
     /// <summary>
     /// Interaction logic for UCAddGame.xaml
+    /// Author: Hrvoje Lukšić
     /// </summary>
     public partial class UCAddGame : UserControl
     {

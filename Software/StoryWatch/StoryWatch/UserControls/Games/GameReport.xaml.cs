@@ -19,6 +19,7 @@ namespace StoryWatch.UserControls.Games
 {
     /// <summary>
     /// Interaction logic for GameReport.xaml
+    /// Author: Hrvoje Lukšić
     /// </summary>
     public partial class GameReport : Window
     {

@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 namespace BusinessLayer
 {
     /// <summary>
-    /// Autor: Hrvoje Lukšić
-    /// Namjena: rad s korisnicima, autentifikacija pri logiranju i registraciji
+    /// Function: service for user management, login and registration
+    /// Author: Hrvoje Lukšić
     /// </summary>
     public class UserServices
     {
@@ -53,7 +53,6 @@ namespace BusinessLayer
 
         public int Add(User user)
         {
-            // provjerava postoji li već korisnik koji se registrira
             if (GetSpecific(user.Username) != null)
             {
                 return -1;
@@ -64,10 +63,6 @@ namespace BusinessLayer
                 return repo.Add(user);
             }
         }
-
-        
-
-        
 
         public int Delete(User user)
         {

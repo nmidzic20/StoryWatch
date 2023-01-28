@@ -19,6 +19,7 @@ namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for UCLogin.xaml
+    /// Author: Hrvoje Lukšić
     /// </summary>
     public partial class UCLogin : UserControl
     {
@@ -30,13 +31,6 @@ namespace StoryWatch.UserControls
             userServices = new UserServices();
 
         }
-        /*private User user = new User
-        {
-            Id = 1,
-            Username = "Korisnik1",
-            Password = "Test"
-        };*/
-
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {

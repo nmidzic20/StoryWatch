@@ -21,6 +21,7 @@ namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for UCRegistracija.xaml
+    /// Author: Hrvoje Lukšić
     /// </summary>
     public partial class UCRegistracija : UserControl
     {

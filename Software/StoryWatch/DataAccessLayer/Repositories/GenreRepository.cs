@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Function: database communication for genre management
+    /// Author: Noa Midžić
+    /// </summary>
     public class GenreRepository : Repository<Genre>
     {
         public IQueryable<Genre> GetAllGenresForUser(User loggedUser)

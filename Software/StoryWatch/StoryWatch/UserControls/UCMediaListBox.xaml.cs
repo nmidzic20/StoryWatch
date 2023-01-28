@@ -26,6 +26,7 @@ namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for MediaListBox.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class MediaListBox : UserControl
     {

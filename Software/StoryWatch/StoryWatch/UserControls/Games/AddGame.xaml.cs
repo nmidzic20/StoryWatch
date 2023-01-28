@@ -9,6 +9,7 @@ namespace StoryWatch.UserControls.Games
 {
     /// <summary>
     /// Interaction logic for AddGame.xaml
+    /// Author: Hrvoje Lukšić
     /// </summary>
     public partial class AddGame : Window
     {

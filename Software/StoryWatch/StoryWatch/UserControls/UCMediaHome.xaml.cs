@@ -14,8 +14,8 @@ using System.Windows.Markup;
 namespace StoryWatch.UserControls
 {
     /// <summary>
-    /// Autor: Noa Midžić
-    /// Namjena: Početna stranica za medije
+    /// Function: Početna stranica za medije
+    /// Author: Noa Midžić
     /// </summary>
     public partial class UCMediaHome : UserControl
     {

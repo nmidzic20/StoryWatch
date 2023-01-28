@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
+    /// <summary>
+    /// Function: genre management service
+    /// Author: Noa Midžić, partly Hrvoje Lukšić and David Kajzogaj for media-specific functions
+    /// </summary>
     public class GenreServices
     {
         public Genre AddGenre(Genre genre)
