@@ -1358,21 +1358,10 @@
       <Width>7.69733in</Width>
       <Page>
         <PageFooter>
-          <Height>9.74183cm</Height>
+          <Height>3cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Line Name="Line1">
-              <Top>0.47131cm</Top>
-              <Left>1.37817cm</Left>
-              <Height>0cm</Height>
-              <Width>17.02033cm</Width>
-              <Style>
-                <Border>
-                  <Style>Solid</Style>
-                </Border>
-              </Style>
-            </Line>
             <Textbox Name="PageNumber">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -1388,11 +1377,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
-              <Top>0.6477cm</Top>
-              <Left>17.96396cm</Left>
+              <Top>1.10475cm</Top>
+              <Left>17.18966cm</Left>
               <Height>0.7905cm</Height>
               <Width>1.20884cm</Width>
-              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1403,6 +1391,18 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Line Name="Line4">
+              <Top>0.70547cm</Top>
+              <Left>0.95888cm</Left>
+              <Height>0cm</Height>
+              <Width>17.43962cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>Solid</Style>
+                </Border>
+              </Style>
+            </Line>
           </ReportItems>
           <Style>
             <Border>
