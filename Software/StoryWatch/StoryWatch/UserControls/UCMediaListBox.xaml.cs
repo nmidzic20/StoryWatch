@@ -142,8 +142,7 @@ namespace StoryWatch.UserControls
             {
                 if (btn.DataContext is Media)
                 {
-                    Game selectedGame = btn.DataContext as Game;
-
+                    Game selectedGame = (Game)btn.DataContext;
                     AddGame addGame = new AddGame(listCategory, selectedGame, true);
                     addGame.Show();
                 }

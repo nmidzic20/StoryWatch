@@ -100,6 +100,7 @@ namespace StoryWatch.UserControls.Games
             };
 
             var winAddGame = new AddGame(listCategory, selectedGame);
+            winAddGame.txtGenres.Text = selectedGameGenre.Name;
             winAddGame.ShowDialog();
         }
     }

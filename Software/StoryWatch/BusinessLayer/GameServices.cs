@@ -174,6 +174,12 @@ namespace BusinessLayer
                 Id_Users = loggedUser.Id
             };
 
+            using (var db = new GenreRepository())
+            {
+                var gamesGenre = GetGameByIGDBId(game.IGDB_Id).Genre;
+                db.DeleteGenreWithoutMedia(gamesGenre);
+            }
+
             using (var repo = new GameRepository())
             {
                 int affectedRows = repo.DeleteGameFromList(gameListItem);

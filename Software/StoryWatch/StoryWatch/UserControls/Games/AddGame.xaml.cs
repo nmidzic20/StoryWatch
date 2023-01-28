@@ -14,6 +14,7 @@ namespace StoryWatch.UserControls.Games
     {
         public IListCategory listCategory { get; set; }
         private GameServices gameServices;
+        public GenreServices genreServices;
         private Game selectedGame = null;
         private bool update = false;
 
@@ -22,6 +23,7 @@ namespace StoryWatch.UserControls.Games
             InitializeComponent();
 
             gameServices = new GameServices();
+            genreServices = new GenreServices();
             listCategory = lc;
             selectedGame = game;
             this.update = update;
@@ -38,10 +40,15 @@ namespace StoryWatch.UserControls.Games
         {
             txtID.Text = selectedGame.IGDB_Id;
             txtTitle.Text = selectedGame.Title;
-            txtGenres.Text = selectedGame.Genre.Name;
             txtSummary.Text = selectedGame.Summary;
             datePicker.Text = selectedGame.Release_Date;
             txtDev.Text = selectedGame.Company;
+
+            if (update)
+            {
+                Game game = gameServices.GetGameByTitle(selectedGame.Title);
+                txtGenres.Text = game.Genre.Name;
+            }
         }
 
         private void AddGameToList(object sender, RoutedEventArgs e)
@@ -88,7 +95,6 @@ namespace StoryWatch.UserControls.Games
 
         private Genre UpdateGenre(Genre oldGenre)
         {
-            var genreServices = new GenreServices();
             int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
             
             var newGenre = new Genre
@@ -97,7 +103,7 @@ namespace StoryWatch.UserControls.Games
                 Name = txtGenres.Text
             };
             
-            return genreServices.UpdateGenre(oldGenre, newGenre);
+            return genreServices.UpdateGameGenre(oldGenre, newGenre);
         }
 
         private void AddGameToList()

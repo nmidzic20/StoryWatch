@@ -70,6 +70,14 @@ namespace BusinessLayer
             }
         }
 
+        public Genre UpdateGameGenre(Genre oldGenre, Genre newGenre)
+        {
+            using (var db = new GenreRepository())
+            {
+                return db.UpdateGameGenre(oldGenre, newGenre);
+            }
+        }
+
         public List<Genre> GetGenresForUser(User loggedUser)
         {
             using (var db = new GenreRepository())

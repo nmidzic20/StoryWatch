@@ -46,7 +46,13 @@ namespace DataAccessLayer.Repositories
         {
             Context.GameListItems.Attach(gameListItem);
             Context.GameListItems.Remove(gameListItem);
-            
+
+            if (Context.BookListItems.Count(m => m.Id_Books == gameListItem.Id_Games) == 0)
+            {
+                var unusedGame = Entities.SingleOrDefault(m => m.Id == gameListItem.Id_Games);
+                Delete(unusedGame);
+            }
+
             if (saveChanges)
             {
                 return Context.SaveChanges();
@@ -59,7 +65,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<Game> GetGameByTitle(string title)
         {
-            var query = from m in Entities
+            var query = from m in Entities.Include("Genre")
                         where m.Title == title
                         select m;
 
@@ -68,8 +74,8 @@ namespace DataAccessLayer.Repositories
         
         public IQueryable<Game> GetGameByIGDBId(string id)
         {
-            return from m in Entities
-                    where m.IGDB_Id == id
+            return from m in Entities.Include("Genre")
+                   where m.IGDB_Id == id
                     select m;
         }
 
@@ -108,6 +114,7 @@ namespace DataAccessLayer.Repositories
             game.Company = entity.Company;
             game.IGDB_Id = entity.IGDB_Id;
             game.Genre = entity.Genre;
+            game.Genre = Context.Genres.SingleOrDefault(g => g.Id == game.Genre.Id);
             game.Summary = entity.Summary;
             game.Release_Date = entity.Release_Date;
             game.Trailer_Url = entity.Trailer_Url;
