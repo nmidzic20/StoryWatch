@@ -62,14 +62,6 @@ namespace BusinessLayer
             }
         }
 
-        public Genre UpdateBookGenre(Genre oldGenre, Genre newGenre)
-        {
-            using (var db = new GenreRepository())
-            {
-                return db.UpdateBookGenre(oldGenre, newGenre);
-            }
-        }
-
         public Genre UpdateGameGenre(Genre oldGenre, Genre newGenre)
         {
             using (var db = new GenreRepository())
