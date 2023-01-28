@@ -287,6 +287,47 @@ namespace BusinessLayer
                     }
             }
         }
+
+        public void DeleteListCategory(IListCategory listCategory, User loggedUser, MediaCategory currentMediaCategory)
+        {
+            switch (currentMediaCategory)
+            {
+                case MediaCategory.Movie:
+                    Delete(listCategory as MovieListCategory, loggedUser);
+                    break;
+                case MediaCategory.Book:
+                    Delete(listCategory as BookListCategory, loggedUser);
+                    break;
+                case MediaCategory.Game:
+                    Delete(listCategory as GameListCategory, loggedUser);
+                    break;
+            }
+
+        }
+
+        private void Delete(MovieListCategory movieListCategory, User loggedUser)
+        {
+            using (var db = new MovieListCategoryRepository())
+            {
+                db.DeleteListForUser(movieListCategory, loggedUser);
+            }
+        }
+
+        private void Delete(GameListCategory gameListCategory, User loggedUser)
+        {
+            using (var db = new GameListCategoryRepository())
+            {
+                db.DeleteListForUser(gameListCategory, loggedUser);
+            }
+        }
+
+        private void Delete(BookListCategory bookListCategory, User loggedUser)
+        {
+            using (var db = new BookListCategoryRepository())
+            {
+                db.DeleteListForUser(bookListCategory, loggedUser);
+            }
+        }
     }
     
 }

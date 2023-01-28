@@ -396,5 +396,17 @@ namespace StoryWatch.UserControls
                 }
             }
         }
+
+        private void btnUpdateList_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteList_Click(object sender, RoutedEventArgs e)
+        {
+            var listCategoryServices = new ListCategoryServices();
+            listCategoryServices.DeleteListCategory(listCategory, StateManager.LoggedUser, StateManager.CurrentMediaCategory);
+            GuiManager.OpenContent(new UCMediaHome(StateManager.CurrentMediaCategory));
+        }
     }
 }

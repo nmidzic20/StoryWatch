@@ -59,7 +59,7 @@ namespace StoryWatch.UserControls
                         MessageBox.Show("Custom list was not added!");
                     }
 
-                    GuiManager.CloseContent();
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Movie));
                     break;
 
                 case MediaCategory.Book:
@@ -82,7 +82,7 @@ namespace StoryWatch.UserControls
                         MessageBox.Show("Custom list was not added!");
                     }
 
-                    GuiManager.CloseContent();
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                     break;
 
                 case MediaCategory.Game:
@@ -105,7 +105,7 @@ namespace StoryWatch.UserControls
                         MessageBox.Show("Custom list was not added!");
                     }
 
-                    GuiManager.CloseContent();
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
                     break;
 
             }
