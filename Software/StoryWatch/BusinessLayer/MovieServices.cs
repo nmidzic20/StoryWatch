@@ -160,6 +160,12 @@ namespace BusinessLayer
                 Id_Users = loggedUser.Id
             };
 
+            using (var db = new GenreRepository())
+            {
+                var movieGenre = GetMovieById(movie.Id).Genre;
+                db.DeleteGenreWithoutMedia(movieGenre);
+            }
+
             using (var repo = new MovieRepository())
             {
                 int affectedRows = repo.DeleteMovieFromList(movieListItem);

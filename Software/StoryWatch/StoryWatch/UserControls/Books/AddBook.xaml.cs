@@ -201,7 +201,7 @@ namespace StoryWatch.UserControls.Books
                 Id = genreId,
                 Name = txtGenre.Text
             };
-            return genreServices.UpdateBookGenre(oldGenre, newGenre);
+            return genreServices.UpdateGenre(oldGenre, newGenre);
         }
 
         private bool CheckInput()

@@ -62,7 +62,8 @@ namespace StoryWatch.UserControls.Games
 
         private void UpdateGame()
         {
-            var game = new EntitiesLayer.Entities.Game
+    
+            var game = new Game
             {
                 Id = selectedGame.Id,
                 Title = txtTitle.Text,

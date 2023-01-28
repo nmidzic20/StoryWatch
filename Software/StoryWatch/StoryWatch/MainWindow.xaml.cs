@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using BusinessLayer;
+using StoryWatch.UserControls.Movies;
 
 namespace StoryWatch
 {
