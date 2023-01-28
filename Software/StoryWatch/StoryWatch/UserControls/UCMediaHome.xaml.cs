@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using StoryWatch.UserControls.Books;
+using System.Windows.Markup;
 
 namespace StoryWatch.UserControls
 {
@@ -20,7 +21,7 @@ namespace StoryWatch.UserControls
     {
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
         private List<MediaListBox> allMediaListBoxes = new List<MediaListBox>();
-        private bool firstPass = true;
+        private bool initialLoadOfAllLists = true;
         private List<IListCategory> allLists = new List<IListCategory>();
 
 
@@ -38,11 +39,7 @@ namespace StoryWatch.UserControls
             gridLists.Children.Clear();
 
             LoadLists(allLists);
-            firstPass = false;
-
-            //save all created listboxes for reference in local search
-            //foreach (UIElement child in gridLists.Children)
-                //allMediaListBoxes.Add(StateManager.GetChildOfType<MediaListBox>(child));
+            initialLoadOfAllLists = false;
 
         }
 
@@ -86,8 +83,6 @@ namespace StoryWatch.UserControls
                     gridLists.Children.Clear();
                     LoadLists(allLists);
                 }
-                    //foreach (UIElement child in gridLists.Children)
-                        //child.Visibility = Visibility.Visible;
 
                 return;
             }
@@ -99,12 +94,17 @@ namespace StoryWatch.UserControls
 
         private void ShowListsContainingMediaWithKeyword(string keyword)
         {
+            //empty gridLists, need to remove all rowdefinitions created up until now
+            //so that results aren't being put in row definitions below those already created
+            //and only one row definition is present at each reset (column definitions always fixed at 3 so no need to reset them)
             gridLists.Children.Clear();
+            gridLists.RowDefinitions.Clear();
+            gridLists.RowDefinitions.Add(new RowDefinition());
+
             List<UserControl> listsContainingKeyword = new List<UserControl>();
-            //foreach (UIElement child in gridLists.Children)
+
             foreach (MediaListBox listBox in allMediaListBoxes)
             {
-                //var mediaItems = StateManager.GetChildOfType<MediaListBox>(child).MediaItems;
                 var mediaItems = listBox.MediaItems;
                 List<string> mediaTitles = mediaItems.Select(m => m.Title.ToLower()).ToList();
                 //include in results if any of media titles on the list contain keyword
@@ -114,18 +114,16 @@ namespace StoryWatch.UserControls
                 count += (listTitle.Contains(keyword)) ? 1 : 0;
 
                 if (count != 0)
-                    AddListBoxToGrid(new UserControl
+                {
+                    AddListBoxToGrid(new ContentControl
                     {
                         Content = listBox
                     });
-           
-                //listsContainingKeyword.Add(listBox);
-                //child.Visibility = Visibility.Visible;
-                //else
-                //child.Visibility = Visibility.Collapsed;
+                }
+      
             }
-        }
 
+        }
 
 
         private void btnAddCustomList_Click(object sender, RoutedEventArgs e)
@@ -143,7 +141,7 @@ namespace StoryWatch.UserControls
                                     .FirstOrDefault(c => Grid.GetRow(c) == rowCount - 1 &&
                                                         Grid.GetColumn(c) == columnCount - 1);
 
-            //dodati novi redak u slučaju da je u već postojećem zadnjem retku zadnji stupac zauzet
+            //add new row in case that in the existing last row, the last column is taken
             if (lastColumnChild != null)
             {
                 gridLists.RowDefinitions.Add(new RowDefinition());
@@ -153,7 +151,7 @@ namespace StoryWatch.UserControls
             Grid.SetRow(list, gridLists.RowDefinitions.Count - 1);
             Grid.SetColumn(list, (gridLists.Children.Count - 1) % columnCount);
 
-            if (firstPass)
+            if (initialLoadOfAllLists)
             {
                 allMediaListBoxes.Add(list.Content as MediaListBox);
             }
@@ -166,7 +164,7 @@ namespace StoryWatch.UserControls
 
         private void LogOut(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Želite li se odjaviti?", "Obavijest", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            if (MessageBox.Show("Do you wish to log out?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
             {
                 return;
             }
