@@ -95,7 +95,7 @@ namespace StoryWatch.UserControls.Games
                 Title = game.Name,
                 Summary = game.Summary,
                 Release_Date = game.FirstReleaseDate.ToString(),
-                Company = game.InvolvedCompanies.Values.Aggregate("", (current, company) => current + (company.Company.Value.Name + ", ")),
+                Company = game.InvolvedCompanies == null ? "Indie" : game.InvolvedCompanies.Values.Aggregate("", (current, company) => current + (company.Company.Value.Name + ", ")),
                 Genre = selectedGameGenre
             };
 

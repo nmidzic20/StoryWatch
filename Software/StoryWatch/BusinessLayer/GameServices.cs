@@ -96,7 +96,9 @@ namespace BusinessLayer
                 EntitiesLayer.Entities.Game existingGame = null;
 
                 if (!string.IsNullOrEmpty(game.IGDB_Id))
+                {
                     existingGame = repo.GetGameByIGDBId(game.IGDB_Id).FirstOrDefault();
+                }
 
                 if (existingGame != null)
                 {

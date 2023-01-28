@@ -32,8 +32,6 @@ namespace StoryWatch.UserControls.Games
             }
 
             FillGameInfo();
-
-            //TODO - when btn pressed, call movieServices.UpdateMovie -> repo.Update
         }
 
         private void FillGameInfo()

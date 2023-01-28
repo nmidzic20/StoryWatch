@@ -23,6 +23,25 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public override int Add(Game entity, bool saveChanges = true)
+        {
+            var genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);
+
+            entity.Genre = genre;
+
+            Entities.Add(entity);
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
         public int DeleteGameFromList(GameListItem gameListItem, bool saveChanges = true)
         {
             Context.GameListItems.Attach(gameListItem);
