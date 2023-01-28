@@ -66,7 +66,15 @@ namespace StoryWatch.UserControls.Games
             }
 
             List <Genre> lists = new List<Genre>();
-            lists.AddRange(listCategoryServices.GetGameListCategoriesForUser(StateManager.LoggedUser).ToList().Select(x => new Genre() { Name = x.Title, Id = x.GameListItems.Count() }));
+            
+            lists.AddRange(listCategoryServices.GetGameListCategoriesForUser(StateManager.LoggedUser)
+                .ToList()
+                .Where(x => x.GameListItems.Count() > 0)
+                .Select(x => new Genre() 
+                { 
+                    Name = x.Title, 
+                    Id = x.GameListItems.Count() 
+                }));
             
             gameLists = lists;
             genres = genreServices.GetGameGenresForUser(StateManager.LoggedUser).ToList();
@@ -76,14 +84,19 @@ namespace StoryWatch.UserControls.Games
         {
             reportViewer.LocalReport.DataSources.Clear();
             var dataSource = new ReportDataSource() { Name = "MyFavoriteGames", Value = favoriteGames };
+            
             reportViewer.LocalReport.DataSources.Add(dataSource);
             var dataSource2 = new ReportDataSource() { Name = "Genres", Value = genres };
+            
             reportViewer.LocalReport.DataSources.Add(dataSource2);
             var dataSource3 = new ReportDataSource() { Name = "UserGames", Value = allUserGames };
+            
             reportViewer.LocalReport.DataSources.Add(dataSource3);
             var dataSource4 = new ReportDataSource() { Name = "GameLists", Value = gameLists };
+            
             reportViewer.LocalReport.DataSources.Add(dataSource4);
             string path = "UserControls/Games/Reports/ReportGames.rdlc";
+            
             reportViewer.LocalReport.ReportPath = path;
             reportViewer.Refresh();
             reportViewer.RefreshReport();
