@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TMDbLib.Utilities;
 
 namespace StoryWatch.UserControls.Games
 {
@@ -73,7 +74,7 @@ namespace StoryWatch.UserControls.Games
             GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
         }
 
-        private async void AddClicked(object sender, RoutedEventArgs e)
+        public async void AddClicked(object sender, RoutedEventArgs e)
         {
             if (dgResults.SelectedItem == null)
             {
@@ -88,8 +89,8 @@ namespace StoryWatch.UserControls.Games
                 Title = game.Name,
                 Summary = game.Summary,
                 Release_Date = game.FirstReleaseDate.ToString(),
-                Company = "",
-                Genres = ""
+                Company = game.InvolvedCompanies.Values.Aggregate("", (current, company) => current + (company.Company.Value.Name + ", ")),
+                Genres = game.Genres.Values.Aggregate("", (current, genre) => current + (genre.Name + ", "))
             };
 
             var winAddGame = new AddGame(listCategory, selectedGame);

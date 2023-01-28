@@ -19,7 +19,7 @@ namespace DataAccessLayer.Repositories
         {
             //check if any other movie, beside the movie which is being updated,
             //still references the old genre - if not, delete that genre
-            if (Context.Movies.Count(m =>  m.Genre != null && m.Genre.Id == oldGenre.Id) <= 1)
+            if (Context.Movies.Count(m => m.Genre != null && m.Genre.Id == oldGenre.Id) <= 1)
             {
                 Entities.Attach(oldGenre);
                 Entities.Remove(oldGenre);
@@ -44,7 +44,7 @@ namespace DataAccessLayer.Repositories
         }
         public Genre UpdateBookGenre(Genre oldGenre, Genre newGenre, bool saveChanges = true)
         {
-            //check if any other movie, beside the movie which is being updated,
+            //check if any other book, beside the movie which is being updated,
             //still references the old genre - if not, delete that genre
             if (Context.Books.Count(m => m.Genre != null && m.Genre.Id == oldGenre.Id) <= 1)
             {
@@ -69,6 +69,16 @@ namespace DataAccessLayer.Repositories
                 return newGenre;
             }
 
+        }
+
+        public void DeleteGenreIfNotRealtedToAnyBook(Genre genreToDelete)
+        {
+            if(Context.Books.Count(b=> b.Genre != null && b.Genre.Id == genreToDelete.Id) <= 1)
+            {
+                Entities.Attach(genreToDelete); 
+                Entities.Remove(genreToDelete);
+                SaveChanges();
+            }
         }
     }
 }

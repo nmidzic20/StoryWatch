@@ -2,23 +2,13 @@
 using EntitiesLayer;
 using EntitiesLayer.Entities;
 using StoryWatch.UserControls.Movies;
-using System;
+using StoryWatch.UserControls.Games;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data.Entity.Core.Mapping;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using StoryWatch.UserControls.Books;
 
 namespace StoryWatch.UserControls
 {
@@ -153,7 +143,20 @@ namespace StoryWatch.UserControls
 
         private void btnRecommend_Click(object sender, RoutedEventArgs e)
         {
-            GuiManager.OpenContent(new UCRecommendMovies());
+            switch (StateManager.CurrentMediaCategory)
+            {
+                case MediaCategory.Movie:
+                    GuiManager.OpenContent(new UCRecommendMovies());
+                    break;
+                case MediaCategory.Book:
+                    GuiManager.OpenContent(new UCRecommendBooks());
+                    break;
+                case MediaCategory.Game:
+                    GuiManager.OpenContent(new UCRecommendGames());
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void btnReport_Click(object sender, RoutedEventArgs e)
