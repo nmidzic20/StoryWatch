@@ -240,6 +240,9 @@
     <Compile Include="UserControls\Books\AddBook.xaml.cs">
       <DependentUpon>AddBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Books\BookReport.xaml.cs">
+      <DependentUpon>BookReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Books\EBookPreview.xaml.cs">
       <DependentUpon>EBookPreview.xaml</DependentUpon>
     </Compile>
@@ -304,6 +307,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\Books\AddBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Books\BookReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
