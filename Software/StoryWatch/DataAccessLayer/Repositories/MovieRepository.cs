@@ -10,6 +10,11 @@ namespace DataAccessLayer.Repositories
 {
     public class MovieRepository : Repository<Movie>
     {
+        public override IQueryable<Movie> GetAll()
+        {
+            return Entities.Include(e => e.Genre);
+        }
+
         public override int Add(Movie entity, bool saveChanges = true)
         {
             var genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);

@@ -1,5 +1,5 @@
-﻿using BoldReports.UI.Xaml;
-using BusinessLayer;
+﻿using BusinessLayer;
+using EntitiesLayer.Entities;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
@@ -36,20 +36,51 @@ namespace StoryWatch.UserControls.Movies
         {
             if (!_isReportViewerLoaded)
             {
-                ReportDataSource reportDataSource = new ReportDataSource();
-                var movieServices = new MovieServices();
-                var dataset = movieServices.GetAllMovies();
+                List<Movie> favouriteMovies, allUserMovies;
+                List<Genre> genres;
 
-                reportViewer.LocalReport.DataSources.Clear();
-                var DataSource = new ReportDataSource() { Name = "DataSet1", Value = dataset };
-                reportViewer.LocalReport.DataSources.Add(DataSource);
-                string Path = "UserControls/Movies/Reports/Report1.rdlc";
-                reportViewer.LocalReport.ReportPath = Path;
-                reportViewer.Refresh();
-                reportViewer.RefreshReport();
+                FetchDataForReportDatasets(out favouriteMovies, out allUserMovies, out genres);
+                SetReportDataSources(favouriteMovies, allUserMovies, genres);
 
                 _isReportViewerLoaded = true;
             }
+        }
+
+        private static void FetchDataForReportDatasets(out List<Movie> favouriteMovies, out List<Movie> allUserMovies, out List<Genre> genres)
+        {
+            var movieServices = new MovieServices();
+            var listCategoryServices = new ListCategoryServices();
+            var genreServices = new GenreServices();
+
+            var userLists = listCategoryServices.GetMovieListCategoriesForUser(StateManager.LoggedUser);
+
+            favouriteMovies = new List<Movie>();
+            allUserMovies = new List<Movie>();
+
+            foreach (var list in userLists)
+            {
+                allUserMovies.AddRange(movieServices.GetMoviesForList(list, StateManager.LoggedUser));
+
+                if (list.Title == "Favorites")
+                    favouriteMovies = movieServices.GetMoviesForList(list, StateManager.LoggedUser);
+            }
+
+            genres = genreServices.GetGenresForUser(StateManager.LoggedUser).ToList();
+        }
+
+        private void SetReportDataSources(List<Movie> favouriteMovies, List<Movie> allUserMovies, List<Genre> genres)
+        {
+            reportViewer.LocalReport.DataSources.Clear();
+            var dataSource = new ReportDataSource() { Name = "MyFavouriteMovies", Value = favouriteMovies };
+            reportViewer.LocalReport.DataSources.Add(dataSource);
+            var dataSource2 = new ReportDataSource() { Name = "Genres", Value = genres };
+            reportViewer.LocalReport.DataSources.Add(dataSource2);
+            var dataSource3 = new ReportDataSource() { Name = "UserMovies", Value = allUserMovies };
+            reportViewer.LocalReport.DataSources.Add(dataSource3);
+            string path = "UserControls/Movies/Reports/ReportMovies.rdlc";
+            reportViewer.LocalReport.ReportPath = path;
+            reportViewer.Refresh();
+            reportViewer.RefreshReport();
         }
     }
     
