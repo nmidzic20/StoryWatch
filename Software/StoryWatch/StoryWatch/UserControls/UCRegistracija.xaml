@@ -6,16 +6,16 @@
              xmlns:local="clr-namespace:StoryWatch.UserControls"
              mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Lavender">
     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Label Content="Registracija" FontWeight="Bold" Margin="0,10,0,0" DockPanel.Dock="Top" Height="28" HorizontalAlignment="Center"/>
+        <Label Content="Registration" FontWeight="Bold" Margin="0,10,0,0" DockPanel.Dock="Top" Height="28" HorizontalAlignment="Center"/>
         <Grid Margin="0,0,0,0" Height="291">
             <TextBox Margin="36,37,36,0" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="txtUsername" KeyUp="InputChanged" Width="100"/>
-            <Button x:Name="btnRegister" Content="Registriraj me" HorizontalAlignment="Center" Margin="0,197,0,0" VerticalAlignment="Top" Width="88" Height="28" Click="Register_Click" IsEnabled="False"/>
-            <Label Content="Korisničko ime:" HorizontalAlignment="Left" Margin="31,11,0,0" VerticalAlignment="Top"/>
-            <Label Content="Lozinka:" HorizontalAlignment="Left" Margin="31,76,0,0" VerticalAlignment="Top"/>
-            <Label Content="Ponovite lozinku:" HorizontalAlignment="Left" Margin="31,125,0,0" VerticalAlignment="Top"/>
+            <Button IsDefault="True" x:Name="btnRegister" Content="Register me" HorizontalAlignment="Center" Margin="0,197,0,0" VerticalAlignment="Top" Width="88" Height="28" Click="Register_Click" IsEnabled="False"/>
+            <Label Content="Username:" HorizontalAlignment="Left" Margin="31,11,0,0" VerticalAlignment="Top"/>
+            <Label Content="Password:" HorizontalAlignment="Left" Margin="31,76,0,0" VerticalAlignment="Top"/>
+            <Label Content="Repeat password:" HorizontalAlignment="Left" Margin="31,125,0,0" VerticalAlignment="Top"/>
             <PasswordBox Margin="36,151,36,0" VerticalAlignment="Top" x:Name="txtPassword1" KeyUp="InputChanged" Width="100"/>
             <PasswordBox Margin="36,102,36,0" VerticalAlignment="Top" x:Name="txtPassword2" KeyUp="InputChanged" Width="100"/>
-            <Button x:Name="btnBack" Content="Izlaz" HorizontalAlignment="Center" Margin="0,242,0,0" VerticalAlignment="Top" Width="88" Height="27" Click="ButtonBackClicked"/>
+            <Button IsCancel="True" x:Name="btnBack" Content="Cancel" HorizontalAlignment="Center" Margin="0,242,0,0" VerticalAlignment="Top" Width="88" Height="27" Click="ButtonBackClicked"/>
 
         </Grid>
     </DockPanel>

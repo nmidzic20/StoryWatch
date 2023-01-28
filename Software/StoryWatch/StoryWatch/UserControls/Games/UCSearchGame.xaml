@@ -9,8 +9,8 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <TextBox HorizontalAlignment="Center" x:Name="txtSearchKeyword" Width="200" Height="25" Margin="20" Text="Search games by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" TextChanged="txtSearch_TextChanged" LostFocus="txtSearch_LostFocus" GotFocus="txtSearch_GotFocus"/>
-            <Button HorizontalAlignment="Right" Margin="0 0 0 0" x:Name="btnAdd" Content="Select" FontWeight="Bold" Width="90" Height="35" Click="AddClicked"/>
-            <Button HorizontalAlignment="Right" Margin="0 0 40 0" x:Name="btnBooksHome" Content="Cancel" FontWeight="Bold" Width="90" Height="35" Click="Back_Clicked"/>
+            <Button IsDefault="True" HorizontalAlignment="Right" Margin="0 0 0 0" x:Name="btnAdd" Content="Select" FontWeight="Bold" Width="90" Height="35" Click="AddClicked"/>
+            <Button IsCancel="True" HorizontalAlignment="Right" Margin="0 0 40 0" x:Name="btnBooksHome" Content="Cancel" FontWeight="Bold" Width="90" Height="35" Click="Back_Clicked"/>
         </DockPanel>
         <ScrollViewer>
             <DataGrid HorizontalAlignment="Stretch" 

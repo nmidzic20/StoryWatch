@@ -48,7 +48,7 @@ namespace StoryWatch.UserControls
 
             if (!userServices.Login(user))
             {
-                MessageBox.Show("Netočno korisničko ime ili lozinka!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Incorrect username or password!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

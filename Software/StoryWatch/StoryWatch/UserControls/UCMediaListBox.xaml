@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoryWatch.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="260">
+             d:DesignWidth="260">
     <UserControl.Resources>
         <DataTemplate x:Key="MediaTemplate">
             <StackPanel Orientation="Vertical">
@@ -18,12 +18,27 @@
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
-    <StackPanel Margin="20,0,20,20">
-        <DockPanel Height="40" x:Name="header" Width="220">
-            <Label x:Name="lblTitle" Content="List title" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left"/>
-            <Button x:Name="btnAdd" Click="btnAdd_Click" Content="+ Add " HorizontalAlignment="Right" Height="30" Margin="0,0,5,0" FontWeight="Bold"></Button>
+    <StackPanel Margin="25,0,25,25">
+        <DockPanel x:Name="header" MaxWidth="410">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" x:Name="lblTitle" Content="List title" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="btnAdd" Click="btnAdd_Click" Content="+ Add " Height="30" Margin="10" FontWeight="Bold"></Button>
+                    <Button x:Name="btnUpdateList" Click="btnUpdateList_Click" Content=" Update " Height="30" Margin="10" FontWeight="Bold"></Button>
+                    <Button x:Name="btnDeleteList" Click="btnDeleteList_Click" Height="30" Margin="10" FontWeight="Bold">
+                        <Image Source="../Images/img_delete.png"></Image>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </DockPanel>
-        <ListBox x:Name="lbMedia" Height="180" Width="220" 
+        <ListBox x:Name="lbMedia" MinHeight="180" MaxWidth="410"
             Background="AliceBlue"
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding}"

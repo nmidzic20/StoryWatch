@@ -36,6 +36,11 @@ namespace StoryWatch.UserControls.Movies
             movie.Genre = movieServices.GetMovieById(movie.Id).Genre;
 
             this.DataContext = movie;
+
+            if (string.IsNullOrEmpty(movie.Countries)) txtCountries.Visibility = Visibility.Hidden;
+            if (string.IsNullOrEmpty(movie.ReleaseDate)) txtReleaseDate.Visibility = Visibility.Hidden;
+            if (string.IsNullOrEmpty(movie.Genre.Name)) txtGenre.Visibility = Visibility.Hidden;
+
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -49,13 +54,14 @@ namespace StoryWatch.UserControls.Movies
                                     "<body>";
 
             string trailer = "";
-            
-            if (!string.IsNullOrEmpty(movie.Trailer_URL))
-                trailer = 
-                    "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/" 
-                    + movie.Trailer_URL 
-                    + "\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
 
+            if (!string.IsNullOrEmpty(movie.Trailer_URL))
+                trailer =
+                    "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/"
+                    + movie.Trailer_URL
+                    + "\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+            else
+                trailer = "<div style='margin:20px'>No trailer URLs were provided for this movie - try updating this movie by searching for it on TMDb or manually provide trailer URL</div>";
             string htmlEnd = "</body>" +
                             "</html>";
 

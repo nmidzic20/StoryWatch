@@ -37,9 +37,9 @@
             <Label Width="100" Height="25" Content="TMDb ID" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right"></Label>
             <TextBox IsEnabled="False" x:Name="txtID" Width="350" Height="25" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"></TextBox>
             <Label Width="100" Height="25" Content="Trailer URL" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right"></Label>
-            <TextBox IsEnabled="False" x:Name="txtTrailerURL" Width="350" Height="25" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"></TextBox>
-            <Button x:Name="btnAdd" Content="Add to list" IsEnabled="False" Width="100" Height="25" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Click="AddMovie"></Button>
-            <Button x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Click="Return"></Button>
+            <TextBox x:Name="txtTrailerURL" Width="350" Height="25" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left"></TextBox>
+            <Button IsDefault="True" x:Name="btnAdd" Content="Add to list" IsEnabled="False" Width="100" Height="25" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Left" Click="AddMovie"></Button>
+            <Button IsCancel="True" x:Name="btnCancel" Content="Cancel" Width="100" Height="25" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Click="Return"></Button>
         </Grid>
     </DockPanel>
 </UserControl>
