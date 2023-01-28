@@ -132,7 +132,7 @@ namespace StoryWatch.UserControls
             this.ucAddMovieToList.txtGenre.Text = selectedMovie.Genres[0].Name;
             this.ucAddMovieToList.txtOverview.Text = selectedMovie.Overview;
             this.ucAddMovieToList.dtReleaseDate.Text = selectedMovie.ReleaseDate.ToString();
-            this.ucAddMovieToList.txtTrailerURL.Text = selectedMovie.Videos.Results[0].Key;
+            this.ucAddMovieToList.txtTrailerURL.Text = (selectedMovie.Videos.Results.Count != 0) ? selectedMovie.Videos.Results[0].Key : null;
 
             foreach (var country in selectedMovie.ProductionCountries)
             {

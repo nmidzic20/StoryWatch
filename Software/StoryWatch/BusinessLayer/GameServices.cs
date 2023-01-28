@@ -7,6 +7,7 @@ using DataAccessLayer.Repositories;
 using IGDB.Models;
 using System.Runtime.Remoting.Messaging;
 using System.Xml.Linq;
+using TMDbLib.Objects.Movies;
 
 namespace BusinessLayer
 {
@@ -167,6 +168,13 @@ namespace BusinessLayer
                 Id_Games = game.Id,
                 Id_Users = loggedUser.Id
             };
+
+            /*delete genre if it remains unused by any media - implement this when it can be tested
+            using (var db = new GenreRepository())
+            {
+                var gameGenre = GetGameByTitle(game.Title).Genre;
+                db.DeleteGenreWithoutMedia(gameGenre);
+            }*/
 
             using (var repo = new GameRepository())
             {

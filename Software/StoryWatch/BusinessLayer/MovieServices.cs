@@ -11,7 +11,8 @@ using TMDbLib.Objects.Collections;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
-using Movie = TMDbLib.Objects.Movies.Movie;
+using Movie = EntitiesLayer.Entities.Movie;
+using MovieTMDB = TMDbLib.Objects.Movies.Movie;
 using Collection = TMDbLib.Objects.Collections.Collection;
 using System.Security.AccessControl;
 
@@ -21,7 +22,7 @@ namespace BusinessLayer
     {
         private string apiKey = "61a62cd9363b4d557e04105a89889368";
 
-        public List<EntitiesLayer.Entities.Movie> GetAllMovies()
+        public List<Movie> GetAllMovies()
         {
             using (var repo = new MovieRepository())
             {
@@ -29,7 +30,7 @@ namespace BusinessLayer
             }
         }
 
-        public EntitiesLayer.Entities.Movie GetMovieByTitle(string title)
+        public Movie GetMovieByTitle(string title)
         {
             using (var repo = new MovieRepository())
             {
@@ -37,7 +38,7 @@ namespace BusinessLayer
             }
         }
 
-        public EntitiesLayer.Entities.Movie GetMovieById(int id)
+        public Movie GetMovieById(int id)
         {
             using (var repo = new MovieRepository())
             {
@@ -45,7 +46,7 @@ namespace BusinessLayer
             }
         }
 
-        public List<EntitiesLayer.Entities.Movie> GetMoviesForList(MovieListCategory movieListCategory, User loggedUser)
+        public List<Movie> GetMoviesForList(MovieListCategory movieListCategory, User loggedUser)
         {
             using (var repo = new MovieRepository())
             {
@@ -53,7 +54,7 @@ namespace BusinessLayer
             }
         }
 
-        public EntitiesLayer.Entities.Movie GetMovieByTMDBId(string TMDB_ID)
+        public Movie GetMovieByTMDBId(string TMDB_ID)
         {
             using (var repo = new MovieRepository())
             {
@@ -61,7 +62,7 @@ namespace BusinessLayer
             }
         }
 
-        public bool AddMovie(EntitiesLayer.Entities.Movie movie)
+        public bool AddMovie(Movie movie)
         {
             bool isSuccessful = false;
             using (var repo = new MovieRepository())
@@ -69,7 +70,7 @@ namespace BusinessLayer
                 //check if exists in Movies - if not, add to Movies, if yes, return false
                 //important - this check must be performed only if movie was added from TMDb - if it was
                 //added manually, there is no TMDB ID and nothing to compare
-                EntitiesLayer.Entities.Movie existingMovie = null;
+                Movie existingMovie = null;
 
                 if (!string.IsNullOrEmpty(movie.TMDB_ID))
                     existingMovie = repo.GetMovieByTMDBId(movie.TMDB_ID).FirstOrDefault();
@@ -84,7 +85,6 @@ namespace BusinessLayer
                     isSuccessful = affectedRows > 0;
                 }
 
-
             }
 
             return isSuccessful;
@@ -97,7 +97,7 @@ namespace BusinessLayer
             using (var repo = new MovieRepository())
             {
                 //check if exists on that list already, if yes, return false, if no, add to list
-                List<EntitiesLayer.Entities.Movie> movies = repo.GetMoviesForList(movieListCategory,loggedUser).ToList();
+                List<Movie> movies = repo.GetMoviesForList(movieListCategory,loggedUser).ToList();
                 bool movieExistsOnList = movies.Exists(m => m.Id == movieListItem.Id_Movies);
 
                 if (movieExistsOnList)
@@ -115,7 +115,7 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
-        public int UpdateMovie(EntitiesLayer.Entities.Movie movie)
+        public int UpdateMovie(Movie movie)
         {
             using (var repo = new MovieRepository())
             {
@@ -129,7 +129,7 @@ namespace BusinessLayer
             using (var repo = new MovieRepository())
             {
                 //check if exists on destination list already, if yes, return false, if no, change to that list
-                List<EntitiesLayer.Entities.Movie> movies = repo.GetMoviesForList(destMovieListCategory, loggedUser).ToList();
+                List<Movie> movies = repo.GetMoviesForList(destMovieListCategory, loggedUser).ToList();
                 bool movieExistsOnList = movies.Exists(m => m.Id == movieListItem.Id_Movies);
 
                 if (movieExistsOnList)
@@ -149,7 +149,7 @@ namespace BusinessLayer
             return isSuccessful;
         }
 
-        public bool DeleteMovieFromList(EntitiesLayer.Entities.Movie movie, MovieListCategory movieListCategory, User loggedUser)
+        public bool DeleteMovieFromList(Movie movie, MovieListCategory movieListCategory, User loggedUser)
         {
             bool isSuccessful = false;
 
@@ -159,6 +159,12 @@ namespace BusinessLayer
                 Id_Movies = movie.Id,
                 Id_Users = loggedUser.Id
             };
+
+            using (var db = new GenreRepository())
+            {
+                var movieGenre = GetMovieById(movie.Id).Genre;
+                db.DeleteGenreWithoutMedia(movieGenre);
+            }
 
             using (var repo = new MovieRepository())
             {
@@ -172,7 +178,7 @@ namespace BusinessLayer
         public async Task<TMDbLib.Objects.Movies.Movie> GetMovieInfoAsync(int movieTMDBid)
         {
             TMDbClient client = new TMDbClient(apiKey);
-            Movie movie = await client.GetMovieAsync(movieTMDBid, MovieMethods.Credits | MovieMethods.Videos);
+            MovieTMDB movie = await client.GetMovieAsync(movieTMDBid, MovieMethods.Credits | MovieMethods.Videos);
 
             Console.WriteLine($"Movie title: {movie.Title}");
             foreach (Cast cast in movie.Credits.Cast)

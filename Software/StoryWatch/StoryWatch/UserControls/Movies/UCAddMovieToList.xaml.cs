@@ -27,7 +27,7 @@ namespace StoryWatch.UserControls.Movies
         private MovieServices movieServices = new MovieServices();
         private bool update = false;
         private EntitiesLayer.Entities.Movie movieToUpdate = null;
-        private string youtubeURL = "https://www.youtube.com/embed/5PSNL1qE6VY";
+        private string youtubeURL = "https://www.youtube.com/embed/";
 
         public UCAddMovieToList(IListCategory listCategory)
         {
@@ -165,6 +165,17 @@ namespace StoryWatch.UserControls.Movies
         {
             if (string.IsNullOrEmpty(txtTitle.Text))
                     return false;
+
+            if (!string.IsNullOrEmpty(txtTrailerURL.Text))
+            {
+                if (txtTrailerURL.Text.ToString().Contains("/"))
+                {
+                    var splitByForwardSlash = txtTrailerURL.Text.Split('/');
+                    var videoKey = splitByForwardSlash.Last();
+                    txtTrailerURL.Text = "";
+                    txtTrailerURL.Text = videoKey;
+                }
+            }
 
             return true;
         }

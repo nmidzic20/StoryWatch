@@ -49,17 +49,17 @@ namespace StoryWatch.UserControls
 
             if (result == 0)
             {
-                MessageBox.Show("Greška u dodavanju korisnika!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Error in adding user!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             else if (result == -1)
             {
-                MessageBox.Show("Korisničko ime je zauzeto!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Username is taken!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             else
             {
-                MessageBox.Show("Korisnik registriran!", "Obavijest", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("User registered!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 StateManager.LoggedUser = user;
 
