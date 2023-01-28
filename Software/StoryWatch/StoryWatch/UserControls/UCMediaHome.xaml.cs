@@ -19,21 +19,31 @@ namespace StoryWatch.UserControls
     public partial class UCMediaHome : UserControl
     {
         private ListCategoryServices listCategoryServices = new ListCategoryServices();
+        private List<MediaListBox> allMediaListBoxes = new List<MediaListBox>();
+        private bool firstPass = true;
+        private List<IListCategory> allLists = new List<IListCategory>();
+
 
         public UCMediaHome(MediaCategory mediaCategory)
         {
             InitializeComponent();
 
             StateManager.CurrentMediaCategory = mediaCategory;
+
+            allLists = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             gridLists.Children.Clear();
 
-            var allLists = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
-
             LoadLists(allLists);
+            firstPass = false;
+
+            //save all created listboxes for reference in local search
+            //foreach (UIElement child in gridLists.Children)
+                //allMediaListBoxes.Add(StateManager.GetChildOfType<MediaListBox>(child));
+
         }
 
         private void LoadLists(List<IListCategory> listCategories)
@@ -72,8 +82,12 @@ namespace StoryWatch.UserControls
             if (string.IsNullOrEmpty(txtSearch.Text) || txtSearch.Text == "Search")
             {
                 if (gridLists != null)
-                    foreach (UIElement child in gridLists.Children)
-                        child.Visibility = Visibility.Visible;
+                {
+                    gridLists.Children.Clear();
+                    LoadLists(allLists);
+                }
+                    //foreach (UIElement child in gridLists.Children)
+                        //child.Visibility = Visibility.Visible;
 
                 return;
             }
@@ -85,16 +99,30 @@ namespace StoryWatch.UserControls
 
         private void ShowListsContainingMediaWithKeyword(string keyword)
         {
-            foreach (UIElement child in gridLists.Children)
+            gridLists.Children.Clear();
+            List<UserControl> listsContainingKeyword = new List<UserControl>();
+            //foreach (UIElement child in gridLists.Children)
+            foreach (MediaListBox listBox in allMediaListBoxes)
             {
-                var mediaItems = StateManager.GetChildOfType<MediaListBox>(child).MediaItems;
+                //var mediaItems = StateManager.GetChildOfType<MediaListBox>(child).MediaItems;
+                var mediaItems = listBox.MediaItems;
                 List<string> mediaTitles = mediaItems.Select(m => m.Title.ToLower()).ToList();
+                //include in results if any of media titles on the list contain keyword
                 int count = mediaTitles.Count(m => m.Contains(keyword));
+                //also include in the results if the list title itself contains keyword
+                string listTitle = listBox.lblTitle.Content.ToString().ToLower();
+                count += (listTitle.Contains(keyword)) ? 1 : 0;
 
                 if (count != 0)
-                    child.Visibility = Visibility.Visible;
-                else
-                    child.Visibility = Visibility.Collapsed;
+                    AddListBoxToGrid(new UserControl
+                    {
+                        Content = listBox
+                    });
+           
+                //listsContainingKeyword.Add(listBox);
+                //child.Visibility = Visibility.Visible;
+                //else
+                //child.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -124,6 +152,11 @@ namespace StoryWatch.UserControls
             gridLists.Children.Add(list);
             Grid.SetRow(list, gridLists.RowDefinitions.Count - 1);
             Grid.SetColumn(list, (gridLists.Children.Count - 1) % columnCount);
+
+            if (firstPass)
+            {
+                allMediaListBoxes.Add(list.Content as MediaListBox);
+            }
         }
 
         private void ReturnToHome(object sender, RoutedEventArgs e)
