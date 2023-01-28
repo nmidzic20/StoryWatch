@@ -34,6 +34,12 @@ namespace StoryWatch.UserControls
             bool isSuccessful;
             string color = clpck.SelectedColor.ToString();
 
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                MessageBox.Show("List name cannot be empty!");
+                return;
+            }
+
             if (String.IsNullOrEmpty(color))
                 color = "#FFFFFF";
 

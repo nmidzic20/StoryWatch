@@ -1,4 +1,5 @@
 ﻿using EntitiesLayer.Entities;
+using Syncfusion.DocIO.DLS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,14 @@ namespace DataAccessLayer.Repositories
 {
     public class MovieListCategoryRepository : Repository<MovieListCategory>
     {
+        public IQueryable<MovieListCategory> GetMovieListCategories()
+        {
+            var query = from l in Entities
+                        select l;
+
+            return query;
+        }
+
         public void DeleteListForUser(MovieListCategory movieListCategory, User loggedUser)
         {
             var movieRepo = new MovieRepository();
@@ -34,16 +43,20 @@ namespace DataAccessLayer.Repositories
             SaveChanges();
         }
 
-        public IQueryable<MovieListCategory> GetMovieListCategories()
+        public int UpdateListForUser(MovieListCategory entity, User loggedUser, bool saveChanges = true)
         {
-            var query = from l in Entities
-                        select l;
+            var movieListCategory = Entities.SingleOrDefault(e => e.Id == entity.Id);
+            movieListCategory.Title = entity.Title;
+            movieListCategory.Color = entity.Color;
 
-            return query;
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
         }
-
-        
-
-
     }
 }

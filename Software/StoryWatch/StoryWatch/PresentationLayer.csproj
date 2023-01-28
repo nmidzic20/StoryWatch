@@ -294,6 +294,9 @@
     <Compile Include="UserControls\UCRegistracija.xaml.cs">
       <DependentUpon>UCRegistracija.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UpdateCustomList.xaml.cs">
+      <DependentUpon>UpdateCustomList.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -379,6 +382,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UCRegistracija.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UpdateCustomList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
