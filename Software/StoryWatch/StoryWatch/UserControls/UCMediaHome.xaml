@@ -21,7 +21,7 @@
             <TextBox x:Name="txtSearch" Width="150" Height="25" Margin="20" Text="Search" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus" TextChanged="txtSearch_TextChanged"></TextBox>
             <Button x:Name="btnAddCustomList" Content="+ Add custom list" FontWeight="Bold" Width="130" Height="25" Margin="150,10,10,10" Click="btnAddCustomList_Click"></Button>
             <Button x:Name="btnRecommend" Content="Recommend" FontWeight="Bold" Width="120" Height="25" Margin="10" Click="btnRecommend_Click"></Button>
-            <Button x:Name="btnReport" Content="Generate report" FontWeight="Bold" Width="120" Height="25" Margin="10"></Button>
+            <Button x:Name="btnReport" Content="Generate report" FontWeight="Bold" Width="120" Height="25" Margin="10" Click="btnReport_Click"></Button>
         </StackPanel>
         <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <Grid x:Name="gridLists">

@@ -62,6 +62,40 @@ namespace BusinessLayer
             }
             return bookInfo;
         }
+
+        public List<Book> findBooksByAuthor(string name)
+        {
+            HttpResponseMessage response;
+            string urlParameters = "?q=inauthor:" + name + "&maxResults=40";
+            response = bookClient.GetAsync(urlParameters).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                JObject bookJson = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+                JArray books = (JArray)bookJson["items"];
+                foreach (var book in books)
+                {
+                    JObject volumeInfoObject = (JObject)book["volumeInfo"];
+                    JArray autor = (JArray)volumeInfoObject["authors"];
+                    string title = (string)volumeInfoObject["title"];
+                    string summary = (string)volumeInfoObject["description"];
+                    string previewLink = (string)volumeInfoObject["previewLink"];
+                    string pageCount = (string)volumeInfoObject["pageCount"];
+                    if (autor != null)
+                    {
+                        string author = (string)autor[0];
+                        Book bookAdd = new Book { Title = title, Summary = summary, Author = author, PreviewURL = previewLink, Pages = pageCount };
+                        bookInfo.Add(bookAdd);
+                    }
+                    else
+                    {
+                        Book bookAdd = new Book { Title = title, Summary = summary, PreviewURL = previewLink, Pages = pageCount };
+                        bookInfo.Add(bookAdd);
+                    }
+                }
+            }
+            return bookInfo;
+        }
         public List<Book> returnCurrentBookList()
         {
             return bookInfo;
@@ -176,6 +210,12 @@ namespace BusinessLayer
                 Id_Books = selectedBook.Id,
                 Id_Users = loggedUser.Id
             };
+
+            using (var db = new GenreRepository())
+            {
+                var booksGenre = GetBookById(selectedBook.Id).Genre;
+                db.DeleteGenreWithoutMedia(booksGenre);
+            }
 
             using (var db = new BookRepository())
             {

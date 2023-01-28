@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using StoryWatch.UserControls.Books;
 
 namespace StoryWatch.UserControls
 {
@@ -148,7 +149,7 @@ namespace StoryWatch.UserControls
                     GuiManager.OpenContent(new UCRecommendMovies());
                     break;
                 case MediaCategory.Book:
-                    //GuiManager.OpenContent(new UCRecommendTVShows());
+                    GuiManager.OpenContent(new UCRecommendBooks());
                     break;
                 case MediaCategory.Game:
                     GuiManager.OpenContent(new UCRecommendGames());
@@ -156,6 +157,24 @@ namespace StoryWatch.UserControls
                 default:
                     break;
             }
+        }
+
+        private void btnReport_Click(object sender, RoutedEventArgs e)
+        {
+            switch (StateManager.CurrentMediaCategory)
+            {
+                case MediaCategory.Movie:
+                    var movieReport = new MovieReport();
+                    movieReport.Show();
+                    break;
+                case MediaCategory.Book:
+                    break;
+                case MediaCategory.Game:
+                    break;
+                default:
+                    break;
+            }
+            
         }
     }
 }
