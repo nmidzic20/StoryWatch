@@ -71,11 +71,12 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        public void DeleteGenreIfNotRealtedToAnyBook(Genre genreToDelete)
+        public void DeleteGenreWithoutMedia(Genre genreToDelete)
         {
-            if(Context.Books.Count(b=> b.Genre != null && b.Genre.Id == genreToDelete.Id) <= 1)
+            
+            if(((Context.Books.Count(b=> b.Genre != null && b.Genre.Id == genreToDelete.Id) + Context.Movies.Count(b => b.Genre != null && b.Genre.Id == genreToDelete.Id) + Context.Games.Count(b => b.Genre != null && b.Genre.Id == genreToDelete.Id)) <=1))
             {
-                Entities.Attach(genreToDelete); 
+                Entities.Attach(genreToDelete);
                 Entities.Remove(genreToDelete);
                 SaveChanges();
             }
