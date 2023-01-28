@@ -83,17 +83,24 @@ namespace StoryWatch.UserControls.Games
 
             IGDB.Models.Game game = await gameServices.GetGameInfoAsync((int)(dgResults.SelectedItem as IGDB.Models.Game).Id);
 
+            Genre selectedGameGenre = new Genre()
+            {
+                Name = game.Genres.Values.First().Name,
+                Id = 0
+            };
+            
             Game selectedGame = new Game()
             {
                 IGDB_Id = game.Id.ToString(),
                 Title = game.Name,
                 Summary = game.Summary,
                 Release_Date = game.FirstReleaseDate.ToString(),
-                Company = game.InvolvedCompanies.Values.Aggregate("", (current, company) => current + (company.Company.Value.Name + ", ")),
-                Genres = game.Genres.Values.Aggregate("", (current, genre) => current + (genre.Name + ", "))
+                Company = game.InvolvedCompanies == null ? "Indie" : game.InvolvedCompanies.Values.Aggregate("", (current, company) => current + (company.Company.Value.Name + ", ")),
+                Genre = selectedGameGenre
             };
 
             var winAddGame = new AddGame(listCategory, selectedGame);
+            winAddGame.txtGenres.Text = selectedGameGenre.Name;
             winAddGame.ShowDialog();
         }
     }
