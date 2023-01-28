@@ -44,9 +44,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Goodreads, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Goodreads.1.0.1\lib\netstandard2.0\Goodreads.dll</HintPath>
-    </Reference>
     <Reference Include="IGDB, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IGDB.2.3.1\lib\netstandard2.0\IGDB.dll</HintPath>
     </Reference>
@@ -156,6 +153,9 @@
     <Compile Include="UserControls\Books\EBookPreview.xaml.cs">
       <DependentUpon>EBookPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Books\UCRecommendBooks.xaml.cs">
+      <DependentUpon>UCRecommendBooks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Books\UCSearchBook.xaml.cs">
       <DependentUpon>UCSearchBook.xaml</DependentUpon>
     </Compile>
@@ -215,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Books\EBookPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Books\UCRecommendBooks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

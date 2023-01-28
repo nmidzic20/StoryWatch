@@ -32,7 +32,7 @@ namespace StoryWatch
         {
             GuiManager.MainWindow = this;
             StateManager.LoggedUser = (new UserServices()).GetSpecific("korisnik1");
-            GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
+            GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Book));
 
         }
         
