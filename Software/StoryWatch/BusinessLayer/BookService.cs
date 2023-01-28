@@ -23,10 +23,12 @@ namespace BusinessLayer
         List<Book> bookInfo;
         HttpClient bookClient = new HttpClient();
         public const string bookURL = "https://www.googleapis.com/books/v1/volumes/";
+        public GenreServices genreServices;
         public BookService()
         {
             bookClient.BaseAddress = new Uri(bookURL);
             bookInfo = new List<Book>();
+            genreServices = new GenreServices();
         }
 
         public List<Book> findBookByName(string name)
@@ -210,6 +212,12 @@ namespace BusinessLayer
                 Id_Books = selectedBook.Id,
                 Id_Users = loggedUser.Id
             };
+
+            using (var db = new GenreRepository())
+            {
+                var booksGenre = GetBookById(selectedBook.Id).Genre;
+                db.DeleteGenreIfNotRealtedToAnyBook(booksGenre);
+            }
 
             using (var db = new BookRepository())
             {
