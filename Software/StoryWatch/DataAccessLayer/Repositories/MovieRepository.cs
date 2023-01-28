@@ -123,6 +123,7 @@ namespace DataAccessLayer.Repositories
             movie.Description = entity.Description;
             movie.ReleaseDate = entity.ReleaseDate;
             movie.Countries = entity.Countries;
+            movie.Trailer_URL = entity.Trailer_URL;
             movie.Genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);
 
             if (saveChanges)
