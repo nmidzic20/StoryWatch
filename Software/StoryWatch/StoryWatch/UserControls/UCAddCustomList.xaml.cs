@@ -34,6 +34,12 @@ namespace StoryWatch.UserControls
             bool isSuccessful;
             string color = clpck.SelectedColor.ToString();
 
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                MessageBox.Show("List name cannot be empty!");
+                return;
+            }
+
             if (String.IsNullOrEmpty(color))
                 color = "#FFFFFF";
 
@@ -59,7 +65,7 @@ namespace StoryWatch.UserControls
                         MessageBox.Show("Custom list was not added!");
                     }
 
-                    GuiManager.CloseContent();
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Movie));
                     break;
 
                 case MediaCategory.Book:
@@ -82,7 +88,7 @@ namespace StoryWatch.UserControls
                         MessageBox.Show("Custom list was not added!");
                     }
 
-                    GuiManager.CloseContent();
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
                     break;
 
                 case MediaCategory.Game:
@@ -105,7 +111,7 @@ namespace StoryWatch.UserControls
                         MessageBox.Show("Custom list was not added!");
                     }
 
-                    GuiManager.CloseContent();
+                    GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
                     break;
 
             }

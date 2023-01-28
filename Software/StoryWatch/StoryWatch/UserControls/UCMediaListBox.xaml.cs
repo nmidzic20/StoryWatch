@@ -14,7 +14,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-//using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -34,6 +33,7 @@ namespace StoryWatch.UserControls
         public IListCategory listCategory { get; set; }
         public ObservableCollection<Media> MediaItems = new ObservableCollection<Media>();
 
+        private ListCategoryServices listCategoryServices = new ListCategoryServices();
 
         public MediaListBox(IListCategory lc)
         {
@@ -395,6 +395,18 @@ namespace StoryWatch.UserControls
                         MessageBox.Show("This book does not support e-book preview", "E-book preview!");
                 }
             }
+        }
+
+        private void btnUpdateList_Click(object sender, RoutedEventArgs e)
+        {
+            var updateListWindow = new UpdateCustomList(listCategory);
+            updateListWindow.ShowDialog();
+        }
+
+        private void btnDeleteList_Click(object sender, RoutedEventArgs e)
+        {
+            listCategoryServices.DeleteListCategory(listCategory, StateManager.LoggedUser, StateManager.CurrentMediaCategory);
+            GuiManager.OpenContent(new UCMediaHome(StateManager.CurrentMediaCategory));
         }
     }
 }
