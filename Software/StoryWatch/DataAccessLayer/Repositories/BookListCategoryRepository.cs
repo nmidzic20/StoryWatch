@@ -33,6 +33,22 @@ namespace DataAccessLayer.Repositories
             SaveChanges();
         }
 
+        public int UpdateListForUser(BookListCategory entity, User loggedUser, bool saveChanges = true)
+        {
+            var bookListCategory = Entities.SingleOrDefault(e => e.Id == entity.Id);
+            bookListCategory.Title = entity.Title;
+            bookListCategory.Color = entity.Color;
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public IQueryable<BookListCategory> GetBookListCategories()
         {
             var query = from l in Entities

@@ -358,7 +358,7 @@ namespace BusinessLayer
         {
             using (var db = new GameListCategoryRepository())
             {
-                //db.UpdateListForUser(gameListCategory, loggedUser);
+                db.UpdateListForUser(gameListCategory, loggedUser);
             }
         }
 
@@ -366,7 +366,7 @@ namespace BusinessLayer
         {
             using (var db = new BookListCategoryRepository())
             {
-                //db.UpdateListForUser(bookListCategory, loggedUser);
+                db.UpdateListForUser(bookListCategory, loggedUser);
             }
         }
     }

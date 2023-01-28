@@ -33,6 +33,22 @@ namespace DataAccessLayer.Repositories
             SaveChanges();
         }
 
+        public int UpdateListForUser(GameListCategory entity, User loggedUser, bool saveChanges = true)
+        {
+            var gameListCategory = Entities.SingleOrDefault(e => e.Id == entity.Id);
+            gameListCategory.Title = entity.Title;
+            gameListCategory.Color = entity.Color;
+
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public IQueryable<GameListCategory> GetGameListCategories()
         {
             var query = from l in Entities
