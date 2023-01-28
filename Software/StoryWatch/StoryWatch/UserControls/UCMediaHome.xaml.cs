@@ -170,6 +170,8 @@ namespace StoryWatch.UserControls
                 case MediaCategory.Book:
                     break;
                 case MediaCategory.Game:
+                    var gameReport = new GameReport();
+                    gameReport.Show();
                     break;
                 default:
                     break;
