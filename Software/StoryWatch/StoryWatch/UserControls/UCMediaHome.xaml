@@ -17,14 +17,14 @@
             <Button BorderBrush="CornflowerBlue" Grid.Column="1" Content="Home" FontWeight="Bold" Click="ReturnToHome" Background="CornflowerBlue" Margin="5,0,5,0"></Button>
             <Button BorderBrush="CornflowerBlue" Grid.Column="2" Content="Log out" FontWeight="Bold" Click="LogOut" Background="CornflowerBlue" Margin="5,0,5,0"></Button>
         </Grid>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,40">
             <TextBox x:Name="txtSearch" Width="150" Height="25" Margin="20" Text="Search" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus" TextChanged="txtSearch_TextChanged"></TextBox>
             <Button x:Name="btnAddCustomList" Content="+ Add custom list" FontWeight="Bold" Width="130" Height="25" Margin="150,10,10,10" Click="btnAddCustomList_Click"></Button>
             <Button x:Name="btnRecommend" Content="Recommend" FontWeight="Bold" Width="120" Height="25" Margin="10" Click="btnRecommend_Click"></Button>
             <Button x:Name="btnReport" Content="Generate report" FontWeight="Bold" Width="120" Height="25" Margin="10" Click="btnReport_Click"></Button>
         </StackPanel>
         <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <Grid x:Name="gridLists">
+            <Grid x:Name="gridLists" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -33,18 +33,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <!--<StackPanel DockPanel.Dock="top" Orientation="Horizontal" x:Name="listBoxesPanel" HorizontalAlignment="Center" VerticalAlignment="Top">-->
-                <!--<ListBox Grid.Row="0" Grid.Column="0" x:Name="lbTODO" Margin="20" Width="180" Height="200" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                    <ListBoxItem Background="#FFC33131" Content="TODO" FontWeight="Bold" Focusable="False"/>
-                </ListBox>
-                <ListBox Grid.Row="0" Grid.Column="1" x:Name="lbWatched" Margin="20" Width="180" Height="200" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                    <ListBoxItem Background="Goldenrod" Content="Watched" FontWeight="Bold" Focusable="False"/>
-                </ListBox>
-                <ListBox Grid.Row="0" Grid.Column="2" x:Name="lbFavorites" Margin="20" Width="180" Height="200" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                    <ListBoxItem Background="#FF47921A" Content="Favorites" FontWeight="Bold" Focusable="False"/>
-                </ListBox>-->
-                <!--<Button x:Name="btnAddCustomList" Content="+ Add custom list" FontWeight="Bold" FontSize="12" Width="130" Height="25"></Button>-->
-                <!--</StackPanel>-->
             </Grid>
         </ScrollViewer>
     </DockPanel>
