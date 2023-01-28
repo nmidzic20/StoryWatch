@@ -158,5 +158,23 @@ namespace StoryWatch.UserControls
                     break;
             }
         }
+
+        private void btnReport_Click(object sender, RoutedEventArgs e)
+        {
+            switch (StateManager.CurrentMediaCategory)
+            {
+                case MediaCategory.Movie:
+                    var movieReport = new MovieReport();
+                    movieReport.Show();
+                    break;
+                case MediaCategory.Book:
+                    break;
+                case MediaCategory.Game:
+                    break;
+                default:
+                    break;
+            }
+            
+        }
     }
 }

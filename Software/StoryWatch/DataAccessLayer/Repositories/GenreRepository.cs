@@ -9,6 +9,12 @@ namespace DataAccessLayer.Repositories
 {
     public class GenreRepository : Repository<Genre>
     {
+        public IQueryable<Genre> GetAllGenresForUser(User loggedUser)
+        {
+            var userMovies = Context.MovieListItems.Where(ml => ml.Id_Users == loggedUser.Id);
+            return Context.Movies.Where(m => userMovies.Any(um => um.Id_Movies == m.Id)).Select(m => m.Genre);
+        }
+
         public Genre Update(Genre oldGenre, Genre newGenre, bool saveChanges = true)
         {
             //check if any other movie, beside the movie which is being updated,

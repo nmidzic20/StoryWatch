@@ -69,5 +69,14 @@ namespace BusinessLayer
                 return db.UpdateBookGenre(oldGenre, newGenre);
             }
         }
+
+        public List<Genre> GetGenresForUser(User loggedUser)
+        {
+            using (var db = new GenreRepository())
+            {
+                return db.GetAllGenresForUser(loggedUser).ToList();
+
+            }
+        }
     }
 }
