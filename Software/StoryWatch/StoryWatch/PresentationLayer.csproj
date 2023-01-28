@@ -409,6 +409,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Game.datasource" />
+    <None Include="Properties\DataSources\EntitiesLayer.Entities.GameListCategory.datasource" />
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Genre.datasource" />
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Movie.datasource" />
     <None Include="Properties\Settings.settings">

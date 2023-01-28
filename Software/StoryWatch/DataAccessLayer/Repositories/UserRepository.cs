@@ -20,7 +20,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<User> GetSpecific(string username)
         {
-            return from e in Entities 
+            return from e in Entities.Include("GameListCategories.GameListItems") 
                    where e.Username == username 
                    select e;
         }

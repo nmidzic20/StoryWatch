@@ -15,6 +15,12 @@ namespace DataAccessLayer.Repositories
             return Context.Movies.Where(m => userMovies.Any(um => um.Id_Movies == m.Id)).Select(m => m.Genre);
         }
 
+        public IQueryable<Genre> GetAllGameGenresForUser(User loggedUser)
+        {
+            var userGames = Context.GameListItems.Where(gl => gl.Id_Users == loggedUser.Id);
+            return Context.Games.Where(g => userGames.Any(ug => ug.Id_Games == g.Id)).Select(m => m.Genre);
+        }
+
         public Genre Update(Genre oldGenre, Genre newGenre, bool saveChanges = true)
         {
             //check if any other movie, beside the movie which is being updated,

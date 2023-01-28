@@ -36,15 +36,17 @@ namespace StoryWatch.UserControls.Games
             {
                 List<Game> favoriteGames, allUserGames;
                 List<Genre> genres;
+                List<Genre> gameLists = new List<Genre>();
 
-                FetchDataForReportDatasets(out favoriteGames, out allUserGames, out genres);
-                SetReportDataSources(favoriteGames, allUserGames, genres);
+
+                FetchDataForReportDatasets(out favoriteGames, out allUserGames, out genres, out gameLists);
+                SetReportDataSources(favoriteGames, allUserGames, genres, gameLists);
 
                 _isReportViewerLoaded = true;
             }
         }
 
-        private static void FetchDataForReportDatasets(out List<Game> favoriteGames, out List<Game> allUserGames, out List<Genre> genres)
+        private static void FetchDataForReportDatasets(out List<Game> favoriteGames, out List<Game> allUserGames, out List<Genre> genres, out List<Genre> gameLists)
         {
             var gameServices = new GameServices();
             var listCategoryServices = new ListCategoryServices();
@@ -63,10 +65,14 @@ namespace StoryWatch.UserControls.Games
                     favoriteGames = gameServices.GetGamesForList(list, StateManager.LoggedUser);
             }
 
-            genres = genreServices.GetGenresForUser(StateManager.LoggedUser).ToList();
+            List <Genre> lists = new List<Genre>();
+            lists.AddRange(listCategoryServices.GetGameListCategoriesForUser(StateManager.LoggedUser).ToList().Select(x => new Genre() { Name = x.Title, Id = x.GameListItems.Count() }));
+            
+            gameLists = lists;
+            genres = genreServices.GetGameGenresForUser(StateManager.LoggedUser).ToList();
         }
 
-        private void SetReportDataSources(List<Game> favoriteGames, List<Game> allUserGames, List<Genre> genres)
+        private void SetReportDataSources(List<Game> favoriteGames, List<Game> allUserGames, List<Genre> genres, List<Genre> gameLists)
         {
             reportViewer.LocalReport.DataSources.Clear();
             var dataSource = new ReportDataSource() { Name = "MyFavoriteGames", Value = favoriteGames };
@@ -75,6 +81,8 @@ namespace StoryWatch.UserControls.Games
             reportViewer.LocalReport.DataSources.Add(dataSource2);
             var dataSource3 = new ReportDataSource() { Name = "UserGames", Value = allUserGames };
             reportViewer.LocalReport.DataSources.Add(dataSource3);
+            var dataSource4 = new ReportDataSource() { Name = "GameLists", Value = gameLists };
+            reportViewer.LocalReport.DataSources.Add(dataSource4);
             string path = "UserControls/Games/Reports/ReportGames.rdlc";
             reportViewer.LocalReport.ReportPath = path;
             reportViewer.Refresh();

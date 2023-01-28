@@ -86,5 +86,14 @@ namespace BusinessLayer
 
             }
         }
+
+        public List<Genre> GetGameGenresForUser(User loggedUser)
+        {
+            using (var db = new GenreRepository())
+            {
+                return db.GetAllGameGenresForUser(loggedUser).ToList();
+
+            }
+        }
     }
 }
