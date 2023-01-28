@@ -10,8 +10,8 @@
         <DockPanel DockPanel.Dock="Top">
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchKeyword" TextChanged="txtSearch_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by keyword" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
             <TextBox HorizontalAlignment="Left" x:Name="txtSearchCollection" TextChanged="txtSearchCollection_TextChanged" Width="200" Height="25" Margin="20" Text="Search movies by franchise" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus"></TextBox>
-            <Button Content="Select movie" Width="100" Height="25" HorizontalAlignment="Right" Margin="20" IsEnabled="{Binding SelectedItems.Count, ElementName=lbResults}" Click="BtnSelectMovie"></Button>
-            <Button Content="Cancel" Width="100" Height="25" HorizontalAlignment="Right" Margin="20" Click="BtnCancel"></Button>
+            <Button IsDefault="True" Content="Select movie" Width="100" Height="25" HorizontalAlignment="Right" Margin="20" IsEnabled="{Binding SelectedItems.Count, ElementName=lbResults}" Click="BtnSelectMovie"></Button>
+            <Button IsCancel="True" Content="Cancel" Width="100" Height="25" HorizontalAlignment="Right" Margin="20" Click="BtnCancel"></Button>
         </DockPanel>
         <ScrollViewer>
             <DataGrid AutoGenerateColumns="False" x:Name="dgResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChangedAsync">

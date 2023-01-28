@@ -34,8 +34,8 @@
             <Label Content="Release date:" Grid.Row="5" Grid.Column="0" FontWeight="Bold"></Label>
             <DatePicker IsEnabled="False" x:Name="datePicker" Grid.Row="5" Grid.Column="1" Margin="2,2,18,2"/>
             <StackPanel Grid.Row="6" Grid.Column="1" Height="50" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="94,0,0,0" Width="160">
-                <Button x:Name="btnSave" Content="Save" Width="60" Height="25" Margin="10" Background="LightBlue" Click="AddGameToList"></Button>
-                <Button x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="10" Background="LightBlue" Click="BtnCancelClick"></Button>
+                <Button IsDefault="True" x:Name="btnSave" Content="Save" Width="60" Height="25" Margin="10" Background="LightBlue" Click="AddGameToList"></Button>
+                <Button IsCancel="True" x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="10" Background="LightBlue" Click="BtnCancelClick"></Button>
             </StackPanel>
         </Grid>
     </DockPanel>

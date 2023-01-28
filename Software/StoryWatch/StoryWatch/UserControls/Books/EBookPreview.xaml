@@ -10,7 +10,7 @@
     <ScrollViewer>
         <DockPanel Background="Lavender">
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <Button DockPanel.Dock="Top" Width="50" x:Name="btnBack" HorizontalAlignment="Left" Margin="20" Content="Back" Click="btnBack_Click"></Button>
+                <Button IsCancel="True" DockPanel.Dock="Top" Width="50" x:Name="btnBack" HorizontalAlignment="Left" Margin="20" Content="Back" Click="btnBack_Click"></Button>
                 <Button DockPanel.Dock="Top"  Width="180" x:Name="btnShowInfoFromDatabase" HorizontalAlignment="Left" Margin="20" Content="Show info from database" Click="btnShowInfoFromDatabase_Click"></Button>
             </StackPanel>
             <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Center" x:Name="stackPanelInfo">
