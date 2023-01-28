@@ -5,10 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls.Books" xmlns:winforms="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         mc:Ignorable="d"
-        Title="BookReport" Height="450" Width="800">
-    <ScrollViewer>
-        <WindowsFormsHost>
-            <winforms:ReportViewer></winforms:ReportViewer>
-        </WindowsFormsHost>
-    </ScrollViewer>
+        Title="BookReport" Height="450" Width="800" Loaded="Window_Loaded">
+    <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <winforms:ReportViewer x:Name="reportViewer" Dock="Fill"></winforms:ReportViewer>
+    </WindowsFormsHost>
 </Window>
