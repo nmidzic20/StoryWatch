@@ -40,7 +40,7 @@ namespace StoryWatch.UserControls.Games
         {
             txtID.Text = selectedGame.IGDB_Id;
             txtTitle.Text = selectedGame.Title;
-            txtGenres.Text = selectedGame.Genres;
+            txtGenres.Text = selectedGame.Genre.Name;
             txtSummary.Text = selectedGame.Summary;
             datePicker.Text = selectedGame.Release_Date;
             txtDev.Text = selectedGame.Company;
@@ -62,12 +62,15 @@ namespace StoryWatch.UserControls.Games
 
         private void UpdateGame()
         {
+            var oldGenre = gameServices.GetGameByTitle(selectedGame.Title).Genre;
+            var genre = UpdateGenre(oldGenre);
+
             var game = new EntitiesLayer.Entities.Game
             {
                 Id = selectedGame.Id,
                 Title = txtTitle.Text,
                 Summary = txtSummary.Text,
-                Genres = txtGenres.Text,
+                Genre = genre,
                 Company = txtDev.Text,
                 IGDB_Id = selectedGame.IGDB_Id,
             };
@@ -85,10 +88,41 @@ namespace StoryWatch.UserControls.Games
             }
         }
 
+        private Genre UpdateGenre(Genre oldGenre)
+        {
+            var genreServices = new GenreServices();
+            int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
+            
+            var newGenre = new Genre
+            {
+                Id = genreId,
+                Name = txtGenres.Text
+            };
+            
+            return genreServices.UpdateGenre(oldGenre, newGenre);
+        }
+
         private void AddGameToList()
         {
             var allGames = gameServices.GetAllGames();
             var gameId = (allGames.Count() != 0) ? allGames.Last().Id + 1 : 0;
+
+            Genre genre = null;
+            
+            if (!string.IsNullOrEmpty(txtGenres.Text))
+            {
+                var genreServices = new GenreServices();
+                int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
+                
+                genre = new Genre
+                {
+                    Id = genreId,
+                    Name = txtGenres.Text
+                };
+                
+                genreId = genreServices.AddGenre(genre).Id;
+                genre = genreServices.GetGenreById(genreId);
+            }
 
             bool isSuccessful = gameServices.AddGame(new EntitiesLayer.Entities.Game
             {
@@ -97,7 +131,7 @@ namespace StoryWatch.UserControls.Games
                 Summary = txtSummary.Text,
                 IGDB_Id = txtID.Text,
                 Company = txtDev.Text,
-                Genres = txtGenres.Text,
+                Genre = genre,
                 Release_Date = datePicker.Text
             });
 

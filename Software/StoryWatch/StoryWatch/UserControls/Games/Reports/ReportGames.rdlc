@@ -9,11 +9,98 @@
       </ConnectionProperties>
       <rd:DataSourceID>a1f6e519-fcd4-4f52-a493-a710817ea2df</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="EntitiesLayerEntities1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>dabde567-9df0-4618-b7e8-45c36bf1b5b7</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="EntitiesLayerEntities2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>eb3fb41e-5060-4218-96f6-351e011db656</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="EntitiesLayerEntities3">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>3b6942fb-7f67-4429-93cf-7c49ace49346</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="GamesGenresDataSet">
+    <DataSet Name="MyFavoriteGames">
       <Query>
-        <DataSourceName>EntitiesLayerEntities</DataSourceName>
+        <DataSourceName>EntitiesLayerEntities1</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Company">
+          <DataField>Company</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Genre">
+          <DataField>Genre</DataField>
+          <rd:TypeName>EntitiesLayer.Entities.Genre</rd:TypeName>
+        </Field>
+        <Field Name="Genres">
+          <DataField>Genres</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IGDB_Id">
+          <DataField>IGDB_Id</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Release_Date">
+          <DataField>Release_Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Summary">
+          <DataField>Summary</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Title">
+          <DataField>Title</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>EntitiesLayer.Entities</rd:DataSetName>
+        <rd:TableName>Game</rd:TableName>
+        <rd:ObjectDataSourceType>EntitiesLayer.Entities.Game, EntitiesLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="Genres">
+      <Query>
+        <DataSourceName>EntitiesLayerEntities2</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>EntitiesLayer.Entities</rd:DataSetName>
+        <rd:TableName>Genre</rd:TableName>
+        <rd:ObjectDataSourceType>EntitiesLayer.Entities.Genre, EntitiesLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="UserGames">
+      <Query>
+        <DataSourceName>EntitiesLayerEntities3</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -494,7 +581,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>GamesGenresDataSet</DataSetName>
+            <DataSetName>MyFavoriteGames</DataSetName>
             <Top>20.78672cm</Top>
             <Height>3.4925cm</Height>
             <Width>22.03262cm</Width>
@@ -543,15 +630,15 @@
                 <ChartMember>
                   <Group Name="Chart2_CategoryGroup">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Countries.Value</GroupExpression>
+                      <GroupExpression>=Fields!Genre.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Countries.Value</Value>
+                      <Value>=Fields!Genre.Value</Value>
                     </SortExpression>
                   </SortExpressions>
-                  <Label>=Fields!Countries.Value</Label>
+                  <Label>=Fields!Genre.Value</Label>
                 </ChartMember>
               </ChartMembers>
             </ChartCategoryHierarchy>
@@ -560,25 +647,25 @@
                 <ChartMember>
                   <Group Name="Chart2_SeriesGroup">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Countries.Value</GroupExpression>
+                      <GroupExpression>=Fields!Genre.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Countries.Value</Value>
+                      <Value>=Fields!Genre.Value</Value>
                     </SortExpression>
                   </SortExpressions>
-                  <Label>=Fields!Countries.Value</Label>
+                  <Label>=Fields!Genre.Value</Label>
                 </ChartMember>
               </ChartMembers>
             </ChartSeriesHierarchy>
             <ChartData>
               <ChartSeriesCollection>
-                <ChartSeries Name="Countries">
+                <ChartSeries Name="Genre">
                   <ChartDataPoints>
                     <ChartDataPoint>
                       <ChartDataPointValues>
-                        <Y>=Count(Fields!Countries.Value)</Y>
+                        <Y>=Sum(Fields!Genre.Value)</Y>
                       </ChartDataPointValues>
                       <ChartDataLabel>
                         <Style />
@@ -894,6 +981,7 @@
                 <VerticalAlign>Top</VerticalAlign>
               </Style>
             </ChartNoDataMessage>
+            <DataSetName>UserGames</DataSetName>
             <Top>9.10803cm</Top>
             <Left>0.66135cm</Left>
             <Height>9.32712cm</Height>
@@ -1254,6 +1342,7 @@
                 <VerticalAlign>Top</VerticalAlign>
               </Style>
             </ChartNoDataMessage>
+            <DataSetName>Genres</DataSetName>
             <Left>0.66135cm</Left>
             <Height>8.40732cm</Height>
             <Width>17.73715cm</Width>

@@ -25,12 +25,12 @@ namespace EntitiesLayer.Entities
 
         [StringLength(100)]
         public string Company { get; set; }
-        
+
+        [StringLength(100)]
+        public string Trailer_Url { get; set; }
+
         [StringLength(100)]
         public string Release_Date { get; set; }
-
-        [StringLength(200)]
-        public string Genres { get; set; }
 
         [StringLength(100)]
         public string IGDB_Id { get; set; }

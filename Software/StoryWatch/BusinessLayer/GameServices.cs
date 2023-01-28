@@ -7,6 +7,7 @@ using DataAccessLayer.Repositories;
 using IGDB.Models;
 using System.Runtime.Remoting.Messaging;
 using System.Xml.Linq;
+using TMDbLib.Objects.Movies;
 
 namespace BusinessLayer
 {
@@ -47,6 +48,11 @@ namespace BusinessLayer
         public async Task<IGDB.Models.Genre[]> GetGameGenresAsync(int id)
         {
             return await api.QueryAsync<IGDB.Models.Genre>(IGDBClient.Endpoints.Genres, query: $"fields name; where id = {id};");
+        }
+        
+        public async Task<IGDB.Models.Game> GetGameInfoAsync(int gameIGDBId)
+        {
+            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres.name, id, involved_companies.company.name, first_release_date, summary, similar_games, videos.video_id; where id = {gameIGDBId};")).First();
         }
 
         public List<EntitiesLayer.Entities.Game> GetAllGames()
@@ -90,13 +96,14 @@ namespace BusinessLayer
                 EntitiesLayer.Entities.Game existingGame = null;
 
                 if (!string.IsNullOrEmpty(game.IGDB_Id))
-                {
                     existingGame = repo.GetGameByIGDBId(game.IGDB_Id).FirstOrDefault();
-                }
 
-                if (existingGame == null)
+                if (existingGame != null)
                 {
-                    isSuccessful = true;
+                    isSuccessful = false;
+                }
+                else
+                {
                     int affectedRows = repo.Add(game);
                     isSuccessful = affectedRows > 0;
                 }
@@ -138,7 +145,6 @@ namespace BusinessLayer
             bool isSuccessful = false;
             using (var repo = new GameRepository())
             {
-                //check if exists on destination list already, if yes, return false, if no, change to that list
                 List<EntitiesLayer.Entities.Game> games = repo.GetGamesForList(destGameListCategory, loggedUser).ToList();
                 bool gameExistsInList = games.Exists(m => m.Id == gameListItem.Id_Games);
 
@@ -148,8 +154,6 @@ namespace BusinessLayer
                 }
                 else
                 {
-                    //fetch movieListItem for this movie, this list and this user
-                    //change the list
                     int affectedRows = repo.UpdateGameListItem(gameListItem, destGameListCategory.Id);
                     isSuccessful = affectedRows > 0;
                 }
@@ -176,9 +180,5 @@ namespace BusinessLayer
             }
         }
 
-        public async Task<IGDB.Models.Game> GetGameInfoAsync(int gameIGDBId)
-        {
-            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres.name, id, involved_companies.company.name, first_release_date, summary, similar_games; where id = {gameIGDBId};")).First();
-        }
     }
 }

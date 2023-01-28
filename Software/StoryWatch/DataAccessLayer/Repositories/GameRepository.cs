@@ -88,8 +88,10 @@ namespace DataAccessLayer.Repositories
             game.Title = entity.Title;
             game.Company = entity.Company;
             game.IGDB_Id = entity.IGDB_Id;
-            game.Genres = entity.Genres;
+            game.Genre = entity.Genre;
             game.Summary = entity.Summary;
+            game.Release_Date = entity.Release_Date;
+            game.Trailer_Url = entity.Trailer_Url;
 
             if (saveChanges)
             {
