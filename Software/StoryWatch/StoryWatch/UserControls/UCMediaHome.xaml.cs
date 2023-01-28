@@ -161,9 +161,20 @@ namespace StoryWatch.UserControls
 
         private void btnReport_Click(object sender, RoutedEventArgs e)
         {
-            var moviereport = new MovieReport();
-            moviereport.Show();
-            //var report = new Report
+            switch (StateManager.CurrentMediaCategory)
+            {
+                case MediaCategory.Movie:
+                    var movieReport = new MovieReport();
+                    movieReport.Show();
+                    break;
+                case MediaCategory.Book:
+                    break;
+                case MediaCategory.Game:
+                    break;
+                default:
+                    break;
+            }
+            
         }
     }
 }
