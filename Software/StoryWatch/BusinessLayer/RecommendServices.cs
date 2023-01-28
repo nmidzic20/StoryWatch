@@ -168,7 +168,12 @@ namespace BusinessLayer
                             points += 0.5;
 
                     if (recommendedMoviesPoints.ContainsKey(movieTMDB))
-                        recommendedMoviesPoints[movieTMDB] += points;
+                    {
+                        var existingPoints = recommendedMoviesPoints[movieTMDB];
+                        recommendedMoviesPoints.Remove(movieTMDB);
+                        recommendedMoviesPoints.Add(movieTMDB, existingPoints);
+                        //recommendedMoviesPoints[movieTMDB] += points;
+                    }
                     else
                         recommendedMoviesPoints.Add(movieTMDB, points);
                 }
@@ -226,7 +231,8 @@ namespace BusinessLayer
                 SearchMovie searchMovie = new SearchMovie
                 {
                     Title = movie.Title,
-                    Overview = movie.Description
+                    Overview = movie.Description,
+                    BackdropPath = ""
                 };
 
                 recommendedMoviesPoints.Add(searchMovie, points);
