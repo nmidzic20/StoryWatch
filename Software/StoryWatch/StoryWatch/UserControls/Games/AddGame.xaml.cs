@@ -22,8 +22,9 @@ namespace StoryWatch.UserControls.Games
         public GenreServices genreServices;
         private Game selectedGame = null;
         private bool update = false;
+        private bool getIGDBInfo = false;
 
-        public AddGame(IListCategory lc, Game game, bool update = false, int id = 0)
+        public AddGame(IListCategory lc, Game game, bool update = false, bool getIGDBInfo = false)
         {
             InitializeComponent();
 
@@ -31,6 +32,7 @@ namespace StoryWatch.UserControls.Games
             genreServices = new GenreServices();
             listCategory = lc;
             selectedGame = game;
+            this.getIGDBInfo = getIGDBInfo;
             this.update = update;
             
             if (update)
@@ -38,11 +40,38 @@ namespace StoryWatch.UserControls.Games
                 btnSave.Content = "Update";
             }
 
-            FillGameInfo();
+            FormSetup();
         }
 
-        private void FillGameInfo()
+        private async void FormSetup()
         {
+            if (getIGDBInfo)
+            {
+                var gameIGDB = await gameServices.GetGameInfoAsync(int.Parse(selectedGame.IGDB_Id));
+                var companies = gameIGDB.InvolvedCompanies == null ? "Indie" : gameIGDB.InvolvedCompanies.Values
+                    .Aggregate("", (current, company) => current + (company.Company.Value.Name + ", "));
+
+                companies.Remove(companies.Length - 1, 1);
+
+                txtID.Text = gameIGDB.Id.ToString();
+                txtTitle.Text = gameIGDB.Name;
+                txtSummary.Text = gameIGDB.Summary;
+                datePicker.Text = gameIGDB.FirstReleaseDate.ToString();
+                txtDev.Text = companies;
+                txtGenres.Text = gameIGDB.Genres.Values.First().Name;
+
+                txtID.IsEnabled = false;
+                txtTitle.IsEnabled = false;
+                txtSummary.IsEnabled = false;
+                datePicker.IsEnabled = false;
+                txtDev.IsEnabled = false;
+                txtGenres.IsEnabled = false;
+
+                btnSave.Visibility = Visibility.Hidden;
+
+                return;
+            }
+
             txtID.Text = selectedGame.IGDB_Id;
             txtTitle.Text = selectedGame.Title;
             txtSummary.Text = selectedGame.Summary;

@@ -85,10 +85,10 @@ namespace StoryWatch.UserControls.Games
                 Id = 0
             };
 
-            var genres = game.InvolvedCompanies == null ? "Indie" : game.InvolvedCompanies.Values
+            var companies = game.InvolvedCompanies == null ? "Indie" : game.InvolvedCompanies.Values
                     .Aggregate("", (current, company) => current + (company.Company.Value.Name + ", "));
 
-            genres.Remove(genres.Length - 1, 1);
+            companies.Remove(companies.Length - 1, 1);
 
             Game selectedGame = new Game()
             {
@@ -96,7 +96,7 @@ namespace StoryWatch.UserControls.Games
                 Title = game.Name,
                 Summary = game.Summary,
                 Release_Date = game.FirstReleaseDate.ToString(),
-                Company = genres,
+                Company = companies,
                 Genre = selectedGameGenre
             };
 
