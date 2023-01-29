@@ -43,7 +43,19 @@ namespace StoryWatch
             {
                 try
                 {
-                    System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + ".pdf");
+                    if (GuiManager.currentContent.GetType().Name == "UCAddMovieToList")
+                    {
+                        UCAddMovieToList uc = GuiManager.currentContent as UCAddMovieToList;
+                        if (uc.btnAdd.Content.ToString() == "Update") //update form
+                            System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + "Update.pdf");
+                        else if (!string.IsNullOrEmpty(uc.txtID.Text)) //movie info pulled from TMDB
+                            System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + "TMDB.pdf");
+                        else //manual movie info
+                            System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + ".pdf");
+
+                    }
+                    else
+                        System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + ".pdf");
                 }
                 catch (Exception ex)
                 {
