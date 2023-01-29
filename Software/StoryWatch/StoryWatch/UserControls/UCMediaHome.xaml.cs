@@ -24,7 +24,6 @@ namespace StoryWatch.UserControls
         private List<MediaListBox> allMediaListBoxes = new List<MediaListBox>();
         private bool initialLoadOfAllLists = true;
         private List<IListCategory> allLists = new List<IListCategory>();
-        Window window;
 
         public UCMediaHome(MediaCategory mediaCategory)
         {
@@ -41,18 +40,8 @@ namespace StoryWatch.UserControls
             LoadLists(allLists);
             initialLoadOfAllLists = false;
 
-            window = Window.GetWindow(this);
-            //window.KeyDown += new KeyEventHandler(UCMediaHomee_KeyDown);
         }
 
-        /*private void UCMediaHomee_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCMediaHomee"))
-            {
-                MessageBox.Show("FNESTO TESTs");
-                window.KeyDown -= UCMediaHomee_KeyDown;
-            }
-        }*/
 
         private void LoadLists(List<IListCategory> listCategories)
         {
