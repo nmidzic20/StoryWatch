@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoryWatch.UserControls.Games"
              mc:Ignorable="d" 
+             KeyDown="Window_KeyDown"
+             Focusable="True"
+             x:Name="UCSearchGame"
              d:DesignHeight="450" d:DesignWidth="800" Background="PowderBlue">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">

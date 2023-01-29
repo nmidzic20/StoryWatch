@@ -110,5 +110,15 @@ namespace StoryWatch.UserControls.Games
             var winAddGame = new AddGame(listCategory, null);
             winAddGame.ShowDialog();
         }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            //if (e.Key == System.Windows.Input.Key.F1)
+            //{
+            //    MessageBox.Show(" - Ime PDF-a neka bude isto kao ime ove klase User Controle na kojoj se otvara, ime ove UC klase je " + GuiManager.currentContent.GetType().Name);
+
+            //    System.Diagnostics.Process.Start(@"PDF\\UCSearchGame.pdf");
+            //}
+        }
     }
 }

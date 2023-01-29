@@ -43,6 +43,13 @@ namespace StoryWatch
             {
                 try
                 {
+                    // because of renaming, this form is named wrong in the code,
+                    // so the pdf must be opened manually
+                    if (GuiManager.currentContent.GetType().Name == "UCAddGame")
+                    {
+                        System.Diagnostics.Process.Start(@"PDF\\UCSearchGame.pdf");
+                        return;
+                    }
                     if (GuiManager.currentContent.GetType().Name == "UCAddMovieToList")
                     {
                         CheckUCAddMovie();

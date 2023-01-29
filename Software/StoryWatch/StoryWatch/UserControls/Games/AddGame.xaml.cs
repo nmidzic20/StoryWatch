@@ -272,5 +272,13 @@ namespace StoryWatch.UserControls.Games
             await webView2.EnsureCoreWebView2Async(env);
             webView2.CoreWebView2.NavigateToString(html);
         }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.F1)
+            {
+                System.Diagnostics.Process.Start(@"PDF\\AddGames.pdf");
+            }
+        }
     }
 }

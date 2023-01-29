@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls.Games" xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
+        Focusable="True"
+        x:Name="AddGames"
         Title="AddGame" Height="750" Width="600" Background="Lavender" Loaded="Window_Loaded">
     <StackPanel Orientation="Vertical">
         <Grid Width="500" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Top">

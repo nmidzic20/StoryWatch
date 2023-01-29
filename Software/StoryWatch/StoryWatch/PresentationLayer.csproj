@@ -438,7 +438,13 @@
     <EmbeddedResource Include="UserControls\Movies\Reports\ReportMovies.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="PDF\AddGames.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="PDF\ChooseListForMovie.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PDF\GameReport.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="PDF\MovieReport.pdf">
@@ -453,10 +459,22 @@
     <None Include="PDF\MovieInfo.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="PDF\UCLogin.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="PDF\UCMediaHome.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="PDF\UCRecommendGames.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="PDF\UCRecommendMovies.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PDF\UCRegistracija.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PDF\UCSearchGame.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="PDF\UCSearchMovie.pdf">
