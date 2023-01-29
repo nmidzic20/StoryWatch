@@ -445,7 +445,7 @@
     <None Include="PDF\BookReport.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="PDF\EBookP.pdf">
+    <None Include="PDF\EBookPreview.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="PDF\SelectedBook.pdf">
@@ -457,10 +457,10 @@
     <None Include="PDF\UCHome.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="PDF\UCRecommendBook.pdf">
+    <None Include="PDF\UCRecommendBooks.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="PDF\UCSearchBook.pdf">
+    <None Include="PDF\UCAddBook.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="PDF\UpdateBook.pdf">
@@ -507,7 +507,6 @@
   <ItemGroup>
     <Resource Include="Images\img_delete.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

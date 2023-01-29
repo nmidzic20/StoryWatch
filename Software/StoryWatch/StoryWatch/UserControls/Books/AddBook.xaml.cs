@@ -271,17 +271,20 @@ namespace StoryWatch.UserControls.Books
 
         private void AddBookk_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCSearchBook") && !update && (currentBook == null))
+            /*if (e.Key == Key.F1)
+                MessageBox.Show("AddBook " + GuiManager.currentContent.GetType().Name);*/
+
+            if (e.Key == Key.F1 && (GuiManager.currentContent.GetType().Name == "UCAddBook") && !update && (currentBook == null))
             {
                 System.Diagnostics.Process.Start(@"PDF\\AddBookManually.pdf");
                 window.KeyDown -= AddBookk_KeyDown;
             }
-            if (e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCMediaHomee") && (update != false)) //Ako se pokrene preko Update forme
+            if (e.Key == Key.F1 && (GuiManager.currentContent.GetType().Name == "UCMediaHome") && (update != false)) //Ako se pokrene preko Update forme
             {
                 System.Diagnostics.Process.Start(@"PDF\\UpdateBook.pdf");
                 window.KeyDown -= AddBookk_KeyDown;
             }
-            if(e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCSearchBook") && (currentBook != null))
+            if(e.Key == Key.F1 && (GuiManager.currentContent.GetType().Name == "UCAddBook") && (currentBook != null))
             {
                 System.Diagnostics.Process.Start(@"PDF\\SelectedBook.pdf");
                 window.KeyDown -= AddBookk_KeyDown;

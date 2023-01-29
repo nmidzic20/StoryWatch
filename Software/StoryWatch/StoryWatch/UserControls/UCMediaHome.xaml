@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoryWatch.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Lavender" Loaded="Window_Loaded" x:Name="UCMediaHomee" KeyDown="UCMediaHomee_KeyDown">
+             d:DesignHeight="450" d:DesignWidth="800" Background="Lavender" Loaded="Window_Loaded">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Background="CornflowerBlue">
             <Grid.ColumnDefinitions>

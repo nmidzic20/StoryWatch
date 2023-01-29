@@ -118,7 +118,7 @@ namespace StoryWatch.UserControls.Books
 
         private void BookReportt_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.F1 && (GuiManager.currentContent.Name == "BookReportt"))
+            if (e.Key == Key.F1 && (GuiManager.currentContent.GetType().Name == "BookReport"))
             {
                 System.Diagnostics.Process.Start(@"PDF\\BookReport");
                 window.KeyDown -= BookReportt_KeyDown;

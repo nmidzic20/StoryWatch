@@ -40,16 +40,16 @@ namespace StoryWatch.UserControls.Books
             List<Book> allDatabaseBooks = bookService.GetAll().ToList();
             PerformAnalysis(allDatabaseBooks);
             window = Window.GetWindow(this);
-            window.KeyDown += new KeyEventHandler(UCRecommendBookss_KeyDown);
+            //window.KeyDown += new KeyEventHandler(UCRecommendBookss_KeyDown);
         }
-        private void UCRecommendBookss_KeyDown(object sender, KeyEventArgs e)
+        /*private void UCRecommendBookss_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCRecommendBookss"))
             {
                 System.Diagnostics.Process.Start(@"PDF\\UCRecommendBook.pdf");
                 window.KeyDown -= UCRecommendBookss_KeyDown;
             }
-        }
+        }*/
         private void PerformAnalysis(List<Book> allDatabaseBooks)
         {
             var mostRepeatedAuthor = allDatabaseBooks.GroupBy(x => x.Author)

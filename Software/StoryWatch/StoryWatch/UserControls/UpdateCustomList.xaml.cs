@@ -18,6 +18,7 @@ namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for UpdateCustomList.xaml
+    /// Noa Midžić
     /// </summary>
     public partial class UpdateCustomList : Window
     {

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StoryWatch.UserControls.Books" xmlns:winforms="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         mc:Ignorable="d"
         Title="BookReport" Height="450" Width="800" Loaded="Window_Loaded" x:Name="BookReportt" KeyDown="BookReportt_KeyDown" Focusable="True">
-    <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" KeyDown="BookReportt_KeyDown" Focusable="True">
+    <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Focusable="True">
         <winforms:ReportViewer x:Name="reportViewer" Dock="Fill"></winforms:ReportViewer>
     </WindowsFormsHost>
 </Window>

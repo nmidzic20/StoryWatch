@@ -45,7 +45,7 @@ namespace StoryWatch.UserControls
             GuiManager.OpenContent(new UCMediaHome(MediaCategory.Game));
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        /*private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             window = Window.GetWindow(this);
             window.KeyDown += new KeyEventHandler(UCHomee_KeyDown);
@@ -55,9 +55,10 @@ namespace StoryWatch.UserControls
         {
             if (e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCHomee"))
             {
-                System.Diagnostics.Process.Start(@"PDF\\UCHome.pdf");
+                MessageBox.Show(this.GetType().Name);
+                //System.Diagnostics.Process.Start(@"PDF\\UCHome.pdf");
                 window.KeyDown -= UCHomee_KeyDown;
             }
-        }
+        }*/
     }
 }
