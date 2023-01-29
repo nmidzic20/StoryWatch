@@ -2,6 +2,7 @@
 using EntitiesLayer.Entities;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using System.Windows;
@@ -196,7 +197,14 @@ namespace StoryWatch.UserControls.Games
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string url = (await gameServices.GetGameInfoAsync(int.Parse(selectedGame.IGDB_Id))).Videos.Values.First().VideoId;
+            var videos = (await gameServices.GetGameInfoAsync(int.Parse(selectedGame.IGDB_Id))).Videos;
+            string url = "";
+
+            if (videos != null)
+            {
+                url = videos.Values.First().VideoId;
+            }
+
 
             string htmlBeginning = "<!DOCTYPE html>" +
                                     "<html>" +
@@ -213,7 +221,7 @@ namespace StoryWatch.UserControls.Games
                     + url
                     + "\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
             else
-                trailer = "<div style='margin:20px'>No trailer URLs were provided for this movie - try updating this movie by searching for it on TMDb or manually provide trailer URL</div>";
+                trailer = "<div style='margin:20px; text-align:center'>No trailer URLs were provided for this game</div>";
             string htmlEnd = "</body>" +
                             "</html>";
 
