@@ -42,18 +42,7 @@ namespace StoryWatch.UserControls
             initialLoadOfAllLists = false;
 
             window = Window.GetWindow(this);
-            //window.KeyDown += new KeyEventHandler(UCMediaHomee_KeyDown);
         }
-
-        /*private void UCMediaHomee_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCMediaHomee"))
-            {
-                MessageBox.Show("FNESTO TESTs");
-                window.KeyDown -= UCMediaHomee_KeyDown;
-            }
-        }*/
-
         private void LoadLists(List<IListCategory> listCategories)
         {
             
