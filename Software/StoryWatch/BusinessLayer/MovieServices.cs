@@ -164,11 +164,14 @@ namespace BusinessLayer
                 Id_Users = loggedUser.Id
             };
 
-            using (var db = new GenreRepository())
-            {
-                var movieGenre = GetMovieById(movie.Id).Genre;
-                db.DeleteGenreWithoutMedia(movieGenre);
-            }
+            var genre = GetMovieById(movie.Id).Genre;
+
+            if (genre != null)
+                using (var db = new GenreRepository())
+                {
+                    var movieGenre = GetMovieById(movie.Id).Genre;
+                    db.DeleteGenreWithoutMedia(movieGenre);
+                }
 
             using (var repo = new MovieRepository())
             {

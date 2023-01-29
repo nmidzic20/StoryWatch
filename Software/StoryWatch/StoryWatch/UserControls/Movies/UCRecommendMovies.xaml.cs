@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using GenreTMDB = TMDbLib.Objects.General.Genre;
 using Genre = EntitiesLayer.Entities.Genre;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using static System.Net.WebRequestMethods;
 
 namespace StoryWatch.UserControls.Movies
 {
@@ -157,25 +158,22 @@ namespace StoryWatch.UserControls.Movies
 
         private async void RecommendMovies()
         {
+            MovieWrapPanel.Children.Clear();
+
             var movies = await recommendServices.RecommendMovies(preferredGenres, preferredListCategories);
-            dgRecommendedMovies.ItemsSource = movies;
+
+            foreach (var movie in movies)
+            {
+                movie.BackdropPath = "https://image.tmdb.org/t/p/w500" + movie.BackdropPath;
+                var movieControl = new UCMovieControl(movie);
+                MovieWrapPanel.Children.Add(movieControl);
+            }
 
             if (movies.Count < 3)
                 MessageBox.Show("Too few movies watched to give more recommendations");
 
         }
 
-        private async void lbResults_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
-        {
-
-            if (dgRecommendedMovies.SelectedItem == null) return;
-
-            var item = dgRecommendedMovies.SelectedItem as TMDbLib.Objects.Search.SearchMovie;
-            var movieTMDbId = item.Id;
-
-            TMDbLib.Objects.Movies.Movie movie = await movieServices.GetMovieInfoAsync(movieTMDbId);
-
-        }
 
     }
 }

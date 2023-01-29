@@ -52,25 +52,9 @@
             </Button>
             
         </StackPanel>
-        <ScrollViewer>
-            <DataGrid Margin="10" AutoGenerateColumns="False" x:Name="dgRecommendedMovies" SelectionChanged="lbResults_SelectionChangedAsync">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="150">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style>
-                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Overview" Binding="{Binding Overview}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style>
-                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <WrapPanel x:Name="MovieWrapPanel" Orientation="Horizontal"/>
         </ScrollViewer>
+
     </DockPanel>
 </UserControl>

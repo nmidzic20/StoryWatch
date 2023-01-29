@@ -122,10 +122,10 @@ namespace BusinessLayer
 
         private async Task<List<SearchMovie>> RecommendWatched()
         {
-            List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
+            //List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
 
-            AssignPoints(moviesFromOtherLists, 1);
-            AssignPoints(moviesFromFavorites, 2);
+            await AssignPoints(moviesFromOtherLists, 1);
+            await AssignPoints(moviesFromFavorites, 2);
 
             List<SearchMovie> recommendedMovies = RankMoviesByPoints();
 
@@ -138,8 +138,9 @@ namespace BusinessLayer
         {
             List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
 
-            AssignPoints(moviesFromTODO, 0.3);
             await FindMoviesTMDBByFavouriteGenres(moviesTMDB);
+
+            await AssignPoints(moviesFromTODO, 0.3);
 
             List<SearchMovie> recommendedMovies = RankMoviesByPoints();
 
@@ -172,7 +173,12 @@ namespace BusinessLayer
                             points += 0.5;
 
                     if (recommendedMoviesPoints.ContainsKey(movieTMDB))
+                    {
+                        //var existingPoints = recommendedMoviesPoints[movieTMDB];
+                        //recommendedMoviesPoints.Remove(movieTMDB);
+                        //recommendedMoviesPoints.Add(movieTMDB, existingPoints);
                         recommendedMoviesPoints[movieTMDB] += points;
+                    }
                     else
                         recommendedMoviesPoints.Add(movieTMDB, points);
                 }
@@ -223,17 +229,28 @@ namespace BusinessLayer
             };
         }
 
-        private void AssignPoints(HashSet<Movie> movies, double points)
+        private async Task AssignPoints(HashSet<Movie> movies, double points)
         {
             foreach (var movie in movies)
             {
+                TMDbLib.Objects.Movies.Movie movieTMDBInfo = new TMDbLib.Objects.Movies.Movie();
+                if (!string.IsNullOrEmpty(movie.TMDB_ID))
+                    movieTMDBInfo = await movieServices.GetMovieInfoAsync(int.Parse(movie.TMDB_ID));
+
                 SearchMovie searchMovie = new SearchMovie
                 {
+                    Id = (!string.IsNullOrEmpty(movie.TMDB_ID)) ? int.Parse(movie.TMDB_ID) : 0,
                     Title = movie.Title,
-                    Overview = movie.Description
+                    Overview = movie.Description,
+                    BackdropPath = movieTMDBInfo.BackdropPath
                 };
 
-                recommendedMoviesPoints.Add(searchMovie, points);
+                if (recommendedMoviesPoints.ContainsKey(searchMovie))
+                {
+                    recommendedMoviesPoints[searchMovie] += points;
+                }
+                else
+                    recommendedMoviesPoints.Add(searchMovie, points);
             }
         }
         

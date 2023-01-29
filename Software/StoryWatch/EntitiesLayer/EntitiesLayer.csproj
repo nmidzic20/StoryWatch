@@ -156,6 +156,7 @@
     <Compile Include="Entities\Media.cs" />
     <Compile Include="Entities\Movie.ext.cs" />
     <Compile Include="Entities\MovieListCategory.cs" />
+    <Compile Include="Entities\MovieListCategory.ext.cs" />
     <Compile Include="Entities\MovieListItem.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\User.cs" />

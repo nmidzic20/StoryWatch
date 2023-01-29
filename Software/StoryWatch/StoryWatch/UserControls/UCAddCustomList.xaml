@@ -7,8 +7,7 @@
              xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="400" Background="Lavender">
-    <DockPanel>
-        <Label x:Name="Header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="CornflowerBlue" Content="Add new custom list" DockPanel.Dock="Top"/>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
@@ -19,18 +18,20 @@
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition Height="30" MaxHeight="30"/>
+                <RowDefinition Height="30" MaxHeight="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="List title:" Grid.Column="0" Grid.Row="0" FontWeight="Bold"/>
-            <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="0" Margin="2"/>
-            <Label Content="List color:" Grid.Column="0" Grid.Row="1" FontWeight="Bold"/>
+            <Label Grid.Column="1" x:Name="Header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="CornflowerBlue" Content="Add new custom list"/>
+            <Label Content="List title:" Grid.Column="0" Grid.Row="1" FontWeight="Bold"/>
+            <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="1" Margin="2"/>
+            <Label Content="List color:" Grid.Column="0" Grid.Row="2" FontWeight="Bold"/>
             <!--<TextBox x:Name="txtDescription" Grid.Column="1" Grid.Row="1" Margin="2" IsReadOnly="True"/>-->
-            <wpfTool:ColorPicker x:Name="clpck" Grid.Column="1" Grid.Row="1" Margin="2"></wpfTool:ColorPicker>
-            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <wpfTool:ColorPicker x:Name="clpck" Grid.Column="1" Grid.Row="2" Margin="2"></wpfTool:ColorPicker>
+            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="btnAdd" Content="Add" Width="60" Height="25" Margin="2" Background="PowderBlue" Click="btnAdd_Click"/>
                 <Button x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="2" Background="PowderBlue" Click="btnCancel_Click"/>
             </StackPanel>
 
         </Grid>
-    </DockPanel>
+    </Grid>
 </UserControl>

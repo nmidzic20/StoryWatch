@@ -13,16 +13,31 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Label Margin="15,0,0,0" FontSize="20" Grid.Column="0" Content="StoryWatch" FontWeight="Bold" Height="50"></Label>
+            <Label Margin="15,0,0,0" VerticalContentAlignment="Center" FontSize="20" Grid.Column="0" Content="StoryWatch" FontWeight="Bold" Height="50"></Label>
             <Button FontSize="20" BorderBrush="CornflowerBlue" Grid.Column="1" Content="Home" FontWeight="Bold" Click="ReturnToHome" Background="CornflowerBlue" Margin="5,0,30,0"></Button>
             <Button FontSize="20" BorderBrush="CornflowerBlue" Grid.Column="2" Content="Log out" FontWeight="Bold" Click="LogOut" Background="CornflowerBlue" Margin="5,0,30,0"></Button>
         </Grid>
         <Grid DockPanel.Dock="Top" Margin="0,0,0,40">
-            <TextBox HorizontalAlignment="Left" x:Name="txtSearch" Width="150" Height="25" Margin="20" Text="Search" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus" TextChanged="txtSearch_TextChanged"></TextBox>
-            <Button HorizontalAlignment="Right" x:Name="btnAddCustomList" Content="+ Add custom list" FontWeight="Bold" Width="140" Height="35" Margin="10 10 180 10" Click="btnAddCustomList_Click"></Button>
-            <Button HorizontalAlignment="Right" x:Name="btnRecommend" Content="Recommend" FontWeight="Bold" Width="140" Height="35" Margin="10 10 340 10" Click="btnRecommend_Click"></Button>
-            <Button HorizontalAlignment="Right" x:Name="btnReport" Content="Generate report" FontWeight="Bold" Width="140" Height="35" Margin="10 10 20 10" Click="btnReport_Click"></Button>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox HorizontalAlignment="Left" x:Name="txtSearch" Width="Auto" MinWidth="199" Height="25" Margin="20" Text="Search" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus" TextChanged="txtSearch_TextChanged" Grid.Column="0" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnAddCustomList" Content="+ Add custom list" FontWeight="Bold" Width="130" Height="25" Margin="10" Click="btnAddCustomList_Click"></Button>
+                <Button x:Name="btnRecommend" Content="Recommend" FontWeight="Bold" Width="120" Height="25" Margin="10" Click="btnRecommend_Click"></Button>
+                <Button x:Name="btnReport" Content="Generate report" FontWeight="Bold" Width="120" Height="25" Margin="10" Click="btnReport_Click"></Button>
+            </StackPanel>
         </Grid>
+
+        <!--
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,40">
+            <TextBox HorizontalAlignment="Left" x:Name="txtSearch" Width="150" Height="25" Margin="20" Text="Search" FontWeight="Bold" FontStyle="Italic" Foreground="Gray" GotFocus="txtSearch_GotFocus" LostFocus="txtSearch_LostFocus" TextChanged="txtSearch_TextChanged"></TextBox>
+            <Button HorizontalAlignment="Right" x:Name="btnAddCustomList" Content="+ Add custom list" FontWeight="Bold" Width="130" Height="25" Margin="150,10,10,10" Click="btnAddCustomList_Click"></Button>
+            <Button HorizontalAlignment="Right" x:Name="btnRecommend" Content="Recommend" FontWeight="Bold" Width="120" Height="25" Margin="10" Click="btnRecommend_Click"></Button>
+            <Button HorizontalAlignment="Right" x:Name="btnReport" Content="Generate report" FontWeight="Bold" Width="120" Height="25" Margin="10" Click="btnReport_Click"></Button>
+        </StackPanel>
+        -->
         <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <Grid x:Name="gridLists" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
