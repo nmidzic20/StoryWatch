@@ -57,7 +57,7 @@ namespace StoryWatch.UserControls.Games
                 var companies = gameIGDB.InvolvedCompanies == null ? "Indie" : gameIGDB.InvolvedCompanies.Values
                     .Aggregate("", (current, company) => current + (company.Company.Value.Name + ", "));
 
-                companies.Remove(companies.Length - 1, 1);
+                companies.Remove(companies.Length - 2, 1);
 
                 txtID.Text = gameIGDB.Id.ToString();
                 txtTitle.Text = gameIGDB.Name;

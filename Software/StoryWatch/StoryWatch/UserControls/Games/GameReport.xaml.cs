@@ -66,6 +66,7 @@ namespace StoryWatch.UserControls.Games
                     favoriteGames = gameServices.GetGamesForList(list, StateManager.LoggedUser);
             }
 
+            // using the Genre class here because it's convenient for storing the number of games and name of list
             List <Genre> lists = new List<Genre>();
             
             lists.AddRange(listCategoryServices.GetGameListCategoriesForUser(StateManager.LoggedUser)
