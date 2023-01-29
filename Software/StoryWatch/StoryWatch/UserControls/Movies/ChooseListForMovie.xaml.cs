@@ -13,24 +13,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
 
 namespace StoryWatch.UserControls.Movies
 {
     /// <summary>
-    /// Interaction logic for ChooseListForMovie.xaml
+    /// Author: Noa Midžić
+    /// Choose any of the user's list to add the recommended movie to
     /// </summary>
     public partial class ChooseListForMovie : Window
     {
         private ListCategoryServices listServices = new ListCategoryServices();
         private MovieServices movieServices = new MovieServices();
-        private SearchMovie movie = new SearchMovie();
+        private SearchMovie searchMovie = new SearchMovie();
 
         public ChooseListForMovie(SearchMovie movie)
         {
             InitializeComponent();
 
-            this.movie = movie;
+            this.searchMovie = movie;
             FillComboBox();
         }
 
@@ -40,68 +42,66 @@ namespace StoryWatch.UserControls.Movies
             cboListCategoriesForUser.ItemsSource = listsForUser;
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             var chosenList = cboListCategoriesForUser.SelectedItem as MovieListCategory;
-            /*
-            var allMovies = movieServices.GetAllMovies();
-            var movieId = (allMovies.Count() != 0) ? allMovies.Last().Id + 1 : 0;
 
-            Genre genre = null;
-            //add genre, fetch that genre, add it to the movie below
-            if (!string.IsNullOrEmpty(txtGenre.Text))
-            {
-                var genreServices = new GenreServices();
-                int genreId = (genreServices.GetAllGenres().LastOrDefault() != null) ? genreServices.GetAllGenres().Last().Id + 1 : 0;
-                genre = new Genre
-                {
-                    Id = genreId,
-                    Name = txtGenre.Text
-                };
-                genreId = genreServices.AddGenre(genre).Id;
-                genre = genreServices.GetGenreById(genreId);
-            }
+            var movieId = await AddMovie();
+            AddMovieToChosenList(chosenList, movieId);
 
-            bool isSuccessful = movieServices.AddMovie(new EntitiesLayer.Entities.Movie
-            {
-                Id = movieId,
-                Title = txtTitle.Text,
-                Description = txtOverview.Text,
-                TMDB_ID = txtID.Text,
-                Countries = txtCountry.Text,
-                ReleaseDate = dtReleaseDate.DisplayDate.ToString(),
-                Trailer_URL = txtTrailerURL.Text,
-                Genre = genre
+            Close();
+        }
 
-            });
-
-            if (!isSuccessful)
-            {
-                //MessageBox.Show("This movie is already added from TMDB to database");
-                movieId = movieServices.GetMovieByTMDBId(txtID.Text).Id;
-            }
-
-            MovieListItem movie = new MovieListItem
-            {
-                Id_Users = StateManager.LoggedUser.Id,
-                Id_Movies = movieId,
-                Id_MovieListCategories = this.listCategory.Id
-            };
-            bool movieAddedToList = movieServices.AddMovieToList(movie, listCategory as MovieListCategory, StateManager.LoggedUser);
-
-            if (!movieAddedToList)
-                MessageBox.Show("This movie is already added to this list");
-            else
-                GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));*/
-
-            var movieId = 0;
+        private void AddMovieToChosenList(MovieListCategory chosenList, int movieId)
+        {
             var movieListItem = new MovieListItem
             {
                 Id_MovieListCategories = chosenList.Id,
                 Id_Movies = movieId,
                 Id_Users = StateManager.LoggedUser.Id
             };
-            movieServices.AddMovieToList(movieListItem, chosenList,StateManager.LoggedUser);
+            bool movieAddedToList = movieServices.AddMovieToList(movieListItem, chosenList, StateManager.LoggedUser);
+
+            if (!movieAddedToList)
+                MessageBox.Show("This movie is already added to this list");
+            else
+                GuiManager.OpenContent(new UCMediaHome(EntitiesLayer.MediaCategory.Movie));
+        }
+
+        private async Task<int> AddMovie()
+        {
+            var allMovies = movieServices.GetAllMovies();
+            var movieId = (allMovies.Count() != 0) ? allMovies.Last().Id + 1 : 0;
+
+            var movieTMDB = await movieServices.GetMovieInfoAsync(searchMovie.Id);
+
+            string countries = "";
+            foreach (var country in movieTMDB.ProductionCountries)
+            {
+                countries += country.Name;
+                countries += (country == movieTMDB.ProductionCountries.Last()) ? " " : ", ";
+            }
+
+            bool isSuccessful = movieServices.AddMovie(new EntitiesLayer.Entities.Movie
+            {
+                Id = movieId,
+                Title = movieTMDB.Title,
+                Description = movieTMDB.Overview,
+                TMDB_ID = movieTMDB.Id.ToString(),
+                Countries = countries,
+                ReleaseDate = movieTMDB.ReleaseDate.ToString(),
+                Trailer_URL = (movieTMDB.Videos.Results.Count != 0) ? movieTMDB.Videos.Results[0].Key : null,
+                Genre = null
+
+            });
+
+            if (!isSuccessful)
+            {
+                //MessageBox.Show("This movie is already added from TMDB to database");
+                movieId = movieServices.GetMovieByTMDBId(movieTMDB.Id.ToString()).Id;
+            }
+
+            return movieId;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

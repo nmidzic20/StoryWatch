@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Search;
 using static System.Net.WebRequestMethods;
 using Movie = TMDbLib.Objects.Movies.Movie;
 
@@ -38,11 +39,14 @@ namespace StoryWatch.UserControls
         private string placeholderTextCollection = "Search movies by franchise";
         private string placeholderTextKeyword = "Search movies by keyword";
 
+        private List<SearchMovie> results = new List<SearchMovie>();
+
         public UCSearchMovie(UCAddMovieToList UCAddMovieToList)
         {
             InitializeComponent();
 
             ucAddMovieToList = UCAddMovieToList;
+
 
         }
 

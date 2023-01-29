@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:StoryWatch.UserControls"
+             xmlns:local="clr-namespace:StoryWatch.UserControls" xmlns:local1="clr-namespace:BusinessLayer;assembly=BusinessLayer"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="PowderBlue">
     <DockPanel>
@@ -16,10 +16,24 @@
         <ScrollViewer>
             <DataGrid AutoGenerateColumns="False" x:Name="dgResults" Background="PowderBlue" SelectionChanged="lbResults_SelectionChangedAsync">
                 <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="400" Header="Image" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DataTemplate.Resources>
+                                    <local1:StringToUrlConverter x:Key="StringToUrlConverter" BaseUri="https://image.tmdb.org/t/p/w500"/>
+                                </DataTemplate.Resources>
+                                <Image Source="{Binding BackdropPath, Converter={StaticResource StringToUrlConverter}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Title}" Width="150">
                         <DataGridTextColumn.ElementStyle>
                             <Style>
-                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                <Setter Property="TextBlock.HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                                <Setter Property="TextBlock.FontSize" Value="16"/>
+                                <Setter Property="TextBlock.FontWeight" Value="Bold"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
@@ -27,6 +41,7 @@
                         <DataGridTextColumn.ElementStyle>
                             <Style>
                                 <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls.Movies"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Background="PowderBlue"
         Title="ChooseListForMovie" Height="450" Width="800">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid Margin="10">
@@ -19,12 +19,12 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="1" x:Name="Header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="CornflowerBlue" Content="Choose list to add the movie to"/>
+            <Label Grid.Row="0" Grid.Column="1" x:Name="Header" FontWeight="Bold" HorizontalContentAlignment="Center" Content="Choose list to add the movie to"/>
             <Label Content="List title:" Grid.Column="0" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center"/>
             <ComboBox Height="20" x:Name="cboListCategoriesForUser" Grid.Column="1" Grid.Row="1"></ComboBox>
             <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="btnAdd" Content="Add" Width="60" Height="25" Margin="2" Background="PowderBlue" Click="btnAdd_Click"/>
-                <Button x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="2" Background="PowderBlue" Click="btnCancel_Click"/>
+                <Button x:Name="btnAdd" Content="Add" Width="60" Height="25" Margin="2" Background="CornflowerBlue" Click="btnAdd_Click"/>
+                <Button x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="2" Background="CornflowerBlue" Click="btnCancel_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

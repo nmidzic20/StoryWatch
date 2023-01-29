@@ -21,7 +21,7 @@ namespace DataAccessLayer.Repositories
 
         public override int Add(Movie entity, bool saveChanges = true)
         {
-            var genre = Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id);
+            var genre = (entity.Genre != null) ? Context.Genres.SingleOrDefault(g => g.Id == entity.Genre.Id) : null;
 
             entity.Genre = genre;
 
