@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:StoryWatch.UserControls.Books"
              xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" x:Name="UCRecommendBookss" KeyDown="UCRecommendBookss_KeyDown">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" x:Name="UCRecommendBookss">
     <DockPanel Background="Lavender">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Button IsCancel="True" DockPanel.Dock="Top" Width="50" x:Name="btnBack" HorizontalAlignment="Left" Margin="20" Content="Back" Click="btnBack_Click"></Button>

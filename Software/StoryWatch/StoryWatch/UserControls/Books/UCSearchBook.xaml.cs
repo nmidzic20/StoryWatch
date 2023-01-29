@@ -29,7 +29,7 @@ namespace StoryWatch.UserControls.Books
     /// </summary>
     public partial class UCAddBook : UserControl
     {
-        Window window;
+        //Window window;
         private BookService bookServices;
         public IListCategory listCategory { get; set; }
         public UCAddBook(IListCategory ListCategory)
@@ -39,7 +39,7 @@ namespace StoryWatch.UserControls.Books
             listCategory = ListCategory;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        /*private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             window = Window.GetWindow(this);
             window.KeyDown += new KeyEventHandler(UCSearchBook_KeyDown);
@@ -51,7 +51,7 @@ namespace StoryWatch.UserControls.Books
                 System.Diagnostics.Process.Start(@"PDF\\UCSearchBook.pdf");
                 window.KeyDown -= UCSearchBook_KeyDown;
             }
-        }
+        }*/
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
         {

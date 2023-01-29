@@ -48,8 +48,8 @@ namespace StoryWatch.UserControls.Books
                 webView2.CoreWebView2.Navigate(book.PreviewURL);
             }
 
-            window = Window.GetWindow(this);
-            window.KeyDown += new KeyEventHandler(EBookPrevieww_KeyDown);
+            /*window = Window.GetWindow(this);
+            window.KeyDown += new KeyEventHandler(EBookPrevieww_KeyDown);*/
         }
 
         private void PrepareFormWithData()
@@ -87,13 +87,13 @@ namespace StoryWatch.UserControls.Books
             btnShowInfoFromDatabase.Visibility = Visibility.Hidden;
         }
 
-        private void EBookPrevieww_KeyDown(object sender, KeyEventArgs e)
+        /*private void EBookPrevieww_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.F1 && (GuiManager.currentContent.Name == "EBookPrevieww"))
             {
                 System.Diagnostics.Process.Start(@"PDF\\EBookP.pdf");
                 window.KeyDown -= EBookPrevieww_KeyDown;
             }
-        }
+        }*/
     }
 }

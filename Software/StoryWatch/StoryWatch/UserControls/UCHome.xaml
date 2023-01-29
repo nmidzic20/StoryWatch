@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoryWatch.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" x:Name="UCHomee" Focusable="True" KeyDown="UCHomee_KeyDown">
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="UCHomee" Focusable="True">
     <DockPanel Background="Lavender">
         <StackPanel x:Name="stackPanelTitle" DockPanel.Dock="Top">
             <Label Content="StoryWatch" FontWeight="Black" FontSize="50" HorizontalAlignment="Center" Margin="0,150,0,0"></Label>
