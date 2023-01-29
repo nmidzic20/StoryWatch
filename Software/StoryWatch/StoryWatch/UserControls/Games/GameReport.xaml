@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls.Games" xmlns:winforms="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         mc:Ignorable="d"
-        Title="GameReport" Height="450" Width="800">
+        Title="GameReport" Height="450" Width="800" KeyDown="Window_KeyDown" Focusable="True">
     <ScrollViewer>
         <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <winforms:ReportViewer x:Name="reportViewer" Dock="Fill">
