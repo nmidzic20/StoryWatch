@@ -29,12 +29,29 @@ namespace DataAccessLayer.Repositories
                     SaveChanges();
                 }
             }
-            Context.Users.Attach(loggedUser);
-            var bookList = loggedUser.BookListCategories
+            var user = Context.Users.FirstOrDefault(u => u.Id == loggedUser.Id);
+            var bookList = user.BookListCategories
                 .FirstOrDefault(ml => ml.Id == bookListCategory.Id);
 
-            loggedUser.BookListCategories.Remove(bookList);
+            user.BookListCategories.Remove(bookList);
             SaveChanges();
+
+            //additionally, check if this list category still used by any user and delete it if not
+            bool bookListIsReferencedByAnotherUser = false;
+            foreach (var u in Context.Users)
+            {
+                if (u.BookListCategories.Count(bl => bl.Id == bookList.Id) > 0)
+                {
+                    bookListIsReferencedByAnotherUser = true;
+                    break;
+                }
+            }
+
+            if (!bookListIsReferencedByAnotherUser)
+            {
+                Entities.Remove(bookList);
+                SaveChanges();
+            }
         }
 
         public int UpdateListForUser(BookListCategory entity, User loggedUser, bool saveChanges = true)

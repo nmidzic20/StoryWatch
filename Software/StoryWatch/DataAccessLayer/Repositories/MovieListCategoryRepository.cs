@@ -39,12 +39,29 @@ namespace DataAccessLayer.Repositories
                 }
             }
 
-            Context.Users.Attach(loggedUser);
-            var movieListCategoryToDelete = loggedUser.MovieListCategories
+            var user = Context.Users.FirstOrDefault(u => u.Id == loggedUser.Id);
+            var movieListCategoryToDelete = user.MovieListCategories
                 .FirstOrDefault(ml => ml.Id == movieListCategory.Id);
 
-            loggedUser.MovieListCategories.Remove(movieListCategoryToDelete);
+            user.MovieListCategories.Remove(movieListCategoryToDelete);
             SaveChanges();
+
+            //additionally, check if this list category still used by any user and delete it if not
+            bool movieListIsReferencedByAnotherUser = false;
+            foreach (var u in Context.Users)
+            {
+                if (u.MovieListCategories.Count(ml => ml.Id == movieListCategoryToDelete.Id) > 0)
+                {
+                    movieListIsReferencedByAnotherUser = true;
+                    break;
+                }
+            }
+
+            if (!movieListIsReferencedByAnotherUser)
+            {
+                Entities.Remove(movieListCategoryToDelete);
+                SaveChanges();
+            }
         }
 
         public int UpdateListForUser(MovieListCategory entity, User loggedUser, bool saveChanges = true)

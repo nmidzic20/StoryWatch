@@ -24,7 +24,6 @@ namespace StoryWatch.UserControls
         private List<MediaListBox> allMediaListBoxes = new List<MediaListBox>();
         private bool initialLoadOfAllLists = true;
         private List<IListCategory> allLists = new List<IListCategory>();
-        Window window;
 
         public UCMediaHome(MediaCategory mediaCategory)
         {
@@ -41,8 +40,9 @@ namespace StoryWatch.UserControls
             LoadLists(allLists);
             initialLoadOfAllLists = false;
 
-            window = Window.GetWindow(this);
         }
+
+
         private void LoadLists(List<IListCategory> listCategories)
         {
             
