@@ -29,12 +29,29 @@ namespace DataAccessLayer.Repositories
                     SaveChanges();
                 }
             }
-            Context.Users.Attach(loggedUser);
-            var gameList = loggedUser.GameListCategories
+            var user = Context.Users.FirstOrDefault(u => u.Id == loggedUser.Id);
+            var gameList = user.GameListCategories
                 .FirstOrDefault(gl => gl.Id == gameListCategory.Id);
 
-            loggedUser.GameListCategories.Remove(gameList);
+            user.GameListCategories.Remove(gameList);
             SaveChanges();
+
+            //additionally, check if this list category still used by any user and delete it if not
+            bool gameListIsReferencedByAnotherUser = false;
+            foreach (var u in Context.Users)
+            {
+                if (u.GameListCategories.Count(gl => gl.Id == gameList.Id) > 0)
+                {
+                    gameListIsReferencedByAnotherUser = true;
+                    break;
+                }
+            }
+
+            if (!gameListIsReferencedByAnotherUser)
+            {
+                Entities.Remove(gameList);
+                SaveChanges();
+            }
         }
 
         public int UpdateListForUser(GameListCategory entity, User loggedUser, bool saveChanges = true)
