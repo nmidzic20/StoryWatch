@@ -47,10 +47,6 @@ namespace StoryWatch
                     {
                         CheckUCAddMovie();
                     }
-                    else if (GuiManager.currentContent.GetType().Name == "UCMediaHome")
-                    {
-                        CheckUCMediaHome();
-                    }
                     else //any UC regardless of media category
                         System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + ".pdf");
                 }
@@ -59,20 +55,6 @@ namespace StoryWatch
                     MessageBox.Show(ex.Message + " - Ime PDF-a neka bude isto kao ime ove klase User Controle na kojoj se otvara, ime ove UC klase je " + GuiManager.currentContent.GetType().Name);
                 }
             }
-        }
-
-        //user manuals for UCMediaHome by specific Media category
-        private void CheckUCMediaHome()
-        {
-            UCMediaHome uc = GuiManager.currentContent as UCMediaHome;
-
-            if (StateManager.CurrentMediaCategory == EntitiesLayer.MediaCategory.Movie)
-                System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + "Movies.pdf");
-            else if (StateManager.CurrentMediaCategory == EntitiesLayer.MediaCategory.Book)
-                System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + "Books.pdf");
-            else if (StateManager.CurrentMediaCategory == EntitiesLayer.MediaCategory.Game)
-                System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + "Games.pdf");
-
         }
 
         //specific user manual for movie UC which has multiple manuals associated with one user control

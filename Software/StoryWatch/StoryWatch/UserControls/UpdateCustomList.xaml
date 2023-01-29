@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls" xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="UpdateCustomList" Height="227" Width="415">
+        Title="UpdateCustomList" Height="227" Width="415" KeyDown="UpdateList_KeyDown" Focusable="True">
     <DockPanel>
         <Label x:Name="Header" FontWeight="Bold" HorizontalContentAlignment="Center" Background="CornflowerBlue" Content="Update list" DockPanel.Dock="Top"/>
         <Grid Margin="10">
