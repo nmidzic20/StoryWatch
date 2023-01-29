@@ -55,7 +55,7 @@ namespace StoryWatch.UserControls
         {
             if (e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCHomee"))
             {
-                System.Diagnostics.Process.Start(@"PDF\\TESTNI_PDF.pdf");
+                System.Diagnostics.Process.Start(@"PDF\\UCHome.pdf");
                 window.KeyDown -= UCHomee_KeyDown;
             }
         }
