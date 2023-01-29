@@ -71,7 +71,7 @@ namespace StoryWatch.UserControls
 
                 case MediaCategory.Book:
 
-                    var allBookLists = listCategoryServices.GetMovieListCategories();
+                    var allBookLists = listCategoryServices.GetBookListCategories();
                     var listBookId = (allBookLists.Count() != 0) ? allBookLists.Last().Id + 1 : 0;
 
                     isSuccessful = listCategoryServices.AddBookListCategory(
@@ -94,7 +94,7 @@ namespace StoryWatch.UserControls
 
                 case MediaCategory.Game:
 
-                    var allGameLists = listCategoryServices.GetMovieListCategories();
+                    var allGameLists = listCategoryServices.GetGameListCategories();
                     var gameListId = (allGameLists.Count() != 0) ? allGameLists.Last().Id + 1 : 0;
 
                     isSuccessful = listCategoryServices.AddGameListCategory(
