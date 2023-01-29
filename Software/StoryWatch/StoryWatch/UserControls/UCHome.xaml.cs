@@ -20,6 +20,7 @@ namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for UCHome.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class UCHome : UserControl
     {

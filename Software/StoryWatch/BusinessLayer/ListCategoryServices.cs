@@ -10,6 +10,10 @@ using System.Xml.Linq;
 
 namespace BusinessLayer
 {
+    /// <summary>
+    /// Function: media lists management service
+    /// Author: Noa Midžić
+    /// </summary>
     public class ListCategoryServices
     {
         public List<IListCategory> GetListCategories(MediaCategory mediaCategory, User loggedUser)

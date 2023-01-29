@@ -20,6 +20,7 @@ namespace StoryWatch.UserControls.Movies
 {
     /// <summary>
     /// Interaction logic for MovieReport.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class MovieReport : Window
     {

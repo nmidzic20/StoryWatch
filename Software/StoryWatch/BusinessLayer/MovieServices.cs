@@ -18,6 +18,10 @@ using System.Security.AccessControl;
 
 namespace BusinessLayer
 {
+    /// <summary>
+    /// Function: movie management service
+    /// Author: Noa Midžić
+    /// </summary>
     public class MovieServices
     {
         private string apiKey = "61a62cd9363b4d557e04105a89889368";

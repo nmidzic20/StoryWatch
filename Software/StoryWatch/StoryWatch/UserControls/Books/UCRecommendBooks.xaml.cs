@@ -20,6 +20,7 @@ namespace StoryWatch.UserControls.Books
 {
     /// <summary>
     /// Interaction logic for UCRecommendBooks.xaml
+    /// Author: David Kajzogaj
     /// </summary>
     public partial class UCRecommendBooks : UserControl
     {

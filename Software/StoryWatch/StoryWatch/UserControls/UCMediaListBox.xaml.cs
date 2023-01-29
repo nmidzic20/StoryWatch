@@ -26,6 +26,7 @@ namespace StoryWatch.UserControls
 {
     /// <summary>
     /// Interaction logic for MediaListBox.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class MediaListBox : UserControl
     {
@@ -381,7 +382,7 @@ namespace StoryWatch.UserControls
 
             }
 
-            if(StateManager.CurrentMediaCategory == MediaCategory.Book)
+            else if(StateManager.CurrentMediaCategory == MediaCategory.Book)
             {
                 Button button = sender as Button;
                 Book book = button.DataContext as Book;
@@ -394,6 +395,18 @@ namespace StoryWatch.UserControls
                         MessageBox.Show("This book does not support e-book preview", "E-book preview!");
                 }
             }
+            else
+            {
+                Button button = sender as Button;
+                Game game = button.DataContext as Game;
+
+                if (game != null)
+                {
+                    var gameInfo = new AddGame(listCategory, game, false, true);
+                    gameInfo.ShowDialog();
+                }
+            }
+
         }
 
         private void btnUpdateList_Click(object sender, RoutedEventArgs e)

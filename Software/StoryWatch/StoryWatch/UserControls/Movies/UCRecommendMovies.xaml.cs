@@ -22,6 +22,7 @@ namespace StoryWatch.UserControls.Movies
 {
     /// <summary>
     /// Interaction logic for UCRecommendMovies.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class UCRecommendMovies : UserControl
     {

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Function: database communication for game list categories
+    /// Author: Hrvoje Lukšić
+    /// </summary>
     public class GameListCategoryRepository : Repository<GameListCategory>
     {
         public void DeleteListForUser(GameListCategory gameListCategory, User loggedUser)

@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Function: database communication for movie list management
+    /// Author: Noa Midžić
+    /// </summary>
     public class MovieListCategoryRepository : Repository<MovieListCategory>
     {
         public IQueryable<MovieListCategory> GetMovieListCategories()

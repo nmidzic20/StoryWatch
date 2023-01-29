@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 namespace DataAccessLayer.Repositories
 {
     /// <summary>
-    /// Autor: Hrvoje Lukšić
-    /// Namjena: roditeljska klasa za komunikaciju s bazom podataka
+    /// Function: generic database communication repository
+    /// Author: Hrvoje Lukšić
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class Repository<T> : IDisposable where T : class
