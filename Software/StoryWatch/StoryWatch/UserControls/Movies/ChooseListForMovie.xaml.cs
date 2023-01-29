@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace StoryWatch.UserControls.Movies
 {
@@ -118,5 +119,17 @@ namespace StoryWatch.UserControls.Movies
         {
             Close();
         }
+
+        private void ChooseList_KeyDown(object sender, KeyEventArgs e)
+        {
+            /*if (e.Key == Key.F1)
+                MessageBox.Show("AddBook " + GuiManager.currentContent.GetType().Name);*/
+
+            if (e.Key == Key.F1)
+            {
+                System.Diagnostics.Process.Start(@"PDF\\ChooseListForMovie.pdf");
+            }
+        }
+            
     }
 }

@@ -83,6 +83,14 @@ namespace StoryWatch.UserControls.Movies
             reportViewer.Refresh();
             reportViewer.RefreshReport();
         }
+
+        private void MovieReport_keyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.F1)
+            {
+                System.Diagnostics.Process.Start(@"PDF\\MovieReport.pdf");
+            }
+        }
     }
     
 }
