@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StoryWatch.UserControls.Games"
+        xmlns:local="clr-namespace:StoryWatch.UserControls.Games" xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="AddGame" Height="400" Width="600" Background="Lavender">
-    <DockPanel>
+        Title="AddGame" Height="750" Width="600" Background="Lavender" Loaded="Window_Loaded">
+    <StackPanel Orientation="Vertical">
         <Grid Width="500" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"></ColumnDefinition>
@@ -38,5 +38,6 @@
                 <Button IsCancel="True" x:Name="btnCancel" Content="Cancel" Width="60" Height="25" Margin="10" Background="LightBlue" Click="BtnCancelClick"></Button>
             </StackPanel>
         </Grid>
-    </DockPanel>
+        <wv2:WebView2 Name="webView2" Height="325" Width="560" DockPanel.Dock="Top" NavigationCompleted="WebView2_NavigationCompleted"/>
+    </StackPanel>
 </Window>
