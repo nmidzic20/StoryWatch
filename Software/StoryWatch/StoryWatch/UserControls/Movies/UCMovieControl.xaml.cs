@@ -22,16 +22,18 @@ namespace StoryWatch.UserControls.Movies
     /// </summary>
     public partial class UCMovieControl : UserControl
     {
+        private SearchMovie movie;
         public UCMovieControl(SearchMovie movie)
         {
             InitializeComponent();
+            this.movie = movie;
             this.DataContext = movie;
-
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            var windowChooseList = new ChooseListForMovie(movie);
+            windowChooseList.ShowDialog();
         }
     }
 

@@ -7,12 +7,25 @@
              mc:Ignorable="d" 
              >
     <Grid Margin="15,20,15,20">
-        <StackPanel Orientation="Vertical">
-            <TextBlock x:Name="TitleTextBlock" Text="{Binding Title}"/>
-            <Button x:Name="btnAdd" Content="Add" Margin="20" Width="80" Click="btnAdd_Click"/>
-            <Image Width="400" Height="400" x:Name="img" Source="{Binding BackdropPath}">
+        <DockPanel>
+           <!-- <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" x:Name="TitleTextBlock" Text="{Binding Title}" VerticalAlignment="Center"/>
+                <Button Grid.Row="1" x:Name="btnAdd" Content="Add" FontWeight="Bold" Width="100" Height="30" Click="btnAdd_Click" VerticalAlignment="Center"/>
+                <Image Grid.Row="2" Width="400" Height="500" x:Name="img" Source="{Binding BackdropPath}" VerticalAlignment="Top"/>
+                <TextBlock Grid.Row="3" FontSize="15" TextWrapping="Wrap" Width="400" TextAlignment="Justify" x:Name="OverviewTextBlock" Text="{Binding Overview}" VerticalAlignment="Top"/>
+            </Grid>
+            -->
+            <TextBlock DockPanel.Dock="Top" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" x:Name="TitleTextBlock" Text="{Binding Title}"/>
+            <Button DockPanel.Dock="Top" x:Name="btnAdd" Content="Add" FontWeight="Bold" Margin="20" Width="100" Height="30" Click="btnAdd_Click"/>
+            <Image DockPanel.Dock="Top" Width="400" Height="350" x:Name="img" Source="{Binding BackdropPath}">
             </Image>
-            <TextBlock TextWrapping="Wrap" Width="400" TextAlignment="Justify" x:Name="OverviewTextBlock" Text="{Binding Overview}"/>
-        </StackPanel>
+            <TextBlock DockPanel.Dock="Top" FontSize="15" TextWrapping="Wrap" Width="400" TextAlignment="Justify" x:Name="OverviewTextBlock" Text="{Binding Overview}"/>
+        </DockPanel>
     </Grid>
 </UserControl>

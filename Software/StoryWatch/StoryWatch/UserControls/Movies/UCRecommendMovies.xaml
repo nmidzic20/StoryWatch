@@ -52,7 +52,7 @@
             </Button>
             
         </StackPanel>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <WrapPanel x:Name="MovieWrapPanel" Orientation="Horizontal"/>
         </ScrollViewer>
 

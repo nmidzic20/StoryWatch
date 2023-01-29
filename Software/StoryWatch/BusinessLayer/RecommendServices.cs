@@ -134,8 +134,9 @@ namespace BusinessLayer
         {
             List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
 
-            AssignPoints(moviesFromTODO, 0.3);
             await FindMoviesTMDBByFavouriteGenres(moviesTMDB);
+
+            AssignPoints(moviesFromTODO, 0.3);
 
             List<SearchMovie> recommendedMovies = RankMoviesByPoints();
 
@@ -224,18 +225,27 @@ namespace BusinessLayer
             };
         }
 
-        private void AssignPoints(HashSet<Movie> movies, double points)
+        private async void AssignPoints(HashSet<Movie> movies, double points)
         {
             foreach (var movie in movies)
             {
+                TMDbLib.Objects.Movies.Movie movieTMDBInfo = new TMDbLib.Objects.Movies.Movie();
+                if (!string.IsNullOrEmpty(movie.TMDB_ID))
+                    movieTMDBInfo = await movieServices.GetMovieInfoAsync(int.Parse(movie.TMDB_ID));
+
                 SearchMovie searchMovie = new SearchMovie
                 {
                     Title = movie.Title,
                     Overview = movie.Description,
-                    BackdropPath = ""
+                    BackdropPath = movieTMDBInfo.BackdropPath
                 };
 
-                recommendedMoviesPoints.Add(searchMovie, points);
+                if (recommendedMoviesPoints.ContainsKey(searchMovie))
+                {
+                    recommendedMoviesPoints[searchMovie] += points;
+                }
+                else
+                    recommendedMoviesPoints.Add(searchMovie, points);
             }
         }
         
