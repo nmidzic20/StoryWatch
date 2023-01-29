@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls.Books"
         mc:Ignorable="d"
-        Title="AddBook" Height="400" Width="400" Background="Lavender" Loaded="Window_Loaded">
-    <DockPanel>
+        Title="AddBook" Height="400" Width="400" Background="Lavender" Loaded="Window_Loaded" x:Name="AddBookk" KeyDown="AddBookk_KeyDown" Focusable="True">
+    <DockPanel KeyDown="AddBookk_KeyDown" Focusable="True">
         <Label Content="Add book manually" Background="CornflowerBlue" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontWeight="Bold"></Label>
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
