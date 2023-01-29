@@ -13,7 +13,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Label Margin="15,0,0,0" FontSize="20" Grid.Column="0" Content="StoryWatch" FontWeight="Bold" Height="50"></Label>
+            <Label Margin="15,0,0,0" VerticalContentAlignment="Center" FontSize="20" Grid.Column="0" Content="StoryWatch" FontWeight="Bold" Height="50"></Label>
             <Button FontSize="20" BorderBrush="CornflowerBlue" Grid.Column="1" Content="Home" FontWeight="Bold" Click="ReturnToHome" Background="CornflowerBlue" Margin="5,0,30,0"></Button>
             <Button FontSize="20" BorderBrush="CornflowerBlue" Grid.Column="2" Content="Log out" FontWeight="Bold" Click="LogOut" Background="CornflowerBlue" Margin="5,0,30,0"></Button>
         </Grid>

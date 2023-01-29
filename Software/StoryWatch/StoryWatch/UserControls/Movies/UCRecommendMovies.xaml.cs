@@ -169,25 +169,11 @@ namespace StoryWatch.UserControls.Movies
                 MovieWrapPanel.Children.Add(movieControl);
             }
 
-
-            //dgRecommendedMovies.ItemsSource = movies;
-
             if (movies.Count < 3)
                 MessageBox.Show("Too few movies watched to give more recommendations");
 
         }
 
-        /*private async void lbResults_SelectionChangedAsync(object sender, SelectionChangedEventArgs e)
-        {
-
-            if (dgRecommendedMovies.SelectedItem == null) return;
-
-            var item = dgRecommendedMovies.SelectedItem as TMDbLib.Objects.Search.SearchMovie;
-            var movieTMDbId = item.Id;
-
-            TMDbLib.Objects.Movies.Movie movie = await movieServices.GetMovieInfoAsync(movieTMDbId);
-
-        }*/
 
     }
 }

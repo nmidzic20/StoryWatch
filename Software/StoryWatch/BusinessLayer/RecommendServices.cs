@@ -122,10 +122,10 @@ namespace BusinessLayer
 
         private async Task<List<SearchMovie>> RecommendWatched()
         {
-            List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
+            //List<SearchMovie> moviesTMDB = await GetMoviesTMDBFromChosenGenres();
 
-            AssignPoints(moviesFromOtherLists, 1);
-            AssignPoints(moviesFromFavorites, 2);
+            await AssignPoints(moviesFromOtherLists, 1);
+            await AssignPoints(moviesFromFavorites, 2);
 
             List<SearchMovie> recommendedMovies = RankMoviesByPoints();
 
@@ -140,7 +140,7 @@ namespace BusinessLayer
 
             await FindMoviesTMDBByFavouriteGenres(moviesTMDB);
 
-            AssignPoints(moviesFromTODO, 0.3);
+            await AssignPoints(moviesFromTODO, 0.3);
 
             List<SearchMovie> recommendedMovies = RankMoviesByPoints();
 
@@ -174,10 +174,10 @@ namespace BusinessLayer
 
                     if (recommendedMoviesPoints.ContainsKey(movieTMDB))
                     {
-                        var existingPoints = recommendedMoviesPoints[movieTMDB];
-                        recommendedMoviesPoints.Remove(movieTMDB);
-                        recommendedMoviesPoints.Add(movieTMDB, existingPoints);
-                        //recommendedMoviesPoints[movieTMDB] += points;
+                        //var existingPoints = recommendedMoviesPoints[movieTMDB];
+                        //recommendedMoviesPoints.Remove(movieTMDB);
+                        //recommendedMoviesPoints.Add(movieTMDB, existingPoints);
+                        recommendedMoviesPoints[movieTMDB] += points;
                     }
                     else
                         recommendedMoviesPoints.Add(movieTMDB, points);
@@ -229,7 +229,7 @@ namespace BusinessLayer
             };
         }
 
-        private async void AssignPoints(HashSet<Movie> movies, double points)
+        private async Task AssignPoints(HashSet<Movie> movies, double points)
         {
             foreach (var movie in movies)
             {
@@ -239,6 +239,7 @@ namespace BusinessLayer
 
                 SearchMovie searchMovie = new SearchMovie
                 {
+                    Id = (!string.IsNullOrEmpty(movie.TMDB_ID)) ? int.Parse(movie.TMDB_ID) : 0,
                     Title = movie.Title,
                     Overview = movie.Description,
                     BackdropPath = movieTMDBInfo.BackdropPath

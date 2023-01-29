@@ -69,7 +69,17 @@ namespace StoryWatch.UserControls.Movies
         }
 
         private async Task<int> AddMovie()
-        {
+        {    
+            //there can be recommended a movie which does not have TMDB link
+            //if a movie which does not have TMDB link is recommended, it means it is a movie
+            //that was already in DB, manually added by user
+            if (searchMovie.Id == 0)
+            {
+                //MessageBox.Show("This movie is already added from TMDB to database");
+                var id = movieServices.GetMovieByTitle(searchMovie.Title).Id;
+                return id;
+            }
+
             var allMovies = movieServices.GetAllMovies();
             var movieId = (allMovies.Count() != 0) ? allMovies.Last().Id + 1 : 0;
 
