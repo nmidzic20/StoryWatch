@@ -88,7 +88,7 @@ namespace StoryWatch.UserControls.Games
             var companies = game.InvolvedCompanies == null ? "Indie" : game.InvolvedCompanies.Values
                     .Aggregate("", (current, company) => current + (company.Company.Value.Name + ", "));
 
-            companies.Remove(companies.Length - 1, 1);
+            companies.Remove(companies.Length - 2, 1);
 
             Game selectedGame = new Game()
             {
@@ -102,6 +102,12 @@ namespace StoryWatch.UserControls.Games
 
             var winAddGame = new AddGame(listCategory, selectedGame);
             winAddGame.txtGenres.Text = selectedGameGenre.Name;
+            winAddGame.ShowDialog();
+        }
+
+        private void btnAddManually_Click(object sender, RoutedEventArgs e)
+        {
+            var winAddGame = new AddGame(listCategory, null);
             winAddGame.ShowDialog();
         }
     }

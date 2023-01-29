@@ -45,13 +45,19 @@ namespace StoryWatch.UserControls.Games
 
         private async void FormSetup()
         {
+            if (selectedGame == null)
+            {
+                datePicker.IsEnabled = true;
+                return;
+            }
+            
             if (getIGDBInfo)
             {
                 var gameIGDB = await gameServices.GetGameInfoAsync(int.Parse(selectedGame.IGDB_Id));
                 var companies = gameIGDB.InvolvedCompanies == null ? "Indie" : gameIGDB.InvolvedCompanies.Values
                     .Aggregate("", (current, company) => current + (company.Company.Value.Name + ", "));
 
-                companies.Remove(companies.Length - 1, 1);
+                companies.Remove(companies.Length - 2, 1);
 
                 txtID.Text = gameIGDB.Id.ToString();
                 txtTitle.Text = gameIGDB.Name;
@@ -226,7 +232,13 @@ namespace StoryWatch.UserControls.Games
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var videos = (await gameServices.GetGameInfoAsync(int.Parse(selectedGame.IGDB_Id))).Videos;
+            IGDB.IdentitiesOrValues<IGDB.Models.GameVideo> videos = null;
+
+            if (selectedGame != null && !string.IsNullOrEmpty(selectedGame.IGDB_Id))
+            {
+                videos = (await gameServices.GetGameInfoAsync(int.Parse(selectedGame.IGDB_Id))).Videos;
+            }
+            
             string url = "";
 
             if (videos != null)
