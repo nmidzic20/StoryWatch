@@ -192,7 +192,7 @@ namespace StoryWatch.UserControls.Books
                 var update = bookService.UpdateBook(updateBook);
 
                 if (update == 0)
-                    MessageBox.Show("Update failed! You didn't changed anything!");
+                    MessageBox.Show("Update failed! You didn't change anything!");
                 Close();
                 GuiManager.OpenContent(new UCMediaHome(MediaCategory.Book));
             }
