@@ -10,12 +10,13 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using StoryWatch.UserControls.Books;
 using System.Windows.Markup;
+using System.Windows.Input;
 
 namespace StoryWatch.UserControls
 {
     /// <summary>
-    /// Autor: Noa Midžić
-    /// Namjena: Početna stranica za medije
+    /// Function: Početna stranica za medije
+    /// Author: Noa Midžić
     /// </summary>
     public partial class UCMediaHome : UserControl
     {
@@ -23,14 +24,13 @@ namespace StoryWatch.UserControls
         private List<MediaListBox> allMediaListBoxes = new List<MediaListBox>();
         private bool initialLoadOfAllLists = true;
         private List<IListCategory> allLists = new List<IListCategory>();
-
+        Window window;
 
         public UCMediaHome(MediaCategory mediaCategory)
         {
             InitializeComponent();
 
             StateManager.CurrentMediaCategory = mediaCategory;
-
             allLists = listCategoryServices.GetListCategories(StateManager.CurrentMediaCategory, StateManager.LoggedUser);
         }
 
@@ -41,6 +41,17 @@ namespace StoryWatch.UserControls
             LoadLists(allLists);
             initialLoadOfAllLists = false;
 
+            window = Window.GetWindow(this);
+            window.KeyDown += new KeyEventHandler(UCMediaHomee_KeyDown);
+        }
+
+        private void UCMediaHomee_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1 && (GuiManager.currentContent.Name == "UCMediaHomee"))
+            {
+                MessageBox.Show("FNESTO TESTs");
+                window.KeyDown -= UCMediaHomee_KeyDown;
+            }
         }
 
         private void LoadLists(List<IListCategory> listCategories)
@@ -203,6 +214,8 @@ namespace StoryWatch.UserControls
                     bookReport.Show();
                     break;
                 case MediaCategory.Game:
+                    var gameReport = new GameReport();
+                    gameReport.Show();
                     break;
                 default:
                     break;

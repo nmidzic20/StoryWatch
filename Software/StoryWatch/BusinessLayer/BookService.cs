@@ -18,6 +18,10 @@ using System.Runtime.Remoting.Contexts;
 
 namespace BusinessLayer
 {
+    /// <summary>
+    /// Function: book management service
+    /// Author: David Kajzogaj
+    /// </summary>
     public class BookService
     {
         List<Book> bookInfo;

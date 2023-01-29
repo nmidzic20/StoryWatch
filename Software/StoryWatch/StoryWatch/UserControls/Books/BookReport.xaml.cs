@@ -19,6 +19,7 @@ namespace StoryWatch.UserControls.Books
 {
     /// <summary>
     /// Interaction logic for BookReport.xaml
+    /// Author: David Kajzogaj
     /// </summary>
     public partial class BookReport : Window
     {

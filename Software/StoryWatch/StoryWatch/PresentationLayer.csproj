@@ -255,6 +255,9 @@
     <Compile Include="UserControls\Games\AddGame.xaml.cs">
       <DependentUpon>AddGame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Games\GameReport.xaml.cs">
+      <DependentUpon>GameReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Games\UCRecommendGames.xaml.cs">
       <DependentUpon>UCRecommendGames.xaml</DependentUpon>
     </Compile>
@@ -336,6 +339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Games\AddGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Games\GameReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -425,11 +432,19 @@
     <EmbeddedResource Include="UserControls\Books\Reports\ReportBooks.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Games\Reports\ReportGames.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Movies\Reports\ReportMovies.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="PDF\TESTNI_PDF.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Book.datasource" />
+    <None Include="Properties\DataSources\EntitiesLayer.Entities.Game.datasource" />
+    <None Include="Properties\DataSources\EntitiesLayer.Entities.GameListCategory.datasource" />
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Genre.datasource" />
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Movie.datasource" />
     <None Include="Properties\Settings.settings">
@@ -468,6 +483,7 @@
   <ItemGroup>
     <Resource Include="Images\img_delete.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Function: database communication for movie management
+    /// Author: Noa Midžić
+    /// </summary>
     public class MovieRepository : Repository<Movie>
     {
         public override IQueryable<Movie> GetAll()

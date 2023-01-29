@@ -23,6 +23,7 @@ namespace StoryWatch.UserControls.Books
 {
     /// <summary>
     /// Interaction logic for AddBook.xaml
+    /// Author: David Kajzogaj
     /// </summary>
     public partial class AddBook : Window
     {

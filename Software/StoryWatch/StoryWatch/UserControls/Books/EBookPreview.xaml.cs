@@ -20,6 +20,7 @@ namespace StoryWatch.UserControls.Books
 {
     /// <summary>
     /// Interaction logic for EBookPreview.xaml
+    /// Author: David Kajzogaj
     /// </summary>
     public partial class EBookPreview : UserControl
     {

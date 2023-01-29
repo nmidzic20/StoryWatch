@@ -11,6 +11,7 @@ namespace StoryWatch.UserControls.Games
 {
     /// <summary>
     /// Interaction logic for UCAddGame.xaml
+    /// Author: Hrvoje Lukšić
     /// </summary>
     public partial class UCAddGame : UserControl
     {
@@ -44,11 +45,6 @@ namespace StoryWatch.UserControls.Games
             }
 
             dgResults.ItemsSource = games;
-
-            //foreach (var game in games)
-            //{
-            //    lbResults.Items.Add(game.Name + delimiter + game.Id);
-            //}
         }
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
@@ -83,17 +79,29 @@ namespace StoryWatch.UserControls.Games
 
             IGDB.Models.Game game = await gameServices.GetGameInfoAsync((int)(dgResults.SelectedItem as IGDB.Models.Game).Id);
 
+            Genre selectedGameGenre = new Genre()
+            {
+                Name = game.Genres.Values.First().Name,
+                Id = 0
+            };
+
+            var companies = game.InvolvedCompanies == null ? "Indie" : game.InvolvedCompanies.Values
+                    .Aggregate("", (current, company) => current + (company.Company.Value.Name + ", "));
+
+            companies.Remove(companies.Length - 1, 1);
+
             Game selectedGame = new Game()
             {
                 IGDB_Id = game.Id.ToString(),
                 Title = game.Name,
                 Summary = game.Summary,
                 Release_Date = game.FirstReleaseDate.ToString(),
-                Company = game.InvolvedCompanies.Values.Aggregate("", (current, company) => current + (company.Company.Value.Name + ", ")),
-                Genres = game.Genres.Values.Aggregate("", (current, genre) => current + (genre.Name + ", "))
+                Company = companies,
+                Genre = selectedGameGenre
             };
 
             var winAddGame = new AddGame(listCategory, selectedGame);
+            winAddGame.txtGenres.Text = selectedGameGenre.Name;
             winAddGame.ShowDialog();
         }
     }

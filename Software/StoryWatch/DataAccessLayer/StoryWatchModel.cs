@@ -113,9 +113,9 @@ namespace DataAccessLayer
             modelBuilder.Entity<Game>()
                 .Property(e => e.Company)
                 .IsUnicode(false);
-
+            
             modelBuilder.Entity<Game>()
-                .Property(e => e.Genres)
+                .Property(e => e.Trailer_Url)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Game>()

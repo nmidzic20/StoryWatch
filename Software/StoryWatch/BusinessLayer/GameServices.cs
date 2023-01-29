@@ -11,6 +11,10 @@ using TMDbLib.Objects.Movies;
 
 namespace BusinessLayer
 {
+    /// <summary>
+    /// Function: game management service
+    /// Author: Hrvoje Lukšić
+    /// </summary>
     public class GameServices
     {
         private readonly string id = "ba8wwb974gpp9d1azk47t4g7mzibg5";
@@ -48,6 +52,11 @@ namespace BusinessLayer
         public async Task<IGDB.Models.Genre[]> GetGameGenresAsync(int id)
         {
             return await api.QueryAsync<IGDB.Models.Genre>(IGDBClient.Endpoints.Genres, query: $"fields name; where id = {id};");
+        }
+        
+        public async Task<IGDB.Models.Game> GetGameInfoAsync(int gameIGDBId)
+        {
+            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres.name, id, involved_companies.company.name, first_release_date, summary, similar_games, videos.video_id; where id = {gameIGDBId};")).First();
         }
 
         public List<EntitiesLayer.Entities.Game> GetAllGames()
@@ -95,9 +104,12 @@ namespace BusinessLayer
                     existingGame = repo.GetGameByIGDBId(game.IGDB_Id).FirstOrDefault();
                 }
 
-                if (existingGame == null)
+                if (existingGame != null)
                 {
-                    isSuccessful = true;
+                    isSuccessful = false;
+                }
+                else
+                {
                     int affectedRows = repo.Add(game);
                     isSuccessful = affectedRows > 0;
                 }
@@ -139,7 +151,6 @@ namespace BusinessLayer
             bool isSuccessful = false;
             using (var repo = new GameRepository())
             {
-                //check if exists on destination list already, if yes, return false, if no, change to that list
                 List<EntitiesLayer.Entities.Game> games = repo.GetGamesForList(destGameListCategory, loggedUser).ToList();
                 bool gameExistsInList = games.Exists(m => m.Id == gameListItem.Id_Games);
 
@@ -149,8 +160,6 @@ namespace BusinessLayer
                 }
                 else
                 {
-                    //fetch movieListItem for this movie, this list and this user
-                    //change the list
                     int affectedRows = repo.UpdateGameListItem(gameListItem, destGameListCategory.Id);
                     isSuccessful = affectedRows > 0;
                 }
@@ -169,12 +178,11 @@ namespace BusinessLayer
                 Id_Users = loggedUser.Id
             };
 
-            /*delete genre if it remains unused by any media - implement this when it can be tested
             using (var db = new GenreRepository())
             {
-                var gameGenre = GetGameByTitle(game.Title).Genre;
-                db.DeleteGenreWithoutMedia(gameGenre);
-            }*/
+                var gamesGenre = GetGameByIGDBId(game.IGDB_Id).Genre;
+                db.DeleteGenreWithoutMedia(gamesGenre);
+            }
 
             using (var repo = new GameRepository())
             {
@@ -184,9 +192,5 @@ namespace BusinessLayer
             }
         }
 
-        public async Task<IGDB.Models.Game> GetGameInfoAsync(int gameIGDBId)
-        {
-            return (await api.QueryAsync<IGDB.Models.Game>(IGDBClient.Endpoints.Games, query: $"fields name, genres.name, id, involved_companies.company.name, first_release_date, summary, similar_games; where id = {gameIGDBId};")).First();
-        }
     }
 }

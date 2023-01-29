@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Function: database communication for book management
+    /// Author: David Kajzogaj
+    /// </summary>
     public class BookRepository : Repository<Book>
     {
         public BookRepository() { }

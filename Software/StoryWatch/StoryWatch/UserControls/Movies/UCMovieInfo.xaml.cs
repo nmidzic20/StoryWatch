@@ -21,6 +21,7 @@ namespace StoryWatch.UserControls.Movies
 {
     /// <summary>
     /// Interaction logic for MovieInfo.xaml
+    /// Author: Noa Midžić
     /// </summary>
     public partial class MovieInfo : UserControl
     {
