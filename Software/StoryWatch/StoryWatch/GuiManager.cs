@@ -11,7 +11,7 @@ namespace StoryWatch
     {
         public static MainWindow MainWindow { get; set; }
 
-        private static UserControl currentContent;
+        public static UserControl currentContent;
         public static UserControl previousContent;
 
         public static void OpenContent(UserControl userControl)
