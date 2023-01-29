@@ -440,6 +440,9 @@
     <None Include="PDF\TESTNI_PDF.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="PDF\UCHome.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="PDF\UCRecommendBook.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
