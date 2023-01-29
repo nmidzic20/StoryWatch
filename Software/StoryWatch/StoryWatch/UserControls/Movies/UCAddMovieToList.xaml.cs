@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TMDbLib.Objects.Movies;
+using static System.Net.WebRequestMethods;
 
 namespace StoryWatch.UserControls.Movies
 {
@@ -165,10 +167,24 @@ namespace StoryWatch.UserControls.Movies
         private bool ValidateMovieInfo()
         {
             if (string.IsNullOrEmpty(txtTitle.Text))
-                    return false;
+            {
+                return false;
+            }
 
             if (!string.IsNullOrEmpty(txtTrailerURL.Text))
             {
+                var fullURL = "https://www.youtube.com\\/embed\\/[A-z0-9]+";
+                var videoKeyOnly = "^[a-zA-Z0-9]{5,20}$";
+                Regex reFullURL = new Regex(fullURL);
+                Regex reVideoKey = new Regex(videoKeyOnly);
+
+                if (!reFullURL.IsMatch(txtTrailerURL.Text) && !reVideoKey.IsMatch(txtTrailerURL.Text))
+                {
+                    MessageBox.Show("Invalid URL format, please enter only the video key e.g. 5PSNL1qE6VY," +
+                        "or full URL in this format: https://www.youtube.com/embed/5PSNL1qE6VY");
+                    return false;
+                }
+
                 if (txtTrailerURL.Text.ToString().Contains("/"))
                 {
                     var splitByForwardSlash = txtTrailerURL.Text.Split('/');

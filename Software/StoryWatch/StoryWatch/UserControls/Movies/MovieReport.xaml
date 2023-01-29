@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StoryWatch.UserControls.Movies" 
         xmlns:winforms="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         mc:Ignorable="d"
-        Title="MovieReport" Height="450" Width="800">
+        Title="MovieReport" Height="450" Width="800" KeyDown="MovieReport_keyDown" Focusable="True">
     <ScrollViewer>
         <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <winforms:ReportViewer x:Name="reportViewer" Dock="Fill">

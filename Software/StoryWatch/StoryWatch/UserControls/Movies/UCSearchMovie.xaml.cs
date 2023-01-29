@@ -133,6 +133,8 @@ namespace StoryWatch.UserControls
 
         private void BtnSelectMovie(object sender, RoutedEventArgs e)
         {
+            if (selectedMovie == null) return;
+
             this.ucAddMovieToList.txtTitle.Text = selectedMovie.Title;
             this.ucAddMovieToList.txtGenre.Text = selectedMovie.Genres[0].Name;
             this.ucAddMovieToList.txtOverview.Text = selectedMovie.Overview;

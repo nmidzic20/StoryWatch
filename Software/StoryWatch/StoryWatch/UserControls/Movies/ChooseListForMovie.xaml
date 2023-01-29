@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoryWatch.UserControls.Movies"
         mc:Ignorable="d" Background="PowderBlue"
-        Title="ChooseListForMovie" Height="450" Width="800">
+        Title="ChooseListForMovie" Height="450" Width="800" KeyDown="ChooseList_KeyDown" Focusable="True">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
