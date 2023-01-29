@@ -17,17 +17,17 @@
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="120"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="500"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
-                        <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+                        <RowDefinition Height="40" MaxHeight="40"></RowDefinition>
+                        <RowDefinition Height="40" MaxHeight="40"></RowDefinition>
                         <RowDefinition Height="100" MaxHeight="150"></RowDefinition>
-                        <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
-                        <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
-                        <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
-                        <RowDefinition Height="30" MaxHeight="30"></RowDefinition>
+                        <RowDefinition Height="40" MaxHeight="40"></RowDefinition>
+                        <RowDefinition Height="40" MaxHeight="40"></RowDefinition>
+                        <RowDefinition Height="40" MaxHeight="40"></RowDefinition>
+                        <RowDefinition Height="40" MaxHeight="40"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Content="Title:" Grid.Row="1" Grid.Column="0" FontWeight="Bold" ></Label>
                     <TextBox x:Name="txtTitle" Grid.Row="1" Grid.Column="1" Margin="2"></TextBox>
