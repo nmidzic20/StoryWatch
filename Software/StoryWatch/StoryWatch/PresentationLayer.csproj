@@ -428,6 +428,9 @@
     <None Include="PDF\TESTNI_PDF.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="PDF\UCSearchBook.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Book.datasource" />
     <None Include="Properties\DataSources\EntitiesLayer.Entities.Game.datasource" />
     <None Include="Properties\DataSources\EntitiesLayer.Entities.GameListCategory.datasource" />
