@@ -24,7 +24,7 @@ namespace StoryWatch.UserControls.Books
     /// </summary>
     public partial class UCRecommendBooks : UserControl
     {
-        Window window;
+        //Window window;
         private RecommendServices recommendServices;
         private BookService bookService;
 
@@ -39,7 +39,7 @@ namespace StoryWatch.UserControls.Books
         {
             List<Book> allDatabaseBooks = bookService.GetAll().ToList();
             PerformAnalysis(allDatabaseBooks);
-            window = Window.GetWindow(this);
+            //window = Window.GetWindow(this);
             //window.KeyDown += new KeyEventHandler(UCRecommendBookss_KeyDown);
         }
         /*private void UCRecommendBookss_KeyDown(object sender, KeyEventArgs e)

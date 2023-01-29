@@ -41,16 +41,14 @@ namespace StoryWatch
         {
             if (e.Key == Key.F1)
             {
-                //MessageBox.Show(GuiManager.currentContent.GetType().Name);
                 try
                 {
                     System.Diagnostics.Process.Start(@"PDF\\" + GuiManager.currentContent.GetType().Name + ".pdf");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message + " - Ime PDF-a neka bude isto kao ime ove klase User Controle na kojoj se otvara, ime ove UC klase je " + GuiManager.currentContent.GetType().Name);
                 }
-                //this.KeyDown -= UCHomee_KeyDown;
             }
         }
     }

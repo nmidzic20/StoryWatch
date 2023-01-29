@@ -29,7 +29,7 @@ namespace StoryWatch.UserControls.Books
     /// </summary>
     public partial class UCAddBook : UserControl
     {
-        Window window;
+        //Window window;
         private BookService bookServices;
         public IListCategory listCategory { get; set; }
         public UCAddBook(IListCategory ListCategory)
