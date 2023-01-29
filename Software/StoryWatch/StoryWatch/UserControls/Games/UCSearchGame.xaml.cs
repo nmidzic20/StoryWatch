@@ -104,5 +104,11 @@ namespace StoryWatch.UserControls.Games
             winAddGame.txtGenres.Text = selectedGameGenre.Name;
             winAddGame.ShowDialog();
         }
+
+        private void btnAddManually_Click(object sender, RoutedEventArgs e)
+        {
+            var winAddGame = new AddGame(listCategory, null);
+            winAddGame.ShowDialog();
+        }
     }
 }
