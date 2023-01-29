@@ -26,7 +26,6 @@ namespace StoryWatch.UserControls.Books
     {
         BookService bookService;
         Book book;
-        Window window;
         public EBookPreview(Book Book)
         {
             InitializeComponent();
@@ -47,9 +46,6 @@ namespace StoryWatch.UserControls.Books
                 await webView2.EnsureCoreWebView2Async(env);
                 webView2.CoreWebView2.Navigate(book.PreviewURL);
             }
-
-            /*window = Window.GetWindow(this);
-            window.KeyDown += new KeyEventHandler(EBookPrevieww_KeyDown);*/
         }
 
         private void PrepareFormWithData()
@@ -86,14 +82,5 @@ namespace StoryWatch.UserControls.Books
             stackPanelInfo.Visibility = Visibility.Visible;
             btnShowInfoFromDatabase.Visibility = Visibility.Hidden;
         }
-
-        /*private void EBookPrevieww_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.F1 && (GuiManager.currentContent.Name == "EBookPrevieww"))
-            {
-                System.Diagnostics.Process.Start(@"PDF\\EBookP.pdf");
-                window.KeyDown -= EBookPrevieww_KeyDown;
-            }
-        }*/
     }
 }

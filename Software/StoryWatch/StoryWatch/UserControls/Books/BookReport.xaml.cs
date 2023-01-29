@@ -31,7 +31,6 @@ namespace StoryWatch.UserControls.Books
         List<Book> favoriteAuthor;
         BookService bookService;
         ListCategoryServices listCategoryServices;
-        //Window window;
         public BookReport()
         {
             InitializeComponent();
@@ -54,9 +53,6 @@ namespace StoryWatch.UserControls.Books
 
                 _isReportViewerLoaded = true;
             }
-
-            //window = Window.GetWindow(this);
-            //window.KeyDown += new KeyEventHandler(BookReportt_KeyDown);
         }
 
         private void GenerateReport()
@@ -121,7 +117,6 @@ namespace StoryWatch.UserControls.Books
             if (e.Key == Key.F1)
             {
                 System.Diagnostics.Process.Start(@"PDF\\BookReport.pdf");
-                //window.KeyDown -= BookReportt_KeyDown;
             }
         }
     }

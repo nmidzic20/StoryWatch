@@ -32,8 +32,6 @@ namespace StoryWatch.UserControls.Books
         public GenreServices genreServices;
         public IListCategory listCategory { get; set; }
         public bool update;
-
-        //Window window;
         public AddBook(IListCategory ListCategory)
         {
             InitializeComponent();
@@ -63,9 +61,6 @@ namespace StoryWatch.UserControls.Books
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadTextBoxes();
-            /*window = Window.GetWindow(this);
-            window.KeyDown -= AddBookk_KeyDown;
-            window.KeyDown += new KeyEventHandler(AddBookk_KeyDown);*/
         }
 
         private void LoadTextBoxes()
@@ -271,23 +266,19 @@ namespace StoryWatch.UserControls.Books
 
         private void AddBookk_KeyDown(object sender, KeyEventArgs e)
         {
-            /*if (e.Key == Key.F1)
-                MessageBox.Show("AddBook " + GuiManager.currentContent.GetType().Name);*/
-
             if (e.Key == Key.F1 && (GuiManager.currentContent.GetType().Name == "UCAddBook") && !update && (currentBook == null))
             {
                 System.Diagnostics.Process.Start(@"PDF\\AddBookManually.pdf");
-                //window.KeyDown -= AddBookk_KeyDown;
+
             }
             if (e.Key == Key.F1 && (GuiManager.currentContent.GetType().Name == "UCMediaHome") && (update != false)) //Ako se pokrene preko Update forme
             {
                 System.Diagnostics.Process.Start(@"PDF\\UpdateBook.pdf");
-                //window.KeyDown -= AddBookk_KeyDown;
+
             }
             if (e.Key == Key.F1 && (GuiManager.currentContent.GetType().Name == "UCAddBook") && (currentBook != null))
             {
                 System.Diagnostics.Process.Start(@"PDF\\SelectedBook.pdf");
-                //window.KeyDown -= AddBookk_KeyDown;
             }
         }
     }
