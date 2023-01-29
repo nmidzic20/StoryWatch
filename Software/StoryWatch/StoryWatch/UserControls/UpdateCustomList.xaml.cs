@@ -47,5 +47,16 @@ namespace StoryWatch.UserControls
         {
             Close();
         }
+
+        private void UpdateList_KeyDown(object sender, KeyEventArgs e)
+        {
+            /*if (e.Key == Key.F1)
+                MessageBox.Show("AddBook " + GuiManager.currentContent.GetType().Name);*/
+
+            if (e.Key == Key.F1)
+            {
+                System.Diagnostics.Process.Start(@"PDF\\UpdateCustomList.pdf");
+            }
+        }
     }
 }
