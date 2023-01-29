@@ -1,9 +1,12 @@
 ﻿using BusinessLayer;
 using EntitiesLayer.Entities;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using TMDbLib.Objects.Movies;
 
 namespace StoryWatch.UserControls.Games
 {
@@ -181,6 +184,44 @@ namespace StoryWatch.UserControls.Games
         private void BtnCancelClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void WebView2_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            if (e.IsSuccess)
+            {
+                ((WebView2)sender).ExecuteScriptAsync("document.querySelector('body').style.overflow='hidden'");
+            }
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string url = (await gameServices.GetGameInfoAsync(int.Parse(selectedGame.IGDB_Id))).Videos.Values.First().VideoId;
+
+            string htmlBeginning = "<!DOCTYPE html>" +
+                                    "<html>" +
+                                    "<head>" +
+                                        "<meta charset=\"utf-8\" />" +
+                                        "<title>Test Title</title>" +
+                                    "</head>" +
+                                    "<body>";
+            string trailer = "";
+
+            if (!string.IsNullOrEmpty(url))
+                trailer =
+                    "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/"
+                    + url
+                    + "\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
+            else
+                trailer = "<div style='margin:20px'>No trailer URLs were provided for this movie - try updating this movie by searching for it on TMDb or manually provide trailer URL</div>";
+            string htmlEnd = "</body>" +
+                            "</html>";
+
+            string html = htmlBeginning + trailer + htmlEnd;
+
+            var env = await CoreWebView2Environment.CreateAsync();
+            await webView2.EnsureCoreWebView2Async(env);
+            webView2.CoreWebView2.NavigateToString(html);
         }
     }
 }
