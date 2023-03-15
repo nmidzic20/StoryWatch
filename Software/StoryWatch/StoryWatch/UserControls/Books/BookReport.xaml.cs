@@ -105,7 +105,7 @@ namespace StoryWatch.UserControls.Books
             var dataSource3 = new ReportDataSource() { Name = "BookPagesDistribution", Value = pageDistribution };
             reportViewer.LocalReport.DataSources.Add(dataSource3);
 
-            string path = "UserControls/Books/Reports/ReportBooks.rdlc"; 
+            string path = "Reports/ReportBooks.rdlc"; 
             reportViewer.LocalReport.ReportPath = path;
             reportViewer.Refresh();
             reportViewer.RefreshReport();

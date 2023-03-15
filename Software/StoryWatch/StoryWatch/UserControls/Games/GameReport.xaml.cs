@@ -97,7 +97,7 @@ namespace StoryWatch.UserControls.Games
             var dataSource4 = new ReportDataSource() { Name = "GameLists", Value = gameLists };
             
             reportViewer.LocalReport.DataSources.Add(dataSource4);
-            string path = "UserControls/Games/Reports/ReportGames.rdlc";
+            string path = "Reports/ReportGames.rdlc";
             
             reportViewer.LocalReport.ReportPath = path;
             reportViewer.Refresh();

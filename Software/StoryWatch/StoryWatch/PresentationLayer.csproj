@@ -384,13 +384,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Books\Reports\ReportBooks.rdlc">
+    <EmbeddedResource Include="Reports\ReportBooks.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Games\Reports\ReportGames.rdlc">
+    <EmbeddedResource Include="Reports\ReportGames.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\Movies\Reports\ReportMovies.rdlc">
+    <EmbeddedResource Include="Reports\ReportMovies.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="PDF\AddGames.pdf">
