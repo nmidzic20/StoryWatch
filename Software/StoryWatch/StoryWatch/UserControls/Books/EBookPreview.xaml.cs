@@ -42,9 +42,21 @@ namespace StoryWatch.UserControls.Books
             }
             else
             {
-                var env = await CoreWebView2Environment.CreateAsync();
-                await webView2.EnsureCoreWebView2Async(env);
-                webView2.CoreWebView2.Navigate(book.PreviewURL);
+                try
+                {
+                    //custom defined user data folder - if left out, WebView2 will attempt to create
+                    //default user data folder in ProgramFiles folder, which will result in error due to
+                    //this folder requiring elevated privileges
+                    string userDataFolder = "C:\\StoryWatchUserDataFolder";
+                    var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder, null);
+                    await webView2.EnsureCoreWebView2Async(env);
+                    webView2.CoreWebView2.NavigateToString(book.PreviewURL);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\n\n" + ex.Source + "\n\n" + ex.StackTrace);
+                }
+                
             }
         }
 
