@@ -530,6 +530,9 @@
   <ItemGroup>
     <Resource Include="Images\img_delete.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SW_icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
