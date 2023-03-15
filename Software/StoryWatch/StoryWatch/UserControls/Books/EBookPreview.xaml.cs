@@ -50,7 +50,7 @@ namespace StoryWatch.UserControls.Books
                     string userDataFolder = "C:\\StoryWatchUserDataFolder";
                     var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder, null);
                     await webView2.EnsureCoreWebView2Async(env);
-                    webView2.CoreWebView2.NavigateToString(book.PreviewURL);
+                    webView2.CoreWebView2.Navigate(book.PreviewURL);
                 }
                 catch (Exception ex)
                 {
