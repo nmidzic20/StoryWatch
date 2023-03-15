@@ -78,7 +78,7 @@ namespace StoryWatch.UserControls.Movies
             reportViewer.LocalReport.DataSources.Add(dataSource2);
             var dataSource3 = new ReportDataSource() { Name = "UserMovies", Value = allUserMovies };
             reportViewer.LocalReport.DataSources.Add(dataSource3);
-            string path = "UserControls/Movies/Reports/ReportMovies.rdlc";
+            string path = "Reports/ReportMovies.rdlc";
             reportViewer.LocalReport.ReportPath = path;
             reportViewer.Refresh();
             reportViewer.RefreshReport();

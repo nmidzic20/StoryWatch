@@ -268,9 +268,20 @@ namespace StoryWatch.UserControls.Games
 
             string html = htmlBeginning + trailer + htmlEnd;
 
-            var env = await CoreWebView2Environment.CreateAsync();
-            await webView2.EnsureCoreWebView2Async(env);
-            webView2.CoreWebView2.NavigateToString(html);
+            try
+            {
+                //custom defined user data folder - if left out, WebView2 will attempt to create
+                //default user data folder in ProgramFiles folder, which will result in error due to
+                //this folder requiring elevated privileges
+                string userDataFolder = "C:\\StoryWatchUserDataFolder";
+                var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder, null);
+                await webView2.EnsureCoreWebView2Async(env);
+                webView2.CoreWebView2.NavigateToString(html);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" + ex.Source + "\n\n" + ex.StackTrace);
+            }
         }
 
         private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
