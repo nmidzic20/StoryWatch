@@ -1,3 +1,7 @@
+# Final product demo
+
+(Demo)[https://www.dropbox.com/scl/fi/kjlx196r7qq0j17l0rreb/StoryWatch_demo.mp4?rlkey=wrer2ou1y7tjtvzgtn2wihqtv&dl=0]
+
 # Domain Description
 
 Content management system about media (movies, games, and books). The idea arose from the fact that most younger generations follow various content from popular culture and entertainment, i.e., books, movies, games, series, anime, etc. Individuals who consume a lot of content may have their own lists of what else they would like to watch/play/read, as well as what they have already consumed to remind themselves of what they liked or what their favorites are, so they can revisit them in the future or watch/play/etc. again when they're in the mood for it. For the user to be able to manage such content in a practical way, a desktop application would serve, consisting of three groups (games, books, movies + possibly custom groups) within which the user can enter movie, book, or game titles via a short form by categories (TODO, watched/played/read, favorites + custom defined categories), search, update, and delete entered content. The application would use information from IMDb and other portals with open APIs for detailed information when displaying a title, and it would have a recommendation system (Recommend) which, based on various factors, would provide content recommendations for today upon request from the user, and it would have an option to generate reports on something (e.g., which genre the user prefers the most based on entered titles). Intended for cinephiles, gamers, and anyone else who thinks such an application would be useful to keep track of all their consumed content and what they plan to consume.
@@ -21,7 +25,7 @@ F10	| E-book Preview | Within the Application	For the selected book title, if it
 F11	| Recommendation System for Books	| Users can click on an option to be recommended something to read, by filling out a short questionnaire with a few questions with icons as answers (e.g., we have a few offered emojis for genres - chill/scary/action...), whether they would like to read something again or something new), then based on that, but also on other factors, a list of recommendations is provided to the user. The recommendation algorithm would, for example, give a certain number of points if a certain content is on the favorite list, if it has a higher rating on the web service, etc.	| David Kajzogaj
 F12	| Report Generation for Books	| The user will have the option to generate a report with visual elements (graphs) on some aspect related to books, e.g., distribution of genres the user prefers based on entered titles, distribution of authors/publishers related to the user's favorite books, etc.	| David Kajzogaj
 
-Non-functional requirements:
+# Non-functional requirements:
 
 - Simple navigation (transition between screens)
 - Intuitiveness of the graphical user interface for the user (UX/UI, understandable icons, all options available where expected)
@@ -29,7 +33,7 @@ Non-functional requirements:
 - Validation of the data entered by the user (e.g., if a year is expected for input, the application will not crash if something else is entered)
 - F1 document that textually or visually provides a hint related to the part where the user is in the application and where they need help
 
-Technologies and Equipment
+# Technologies and Equipment
 
 - GitHub Wiki pages for writing technical and project documentation
 - Git and GitHub for software versioning
