@@ -12,7 +12,7 @@ Content management system about media (movies, games, and books). The idea arose
 
 We will use a three-layer architecture, the highest layer being: presentation, the next layer: business, and the lowest: data layer.
 
-Code	| Name	| Brief Description	| Responsible Team Member
+Code	| Name	| Brief Description	| Team Member Responsible
 ------ | ----- | ----------- | -------------------
 F01	| Login and Registration	| Users can register in the application so that multiple users using the same computer can access their own content. The user logs into their own account with the data they received during registration.	| [HLuksic](https://github.com/HLuksic)
 F02	| CRUD Functionality for Games | Data entry via form, updating, searching, and deleting data for game titles. In addition to the data entered by the user, data retrieved from web services with an open API (e.g., IGDB) are displayed for game titles. | [HLuksic](https://github.com/HLuksic)
