@@ -1,6 +1,6 @@
 # Final product demo
 
-(Demo)[https://www.dropbox.com/scl/fi/kjlx196r7qq0j17l0rreb/StoryWatch_demo.mp4?rlkey=wrer2ou1y7tjtvzgtn2wihqtv&dl=0]
+[Demo](https://www.dropbox.com/scl/fi/kjlx196r7qq0j17l0rreb/StoryWatch_demo.mp4?rlkey=wrer2ou1y7tjtvzgtn2wihqtv&dl=0)
 
 # Domain Description
 
